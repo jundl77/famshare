@@ -145,6 +145,10 @@ div#content_wrapper {
     font-family: OpenSans, sans-serif;
 }
 
+#seperator {
+    display: none;
+}
+
 /* ------------------------------------------------------------------------------------------------------  */
 /* ----------------------------------------------- TOOLBAR ----------------------------------------------- */
 /* ------------------------------------------------------------------------------------------------------- */
@@ -267,10 +271,11 @@ div#content_wrapper {
 
 #seperator {
     position: relative;
+    float: right;
     display: inline-block;
-    margin-top: 0.6em;
+    margin-top: 0.5em;
     margin-left: 1em;
-    height: 2.1em;
+    height: 2em;
     border-left: 1px solid #9E9E9E;
 }
 
