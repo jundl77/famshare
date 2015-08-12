@@ -1,15 +1,15 @@
 /* Fonts */
 @font-face {
     font-family: "Dinobl";
-    src: url(../fonts/Dinobl.ttf) format("truetype");
+    src: url(../../fonts/Dinobl.ttf) format("truetype");
 }
 @font-face {
     font-family: "OpenSans";
-    src: url(../fonts/open-sans/OpenSans-Regular.ttf) format("truetype");
+    src: url(../../fonts/open-sans/OpenSans-Regular.ttf) format("truetype");
 }
 @font-face {
     font-family: "OpenSans-Bold";
-    src: url(../fonts/open-sans/OpenSans-Bold.ttf) format("truetype");
+    src: url(../../fonts/open-sans/OpenSans-Bold.ttf) format("truetype");
 }
 
 /* Document */

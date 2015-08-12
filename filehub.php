@@ -76,8 +76,16 @@ function http_digest_parse($txt) {
         <meta name="theme-color" content="#ffffff">
         <meta charset="UTF-8">
         <link rel="stylesheet" href="css/dropzone.css">
-        <link type="text/css" rel="stylesheet" href="css/filehub.css"/>
+        <link type="text/css" rel="stylesheet" href="css/filehub/filehub.css"/>
         <script type="text/javascript"src="js/api/dropzone.js"></script>
+        <link rel="stylesheet" type="text/css" media="screen and (min-width:768px) and (max-width:960px)"
+              href="css/filehub/filehub_960.css">
+        <link rel="stylesheet" type="text/css" media="screen and (min-width:480px) and (max-width:767px)"
+              href="css/filehub/filehub_767.css">
+        <link rel="stylesheet" type="text/css" media="screen and (min-width:320px) and (max-width:479px)"
+              href="css/filehub/filehub_479.css">
+        <link rel="stylesheet" type="text/css" media="screen and (max-width:319px)"
+              href="css/filehub/filehub_319.css">
         <script src="config/client/client_config.js"></script>
         <title>FamShare - Filehub</title>
     </head>
