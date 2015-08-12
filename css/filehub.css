@@ -1,0 +1,477 @@
+/* Fonts */
+@font-face {
+    font-family: "Dinobl";
+    src: url(../fonts/Dinobl.ttf) format("truetype");
+}
+@font-face {
+    font-family: "OpenSans";
+    src: url(../fonts/open-sans/OpenSans-Regular.ttf) format("truetype");
+}
+@font-face {
+    font-family: "OpenSans-Bold";
+    src: url(../fonts/open-sans/OpenSans-Bold.ttf) format("truetype");
+}
+
+/* Document */
+html, body {
+    background-color: #F5F5F5;
+    height:100%;
+    margin:0;
+    padding:0;
+    width:100%;
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+/* ------------------------------------------------------------------------------------------------------  */
+/* ----------------------------------------------- TOP BAR ----------------------------------------------- */
+/* ------------------------------------------------------------------------------------------------------- */
+#topDiv {
+    position: relative;
+    display: block;
+    margin-top: -1%;
+    margin-left: -1%;
+    margin-right: -1%;
+    height: 4em;
+    min-width: 100%;
+    background-color: #607D8B;
+}
+
+#homeLink {
+    position: relative;
+    display: block;
+    margin-left: 1em;
+    width: 20em;
+    height: 4em;
+}
+
+#link {
+    position: relative;
+    display: inline-block;
+    width: 20em;
+    height: 4em;
+}
+
+#icon {
+    position: relative;
+    display: inline-block;
+    margin-left: 1em;
+    margin-top: 0.9em;
+    width: 2.5em;
+    height: 3em;
+}
+
+#icon img {
+    display: block;
+}
+
+#icon img {
+    width: 100%;
+}
+#icon img {
+    height: 100%;
+}
+
+#title {
+    position: absolute;
+    display: inline-block;
+    margin-left: 0.5em;
+    margin-top: 0.5em;
+    width: 20em;
+    height: 2em;
+    font-size: 2em;
+    color: #F5F5F5;
+    font-family: Dinobl;
+}
+
+/* ------------------------------------------------------------------------------------------------------  */
+/* --------------------------------------------- TOP CONTENT --------------------------------------------- */
+/* ------------------------------------------------------------------------------------------------------- */
+#uploadTitle {
+    position: relative;
+    display: block;
+    margin-top: 3em;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30em;
+    height: 5em;
+}
+
+#titleText {
+    text-align: center;
+    font-size: 4em;
+    color: #607D8B;
+    font-family: Dinobl;
+}
+
+#introText {
+    position: relative;
+    display: block;
+    margin-top: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    width: 65em;
+    height: 4em;
+    text-align: justify;
+    font-size: 1em;
+    color: #607D8B;
+    font-family: OpenSans;
+}
+
+/* ------------------------------------------------------------------------------------------------------  */
+/* ----------------------------------------------- TOOLBAR ----------------------------------------------- */
+/* ------------------------------------------------------------------------------------------------------- */
+#toolbar {
+    position: relative;
+    display: block;
+    margin-top: 3em;
+    margin-left: auto;
+    margin-right: auto;
+    width: 65em;
+    height: 3em;
+    background-color: #E4E2E3;
+    border: 1px solid #9E9E9E;
+    border-top-left-radius: 20px 20px;
+    border-top-right-radius: 20px 20px;
+}
+
+#backButton {
+    position: relative;
+    display: inline-block;
+    margin-top: 0.55em;
+    margin-left: 1.5em;
+    width: 2em;
+    height: 2em;
+}
+
+#backButton img {
+    display: block;
+}
+
+#backButton img {
+    width: 100%;
+}
+#backButton img {
+    height: 100%;
+}
+
+#forwardButton {
+    position: relative;
+    display: inline-block;
+    margin-top: 0.55em;
+    margin-left: 0.5em;
+    width: 2em;
+    height: 2em;
+}
+
+#forwardButton img {
+    display: block;
+}
+
+#forwardButton img {
+    width: 100%;
+}
+#forwardButton img {
+    height: 100%;
+}
+
+#currentDirText {
+    position: absolute;
+    display: inline-block;
+    margin-top: 0.5em;
+    margin-left: 1em;
+    width: 36.25em;
+    height: 1.5em;
+    text-align: left;
+    overflow: hidden;
+    color: #262626;
+    font-weight: 900;
+    font-size: 1.1em;
+    background-color: #f5f5f5;
+    border: 1px solid #9E9E9E;
+    border-radius: 5px 5px;
+    padding-top: 0.15em;
+    padding-left: 1em;
+    opacity: 0.87;
+    font-family: OpenSans, sans-serif;
+}
+
+#newFolderTextInput {
+    position: relative;
+    display: inline-block;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    float: right;
+    height: 1.35em;
+    width: 0em;
+    font-size: 1.1em;
+    font-family: OpenSans, sans-serif;
+    color: #000000;
+    opacity: 0;
+}
+
+#newFolderButton {
+    position: relative;
+    display: inline-block;
+    margin-top: 0.55em;
+    float: right;
+    width: 8em;
+    height: 1.8em;
+    font-size: 1em;
+    background-color: transparent;
+    border: 1px solid #607D8B;
+    border-radius: 5%;
+}
+
+#newFolderText {
+    position: relative;
+    display: block;
+    margin-top: 0.2em;
+    margin-right: auto;
+    margin-left: auto;
+    float: right;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 100%;
+    color: #607D8B;
+    font-family: OpenSans, sans-serif;
+}
+
+#seperator {
+    position: relative;
+    display: inline-block;
+    margin-top: 0.6em;
+    margin-left: 1em;
+    height: 2.1em;
+    border-left: 1px solid #9E9E9E;
+}
+
+#editButton {
+    position: relative;
+    display: inline-block;
+    margin-top: 0.55em;
+    margin-right: 1.5em;
+    margin-left: 1em;
+    float: right;
+    width: 4em;
+    height: 1.8em;
+    font-size: 100%;
+    background-color: transparent;
+    border: 1px solid #607D8B;
+    border-radius: 7%;
+}
+
+#editText {
+    position: relative;
+    display: block;
+    margin-top: 0.2em;
+    margin-right: auto;
+    margin-left: auto;
+    float: right;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 1em;
+    color: #607D8B;
+    font-family: OpenSans, sans-serif;
+}
+
+/* ------------------------------------------------------------------------------------------------------  */
+/* ----------------------------------------------- FILE BOX ---------------------------------------------- */
+/* ------------------------------------------------------------------------------------------------------- */
+#fileBox {
+    position: relative;
+    display: block;
+    margin-top: 0%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 65.1em;
+    height: 30em;
+    overflow: scroll;
+    border: 1px solid #9E9E9E;
+    border-top: none;
+    border-bottom: none;
+    cursor: default;
+    background-color: white;
+    z-index: 999;
+}
+
+.folderIcon {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    width: 7.5em;
+    height: 6em;
+    margin: 16px;
+    cursor: default;
+    background: url(../images/folder-icon.png) no-repeat;
+    background-size: 100%;
+    border-radius: 5%;
+}
+
+.folder-delete {
+    position: relative;
+    display: block;
+    margin-top: 1em;
+    float: right;
+    width: 1.5em;
+    height: 1.5em;
+    visibility: hidden;
+    background: url(../images/delete-cross.png) no-repeat;
+    background-size: 100%;
+}
+
+.folderName {
+    position: relative;
+    display: block;
+    margin-top: 3em;
+    margin-right: auto;
+    margin-left: auto;
+    word-wrap: break-word;
+    overflow: hidden;
+    width: 6em;
+    height: 3em;
+    text-align: center;
+    font-size: 1em;
+    color: #F0DB61;
+    font-family: OpenSans, sans-serif;
+}
+
+.file-delete {
+    position: absolute;
+    display: inline-block;
+    margin-top: -8em;
+    margin-left: 6.5em;
+    width: 1.5em;
+    height: 1.5em;
+    visibility: hidden;
+    background: url(../images/delete-cross.png) no-repeat;
+    background-size: 100%;
+    z-index: 999;
+}
+
+/* ------------------------------------------------------------------------------------------------------  */
+/* ---------------------------------------------- STATUS BAR --------------------------------------------- */
+/* ------------------------------------------------------------------------------------------------------- */
+#statusBar {
+    position: relative;
+    display: block;
+    margin-top: 0em;
+    margin-left: auto;
+    margin-right: auto;
+    width: 65em;
+    height: 3em;
+    border: 1px solid #9E9E9E;
+    background-color: #E4E2E3;
+    border-bottom-left-radius: 20px 20px;
+    border-bottom-right-radius: 20px 20px;
+}
+
+#statusDiv {
+    position: relative;
+    display: block;
+    margin-top: 0%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 60%;
+    height: 100%;
+    overflow: hidden;
+    text-align: center;
+}
+
+#statusTitle {
+    position: relative;
+    display: inline-block;
+    margin-top: 2%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 10%;
+    height: 100%;
+    overflow: hidden;
+    text-align: center;
+    color: #607D8B;
+    font-weight: 900;
+    font-family: OpenSans, sans-serif;
+}
+
+#statusText {
+    position: relative;
+    display: inline-block;
+    margin-top: 2%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 90%;
+    height: 100%;
+    overflow: hidden;
+    text-align: center;
+    color: #262626;
+    font-weight: 900;
+    font-family: OpenSans, sans-serif;
+}
+
+/* ------------------------------------------------------------------------------------------------------  */
+/* ----------------------------------------------- FOOTER ------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------------------- */
+#bottomBar {
+    position: relative;
+    display: block;
+    margin-top: 5%;
+    margin-left: -1%;
+    margin-right: -1%;
+    bottom: 0;
+    height: 9%;
+    min-width: 100%;
+    background-color: #262626;
+}
+
+#contactDiv {
+    position: relative;
+    display: block;
+    height: 100%;
+    width: 30%;
+    margin-left: 4%;
+    margin-right: 4%;
+    float:right;
+}
+
+#aboutButton {
+    position: relative;
+    display: inline-block;
+    font-family: OpenSans, sans-serif;
+    font-size: 90%;
+    color: #848484;
+    float:right;
+}
+
+#seperator {
+    position: relative;
+    display: inline-block;
+    font-family: OpenSans, sans-serif;
+    font-size: 90%;
+    color: #848484;
+    float:right;
+}
+
+#contactButton {
+    position: relative;
+    display: inline-block;
+    font-family: OpenSans, sans-serif;
+    font-size: 90%;
+    color: #848484;
+    float:right;
+}

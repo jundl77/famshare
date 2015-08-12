@@ -1,0 +1,107 @@
+/* Fonts */
+@font-face {
+    font-family: "Dinobl";
+    src: url(../fonts/Dinobl.ttf) format("truetype");
+}
+@font-face {
+    font-family: "OpenSans";
+    src: url(../fonts/open-sans/OpenSans-Regular.ttf) format("truetype");
+}
+@font-face {
+    font-family: "OpenSans-Bold";
+    src: url(../fonts/open-sans/OpenSans-Bold.ttf) format("truetype");
+}
+
+/* Document */
+html, body {
+    background-color: #CCCCCC;
+    height:100%;
+    margin:0;
+    padding:0;
+    width:100%;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Content */
+#topDiv {
+    position: relative;
+    display: block;
+    margin-top: -1%;
+    margin-left: -1%;
+    margin-right: -1%;
+    height: 22em;
+    min-width: 100%;
+    background-color: #607D8B;
+    text-align: center;
+}
+
+#title {
+    position: relative;
+    display: inline-block;
+    margin-top: 0.1em;
+    font-size: 1100%;
+    color: #F5F5F5;
+    font-family: Dinobl;
+}
+
+#passwordBox {
+    position: relative;
+    display: inline-block;
+    opacity: 0;
+    margin-top: 7em;
+    font-size: 1.1em;
+    margin-left: auto;
+    margin-right: auto;
+    width: 13em;
+    height: 0em;
+    color: black;
+    font-family: OpenSans;
+}
+
+#enterButton {
+    position: relative;
+    display: block;
+    margin-top: 0em;
+    margin-left: auto;
+    margin-right: auto;
+    width: 15em;
+    height: 8em;
+    text-align: center;
+    background-color: #607D8B;
+}
+
+#buttonText {
+    position: relative;
+    display: inline-block;
+    margin-top: 0.4em;
+    font-size: 4em;
+    color: #F5F5F5;
+    font-family: Dinobl;
+}
+
+#bottomBar {
+    position: relative;
+    display: block;
+    margin-top: 6em;
+    margin-left: -1%;
+    margin-right: -1%;
+    bottom: 0;
+    height: 3em;
+    min-width: 100%;
+    background-color: #262626;
+}
