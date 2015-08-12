@@ -78,7 +78,7 @@ function http_digest_parse($txt) {
         <link rel="stylesheet" href="css/dropzone.css">
         <link type="text/css" rel="stylesheet" href="css/filehub.css"/>
         <script type="text/javascript"src="js/api/dropzone.js"></script>
-        <script src="config/config.js"></script>
+        <script src="config/client/client_config.js"></script>
         <title>FamShare - Filehub</title>
     </head>
     <body class="unselectable">
