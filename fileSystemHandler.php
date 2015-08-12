@@ -106,7 +106,7 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
 }
 
 
-function getFileSystem($path, $fileSaystem) {
+function getFileSystem($path, $fileSystem) {
     // On first time search root directory
     if ($fileSystem == null) {
         $fileSystemArray = scandir($path);

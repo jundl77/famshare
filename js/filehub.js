@@ -96,6 +96,22 @@ function removeGrayOut() {
     $("body").css({"overflow": "visible"});
 }
 
+/**
+ * Makes the file box flash red one time
+ */
+function flashRed() {
+    $("#toolbar").css("background-color", "#EF9A9A");
+    $("#fileBox").css("border", "1px solid #EF9A9A");
+    $("#statusBar").css("background-color", "#EF9A9A");
+    $(".flashRed").fadeTo(300, 0.2, function() {
+        $("#toolbar").css("background-color", "#E4E2E3");
+        $("#fileBox").css("border", "1px solid #9E9E9E");
+        $("#statusBar").css("background-color", "#E4E2E3");
+        $(".flashRed").fadeTo(300, 1, function() {
+        });
+    });
+}
+
 $(document).ready(function() {
     if (gOptions.enabled) {
         $('#title').text(gOptions.name + "Share");
@@ -144,23 +160,29 @@ $(document).ready(function() {
     });
 
     $("#newFolderButton").click(function() {
-        if (newFolderInput) {
+        if (newFolderInput || $(window).width() <= 960) {
             var folderName = $('#newFolderTextInput').val();
             if (folderName !== "") {
                 addFolder(folderName);
             }
-            $("#newFolderTextInput").animate({
-                width: "0em",
-                marginLeft: "0em"
-            }, 1000, function() {
+
+            // Only animate if on a computer
+            if ($(window).width() > 960) {
                 $("#newFolderTextInput").animate({
-                    opacity: "0"
-                }, 100)
-            });
-            $("#currentDirText").animate({
-                width: "36.25em"
-            }, 1000)
-        } else {
+                    width: "0em",
+                    marginLeft: "0em"
+                }, 1000, function () {
+                    $("#newFolderTextInput").animate({
+                        opacity: "0"
+                    }, 100)
+                });
+                $("#currentDirText").animate({
+                    width: "36.25em"
+                }, 1000);
+
+                $("#newFolderText").text("New Folder");
+            }
+        } else if ($(window).width() > 960) {   // Again, only animate if on a computer
             $("#newFolderTextInput").animate({
                 opacity: "0.87"
             }, 100, function() {
@@ -171,7 +193,9 @@ $(document).ready(function() {
                 $("#currentDirText").animate({
                     width: "25em"
                 }, 1000)
-            })
+            });
+
+            $("#newFolderText").text("Create");
         }
 
         newFolderInput = !newFolderInput;

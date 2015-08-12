@@ -37,12 +37,11 @@ if (!empty($_FILES)) {
         'ppt', 'wmv');
         $imgExts = array('jpg', 'jpeg', 'gif', 'png');
         $fileExt = strtolower(end(explode('.', $file_name)));
-        $correctExt = in_array($fileExt, $exts);
         if ($file_name === '') {
             header('HTTP/1.1 500 Internal Server Error');
             header('Content-type: text/plain');
             exit("Please select a file");
-        } elseif (!$correctExt) {
+        } elseif (!in_array($fileExt, $exts)) {
             header('HTTP/1.1 500 Internal Server Error');
             header('Content-type: text/plain');
             exit("Wrong file type selected");
@@ -61,6 +60,7 @@ if (!empty($_FILES)) {
             ini_set('max_execution_time', 36000);
             $storePath = $rootDir . $path . $file_name;
             $thumbPath = $thumbDir . $path . $file_name;
+
             move_uploaded_file($file_tmp_name, $storePath);
             if (in_array($fileExt, $imgExts)) {
                 make_thumb($storePath, $thumbPath, 200);

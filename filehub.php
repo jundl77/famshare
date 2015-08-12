@@ -84,8 +84,10 @@ function http_digest_parse($txt)
           href="css/filehub/filehub_960.css">
     <link rel="stylesheet" type="text/css" media="screen and (min-width:480px) and (max-width:767px)"
           href="css/filehub/filehub_767.css">
-    <link rel="stylesheet" type="text/css" media="screen and (min-width:320px) and (max-width:479px)"
+    <link rel="stylesheet" type="text/css" media="screen and (min-width:422px) and (max-width:479px)"
           href="css/filehub/filehub_479.css">
+    <link rel="stylesheet" type="text/css" media="screen and (min-width:320px) and (max-width:421px)"
+    href="css/filehub/filehub_420.css">
     <link rel="stylesheet" type="text/css" media="screen and (max-width:319px)"
           href="css/filehub/filehub_319.css">
     <script src="config/client/client_config.js"></script>
@@ -109,7 +111,7 @@ function http_digest_parse($txt)
                 once a file has been added to the box it will be uploaded, no going back! To download a file, just click
                 on the desired file.
             </div>
-            <div id="toolbar">
+            <div id="toolbar" class="flashRed">
                 <div id="backButton"><img src="images/back-arrow.png"></div>
                 <div id="forwardButton"><img src="images/forward-arrow.png"></div>
                 <div id="currentDirText">/</div>
@@ -120,12 +122,10 @@ function http_digest_parse($txt)
                     <div id="newFolderText">New Folder</div>
                 </div>
                 <input type="text" name="newFolderTextInput" id="newFolderTextInput">
-
-                <div id="seperator"></div>
             </div>
-            <form action="uploadHandler.php" id="fileBox" class="dropzone"></form>
+            <form action="uploadHandler.php" id="fileBox" class="dropzone flashRed"></form>
             <div id="statusBar">
-                <div id="statusDiv">
+                <div id="statusDiv" class="flashRed">
                     <div id="statusTitle">Status:</div>
                     <div id="statusText">Going well</div>
                 </div>

@@ -27,6 +27,7 @@ function updateFileStructure() {
                 parseFileStructure(response['content']);
                 showCurrentDirectoryOnScreen();
             } else {
+                flashRed();
                 $("#statusText").text("An error occurred while the getting file structure: " + response['content']);
             }
         }
@@ -140,6 +141,7 @@ function showCurrentFiles() {
                 doneLoadingFiles = true;
                 handleDeleteCrosses();
             } else {
+                flashRed();
                 $("#statusText").text("An error occurred while getting files: " + response['content']);
             }
         }
@@ -211,6 +213,7 @@ function showCurrentFilesHelper(fileArray) {
                 if (!editing) {
                     downloadFile(filePath);
                 } else {
+                    flashRed();
                     $("#statusText").text("Please stop editing to download an image");
                 }
             });
@@ -270,6 +273,7 @@ function addFolder(name) {
 
     // make new path
     if (name.length > 20) {
+        flashRed();
         $("#statusText").text("Name is too long, max. length is 20 characters");
         return;
     }
@@ -290,6 +294,7 @@ function addFolder(name) {
                 currentDir.childDirectories.push(newFolder);
                 showCurrentDirectoryOnScreen();
             } else {
+                flashRed();
                 $("#statusText").text("An error occurred while creating a new directory: " + response['content']);
             }
         }
@@ -358,6 +363,7 @@ function deleteFolder(folder) {
                 removeByAttr(currentDir.childDirectories, "name", folder.name);
                 showCurrentDirectoryOnScreen();
             } else {
+                flashRed();
                 $("#statusText").text("An error occurred while deleting a directory: " + response['content']);
             }
         }
@@ -382,6 +388,7 @@ function deleteFile(fileName) {
             if (response['state'] === "success") {
                 showCurrentDirectoryOnScreen();
             } else {
+                flashRed();
                 $("#statusText").text("An error occurred while deleting a directory: " + response['content']);
             }
         }
@@ -404,7 +411,7 @@ function removeByAttr(arr, attr, value) {
  * @returns {boolean} true if the the file hub is being edited, else false
  */
 function isEditing() {
-    return editing();
+    return editing;
 }
 
 /**
@@ -443,6 +450,7 @@ function forward() {
     }
 
     if (editing) {
+        flashRed();
         $("#statusText").text("Please stop editing first before going forward");
     }
 }
@@ -474,6 +482,7 @@ function back() {
     }
 
     if (editing) {
+        flashRed();
         $("#statusText").text("Please stop editing first before going back");
     }
 }

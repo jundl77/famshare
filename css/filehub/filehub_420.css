@@ -17,49 +17,45 @@
     display: block;
     margin-top: 1em;
     width: 95%;
-    height: 5em;
+    height: 6em;
 }
 
 #currentDirText {
     display: inline-block;
-    width: 40%;
+    width: 50%;
 }
 
 #newFolderTextInput {
     position: relative;
     display: block;
-    margin-top: 0.3em;
+    margin-top: 0.7em;
     margin-right: 0.5em;
     float: right;
-    width: 6em;
-    height: 1em;
+    width: 5em;
     opacity: 1;
 }
 
 #newFolderButton {
     display: block;
-    margin-top: 3em;
-    width: 4em;
-    height: 1.5em;
+    margin-top: 3.5em;
+    width: 6em;
 }
 
 #newFolderText {
-    margin-top: 0.5em;
-    font-size: 0.6em;
+    margin-top: 0.3em;
+    font-size: 0.9em;
 }
 
 #editButton {
     display: block;
-    margin-top: 3em;
-    margin-left: 0.5em;
-    margin-right: 0.5em;
-    width: 2em;
-    height: 1.5em;
+    margin-top: 3.5em;
+    width: 3em;
+    height: 1.8em;
 }
 
 #editText {
-    margin-top: 0.5em;
-    font-size: 0.6em;
+    margin-top: 0.3em;
+    font-size: 0.9em;
 }
 
 
@@ -68,7 +64,7 @@
 /* ------------------------------------------------------------------------------------------------------- */
 #fileBox {
     width: 95%;
-    height: 20em;
+    height: 25em;
 }
 
 /* ------------------------------------------------------------------------------------------------------  */
@@ -78,6 +74,7 @@
     width: 95%;
     height: 3em;
 }
+
 
 #bottomBar {
     margin-top: 1em;
