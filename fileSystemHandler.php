@@ -1,10 +1,16 @@
 <?php
-$rootDir = "./uploadData/";
+$configs = include('./config/server/server_config.php');
 
 if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] == "fileStructure") {
-    $rootDir = $GLOBALS["rootDir"];
-    if (!file_exists($rootDir)) {
-        $rootDir = "./uploadData/";
+    $configs = $GLOBALS["configs"];
+
+    // Get root directories
+    $rootDir = $configs["root_upload_dirs"]["upload_data"];
+    $thumbDir = $configs["root_upload_dirs"]["upload_data_thumb"];
+
+    if (!file_exists($rootDir) || !file_exists($thumbDir)) {
+        echo json_encode(array('state' => "error", 'content' => "A root directory does not exist"));
+        exit;
     }
 
     $fileStructure = getFileSystem($rootDir, null);
@@ -16,7 +22,17 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
         echo json_encode(array('state' => "error", 'content' => "Unable to get file structure."));
     }
 } else if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] == "files") {
-    $rootDir = $GLOBALS["rootDir"];
+    $configs = $GLOBALS["configs"];
+
+    // Get root directories
+    $rootDir = $configs["root_upload_dirs"]["upload_data"];
+    $thumbDir = $configs["root_upload_dirs"]["upload_data_thumb"];
+
+    if (!file_exists($rootDir) || !file_exists($thumbDir)) {
+        echo json_encode(array('state' => "error", 'content' => "A root directory does not exist"));
+        exit;
+    }
+
     if (!preg_match_all("/^([\w ]*[.]*[(]*[)]*[-]*[\/]*)+$/", $_POST["path"]) &&  $_POST["path"] !== "") {
         echo json_encode(array('state' => "error", 'content' => "Invalid path received."));
         exit;
@@ -41,11 +57,16 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
         echo json_encode(array('state' => "error", 'content' => "Unable to get files."));
     }
 } else if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] == "newFolder") {
-    $rootDir = $GLOBALS["rootDir"];
-    if (!file_exists($rootDir)) {
-        $rootDir = "./uploadData/";
+    $configs = $GLOBALS["configs"];
+
+    // Get root directories
+    $rootDir = $configs["root_upload_dirs"]["upload_data"];
+    $thumbDir = $configs["root_upload_dirs"]["upload_data_thumb"];
+
+    if (!file_exists($rootDir) || !file_exists($thumbDir)) {
+        echo json_encode(array('state' => "error", 'content' => "A root directory does not exist"));
+        exit;
     }
-    $thumbDir = str_replace("uploadData","uploadDataThumb", $rootDir);
 
     if (!preg_match_all("/^([\w ]*[.]*[(]*[)]*[-]*[\/]*)+$/", $_POST["path"]) && $_POST["path"] !== "") {
         echo json_encode(array('state' => "error", 'content' => "Invalid path received."));
@@ -61,11 +82,16 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
         echo json_encode(array('state' => "error", 'content' => "Unable to create new directory."));
     }
 } else if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] == "deleteFolder") {
-    $rootDir = $GLOBALS["rootDir"];
-    if (!file_exists($rootDir)) {
-        $rootDir = "./uploadData/";
+    $configs = $GLOBALS["configs"];
+
+    // Get root directories
+    $rootDir = $configs["root_upload_dirs"]["upload_data"];
+    $thumbDir = $configs["root_upload_dirs"]["upload_data_thumb"];
+
+    if (!file_exists($rootDir) || !file_exists($thumbDir)) {
+        echo json_encode(array('state' => "error", 'content' => "A root directory does not exist"));
+        exit;
     }
-    $thumbDir = str_replace("uploadData","uploadDataThumb", $rootDir);
 
     if (!preg_match_all("/^([\w ]*[.]*[(]*[)]*[-]*[\/]*)+$/", $_POST["path"]) && $_POST["path"] !== "") {
         echo json_encode(array('state' => "error", 'content' => "Invalid path received."));
@@ -80,11 +106,16 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
         echo json_encode(array('state' => "error", 'content' => "Unable to delete folder: " . $e));
     }
 } else if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] == "deleteFile") {
-    $rootDir = $GLOBALS["rootDir"];
-    if (!file_exists($rootDir)) {
-        $rootDir = "./uploadData/";
+    $configs = $GLOBALS["configs"];
+
+    // Get root directories
+    $rootDir = $configs["root_upload_dirs"]["upload_data"];
+    $thumbDir = $configs["root_upload_dirs"]["upload_data_thumb"];
+
+    if (!file_exists($rootDir) || !file_exists($thumbDir)) {
+        echo json_encode(array('state' => "error", 'content' => "A root directory does not exist"));
+        exit;
     }
-    $thumbDir = str_replace("uploadData","uploadDataThumb", $rootDir);
 
     if (!preg_match_all("/^([\w ]*[.]*[(]*[)]*[-]*[\/]*)+$/", $_POST["path"]) && $_POST["path"] !== "") {
         echo json_encode(array('state' => "error", 'content' => "Invalid path received."));

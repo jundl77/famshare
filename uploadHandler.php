@@ -1,19 +1,36 @@
 <?php
-$rootDir = './uploadData/';
+$configs = include('./config/server/server_config.php');
 
 if (!empty($_FILES)) {
+    $configs = $GLOBALS["configs"];
+
+    // Get root directories
+    $rootDir = $configs["root_upload_dirs"]["upload_data"];
+    $thumbDir = $configs["root_upload_dirs"]["upload_data_thumb"];
+
+    // Get allowed file types
+    $exts = $configs["legal_exts"];
+
+    // Get allowed file size
+    $max_size_script = $configs["max_size_byte_script"];
+
+    // 1 GB in bytes
+    $ONE_GB = 1073741824;
+
     $files = array();
-    $rootDir = $GLOBALS["rootDir"];
-    if (!file_exists($rootDir)) {
-        $rootDir = "./uploadData/";
+
+    if (!file_exists($rootDir) || !file_exists($thumbDir)) {
+        header('HTTP/1.1 500 Internal Server Error');
+        header('Content-type: text/plain');
+        exit("A root directory does not exist");
     }
-    $thumbDir = str_replace("uploadData","uploadDataThumb", $rootDir);
 
     if (!preg_match_all("/^([\w ]*[.]*[(]*[)]*[-]*[\/]*)+$/", $_POST["filePath"]) && $_POST["filePath"] !== "") {
         header('HTTP/1.1 500 Internal Server Error');
         header('Content-type: text/plain');
         exit("File directory does not exist");
     }
+
     $path = $_POST["filePath"];
     foreach ($_FILES as $file) {
         $file_name = $file['name'];
@@ -32,10 +49,6 @@ if (!empty($_FILES)) {
 
         $file_tmp_name = $file['tmp_name'];
 
-        //the following are all the allowed file types:
-        $exts = array('jpg', 'jpeg', 'gif', 'png', 'txt', 'mp3', 'mp4', 'mpg', 'mov', 'm4v', 'pdf', 'doc', 'docx',
-        'ppt', 'wmv');
-        $imgExts = array('jpg', 'jpeg', 'gif', 'png');
         $fileExt = strtolower(end(explode('.', $file_name)));
         if ($file_name === '') {
             header('HTTP/1.1 500 Internal Server Error');
@@ -45,33 +58,44 @@ if (!empty($_FILES)) {
             header('HTTP/1.1 500 Internal Server Error');
             header('Content-type: text/plain');
             exit("Wrong file type selected");
-        } elseif ($file_size >= 10737418240) {
+        } elseif ($file_size >= $max_size_script) {
             header('HTTP/1.1 500 Internal Server Error');
             header('Content-type: text/plain');
-            exit("File is too large (max. 10 GB)");
+            exit("File is too large (max. " . $max_size_script / $ONE_GB . " GB)");
         } elseif (!file_exists($rootDir . $path)) {
             header('HTTP/1.1 500 Internal Server Error');
             header('Content-type: text/plain');
             exit("File directory does not exist");
         } else {
-            ini_set('upload_max_filesize', '10000M');
-            ini_set('post_max_size', '10000M');
-            ini_set('max_input_time', 36000);
-            ini_set('max_execution_time', 36000);
+            ini_set('upload_max_filesize', $configs["upload_max_filesize"]);
+            ini_set('post_max_size', $configs["post_max_size"]);
+            ini_set('max_input_time', $configs["max_input_time"]);
+            ini_set('max_execution_time', $configs["max_execution_time"]);
             $storePath = $rootDir . $path . $file_name;
             $thumbPath = $thumbDir . $path . $file_name;
 
-            move_uploaded_file($file_tmp_name, $storePath);
-            if (in_array($fileExt, $imgExts)) {
-                make_thumb($storePath, $thumbPath, 200);
+            if (move_uploaded_file($file_tmp_name, $storePath)) {
+                make_thumb($storePath, $thumbPath, $fileExt, 200);
             }
         }
     }
 }
 
-function make_thumb($src, $dest, $desired_width) {
+function make_thumb($src, $dest, $fileExt, $desired_width) {
     /* read the source image */
-    $source_image = imagecreatefromjpeg($src);
+    if ($fileExt == 'gif') {
+        $source_image = imagecreatefromgif($src);
+    } elseif ($fileExt == 'jpg' || $fileExt == 'jpeg') {
+        $source_image = imagecreatefromjpeg($src);
+    } elseif ($fileExt == 'png') {
+        $source_image = imagecreatefrompng($src);
+    } elseif ($fileExt == 'wbmp') {
+        $source_image = imagecreatefromwbmp($src);
+    } else {
+        // Return if not an image
+        return;
+    }
+
     $width = imagesx($source_image);
     $height = imagesy($source_image);
 
@@ -85,5 +109,13 @@ function make_thumb($src, $dest, $desired_width) {
     imagecopyresampled($virtual_image, $source_image, 0, 0, 0, 0, $desired_width, $desired_height, $width, $height);
 
     /* create the physical thumbnail image to its destination */
-    imagejpeg($virtual_image, $dest);
+    if ($fileExt == 'gif') {
+        imagegif($virtual_image, $dest);
+    } elseif ($fileExt == 'jpg' || $fileExt == 'jpeg') {
+        imagejpeg($virtual_image, $dest);
+    } elseif ($fileExt == 'png') {
+        imagepng($virtual_image, $dest);
+    } elseif ($fileExt == 'bmp') {
+        imagewbmp($virtual_image, $dest);
+    }
 }

@@ -1,7 +1,9 @@
 <?php
+$configs = include('./config/server/server_config.php');
+
 $realm = 'Restricted area';
 $username = "user";
-$password = "password";
+$password = $rootDir = $configs["password"];
 
 //user => password
 $users = array($username => $password);

@@ -1,10 +1,15 @@
 <?php
-$rootDir = './uploadData/';
+$configs = include('./config/server/server_config.php');
 
 if (isset($_POST["filePath"]) && !empty($_POST["filePath"])) {
-    $rootDir = $GLOBALS["rootDir"];
+    $configs = $GLOBALS["configs"];
+
+    // Get root directories
+    $rootDir = $configs["root_upload_dirs"]["upload_data"];
+
     if (!file_exists($rootDir)) {
-        $rootDir = "./uploadData/";
+        echo json_encode(array('state' => "error", 'content' => "A root directory does not exist"));
+        exit;
     }
 
     if (!preg_match_all("/^([\w ]*[.]*[(]*[)]*[-]*[\/]*)+$/", $_POST["filePath"]) && $_POST["filePath"] !== "") {
