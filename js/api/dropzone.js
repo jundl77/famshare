@@ -121,9 +121,9 @@ function getDropzone() {
 
     /*
     This is a list of all available events you can register on a dropzone object.
-    
+
     You can register an event handler like this:
-    
+
         dropzone.on("dragEnter", function() { });
      */
 
@@ -135,14 +135,14 @@ function getDropzone() {
       withCredentials: false,
       parallelUploads: 2,
       uploadMultiple: false,
-      maxFilesize: 10050,
+      maxFilesize: gOptions.maxFilesize,
       paramName: "file",
       createImageThumbnails: true,
       maxThumbnailFilesize: 10,
       thumbnailWidth: 120,
       thumbnailHeight: 120,
       filesizeBase: 1000,
-      maxFiles: 100,
+      maxFiles: gOptions.maxFiles,
       filesizeBase: 1000,
       params: {},
       clickable: true,
@@ -1659,7 +1659,7 @@ function getDropzone() {
 
 
   /*
-  
+
   Bugfix for iOS 6 and 7
   Source: http://stackoverflow.com/questions/11929099/html5-canvas-drawimage-ratio-bug-ios
   based on the work of https://github.com/stomita/ios-imagefile-megapixel

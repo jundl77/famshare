@@ -28,8 +28,6 @@ return array(
     /*
      * ================================================================================================
      * IMPORTANT: The below values have to be changed in the php.ini file as well (same name)
-     *
-     * Also: Change max_file_uploads in php.ini to your desired amount of max number of file uploads
      * ================================================================================================
      */
     // Max file size allowed by the php engine

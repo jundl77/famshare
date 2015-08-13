@@ -34,16 +34,16 @@ function enableForwardButton() {
  * Activates the edit button
  */
 function activateEditButton() {
-    $("#editButton").css("border", "1px solid #607D8B");
-    $("#editText").css("color", "1px solid #607D8B");
+    $("#editText").css("color", "#FF9800");
+    $("#editButton").css("border", "1px solid #FF9800");
 }
 
 /**
  * Deactivates the edit button
  */
 function deactivateEditButton() {
-    $("#editButton").css("border", "1px solid ##C8C8C8");
-    $("#editText").css("color", "1px solid ##C8C8C8");
+    $("#editText").css("color", "#607D8B");
+    $("#editButton").css("border", "1px solid #607D8B");
 }
 
 /**
@@ -150,7 +150,6 @@ $(document).ready(function() {
 
     $("#editButton").click(function() {
         editFileHubContent();
-        $(this).css( 'cursor', 'pointer' );
     });
     $("#editButton").mouseenter(function() {
         $(this).css( 'cursor', 'pointer' );
