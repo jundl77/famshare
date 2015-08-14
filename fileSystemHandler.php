@@ -6,9 +6,8 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
 
     // Get root directories
     $rootDir = $configs["root_upload_dirs"]["upload_data"];
-    $thumbDir = $configs["root_upload_dirs"]["upload_data_thumb"];
 
-    if (!file_exists($rootDir) || !file_exists($thumbDir)) {
+    if (!file_exists($rootDir)) {
         echo json_encode(array('state' => "error", 'content' => "A root directory does not exist"));
         exit;
     }
@@ -38,17 +37,15 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
         exit;
     }
 
-    $path = $rootDir . $_POST["path"];
-    if (!file_exists($rootDir)) {
-        $rootDir = "./uploadData/";
-    }
+    $dataPath = $rootDir . $_POST["path"];
+    $thumbPath = $rootDir . $_POST["path"];
 
-    if (!file_exists($path)) {
+    if (!file_exists($dataPath) || !file_exists($thumbPath)) {
         echo json_encode(array('state' => "error", 'content' => "New path does not exist."));
         exit;
     }
 
-    $files = getFilesInFolder($path);
+    $files = getFilesInFolder($dataPath, $thumbPath);
     $jsonFiles = json_encode($files);
 
     if ($jsonFiles != null) {
@@ -198,24 +195,31 @@ function getFileSystem($path, $fileSystem) {
     return $fileSystem;
 }
 
-function getFilesInFolder($path) {
+function getFilesInFolder($dataPath, $thumbPath) {
     $result  = array();
-    $exts = array('jpg', 'jpeg', 'gif', 'png');
-    $files = scandir($path);
+    $exts = array('jpg', 'jpeg', 'gif', 'png', 'wbmp');
+    $ICON_FOLDER = "./images/file_icons/";
+    $files = scandir($dataPath);
 
     if (false !== $files) {
         foreach ($files as $file) {
-            $newPath = $path . $file;
-            if ( '.' != $file && '..' != $file && $file != ".DS_Store" && !is_dir($newPath)) {
+            $newDataPath = $dataPath . $file;
+            $newThumbPath = $thumbPath .$file;
+            if ( '.' != $file && '..' != $file && $file != ".DS_Store" && !is_dir($newDataPath)) {
                 $fileExt = strtolower(end(explode('.', $file)));
                 $correctExt = in_array($fileExt, $exts);
                 $obj['name'] = $file;
-                $obj['size'] = filesize($newPath);
+                $obj['size'] = filesize($newDataPath);
                 if ($correctExt) {
-                    $obj['path'] = $newPath;
+                    $path[0] = '';
+                    $path = $dataPath . $path;
+                    $obj['thumb_data'] = base64_encode(file_get_contents($newThumbPath));
+                } else if (is_file($ICON_FOLDER . $fileExt . ".png")) {
+                    $obj['thumb_data'] = base64_encode(file_get_contents($ICON_FOLDER . $fileExt . ".png"));
                 } else {
-                    $obj['path'] = null;
+                    $obj['thumb_data'] = base64_encode(file_get_contents($ICON_FOLDER . "_blank.png"));
                 }
+
                 $result[] = $obj;
             }
         }

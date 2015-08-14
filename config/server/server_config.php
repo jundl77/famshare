@@ -1,11 +1,20 @@
 <?php
 
 return array(
+    /*
+     * =================================================================================================================
+     * IMPORTANT:
+     * When changing the upload directories to outside the server folder, the java script will not
+     * be able to load thumbnails. Additionally, the actual data has to be included in uploadData and uploadDataThumb
+     * because the javascript changes from uploadData to uploadDataThumb the name when looking for the thumbnail images
+     * to display.
+     * =================================================================================================================
+     */
     "root_upload_dirs" => array(
         // Where to save the uploaded data
         "upload_data" => "./uploadData/",
 
-        // In case the data is an image, store its thumbnail here
+        // In case the data is an image, store its thumbnail here in order to display it
         "upload_data_thumb" => "./uploadDataThumb/"
     ),
 
@@ -27,7 +36,8 @@ return array(
 
     /*
      * ================================================================================================
-     * IMPORTANT: The below values have to be changed in the php.ini file as well (same name)
+     * IMPORTANT:
+     * The below values have to be changed in the php.ini file as well (same name)
      * ================================================================================================
      */
     // Max file size allowed by the php engine

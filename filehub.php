@@ -126,7 +126,7 @@ function http_digest_parse($txt)
                 <input type="text" name="newFolderTextInput" id="newFolderTextInput">
                 <div id="seperator"></div>
             </div>
-            <form action="uploadHandler.php" id="fileBox" class="dropzone flashRed"></form>
+            <form action="uploadHandler.php" enctype= multipart/form-data id="fileBox" class="dropzone flashRed"></form>
             <div id="statusBar">
                 <div id="statusDiv" class="flashRed">
                     <div id="statusTitle">Status:</div>

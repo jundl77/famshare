@@ -159,7 +159,9 @@ function showCurrentFilesHelper(fileArray) {
         var file = fileArray[i];
         var fileName = file.name;
         var fileSize = file.size;
-        var filePath = file.path;
+        var fileThumbData = file.thumb_data;
+
+        var path = $("#currentDirText").text() + fileName;
 
         var container = getContainter();
         var templateObj = Dropzone.createElement(getTemplate().trim());
@@ -187,10 +189,10 @@ function showCurrentFilesHelper(fileArray) {
         var isImg = false;
         for (var j = 0; j < childDivs.length; j++) {
             var childDiv = childDivs[j];
-            if (childDiv.classList.contains("dz-image") && filePath !== null) {
+            if (childDiv.classList.contains("dz-image") && fileThumbData !== null) {
                 isImg = true;
                 var img = childDiv.getElementsByTagName('img')[0];
-                img.src = filePath.replace("uploadData", "uploadDataThumb");
+                img.src = "data:image/png;base64," + fileThumbData;
             } else if (childDiv.classList.contains("dz-details")) {
                 if (isImg) {
                     childDiv.style.visibility = "hidden";
@@ -206,16 +208,10 @@ function showCurrentFilesHelper(fileArray) {
         templateObj.appendChild(cross);
 
         // Add events (mouse over, mouse leave and click) and hide file size and name by default
-        var path = $("#currentDirText").text() + fileName;
         (function(filePath, obj, crossIn, isImgIn) {
             var childDivs = obj.children;
             templateObj.addEventListener('click', function (event) {
-                if (!editing) {
-                    downloadFile(filePath);
-                } else {
-                    flashRed();
-                    $("#statusText").text("Please stop editing to download an image");
-                }
+                downloadFile(filePath);
             });
             if (isImgIn) {
                 templateObj.addEventListener('mouseover', function (event) {
@@ -307,8 +303,12 @@ function addFolder(name) {
  * @param path the path of the file to download
  */
 function downloadFile(path) {
-    document.downloadForm.filePath.value = path;
-    document.downloadForm.submit();
+    if (!editing) {
+        document.downloadForm.filePath.value = path;
+        document.downloadForm.submit();
+    } else {
+        $("#statusText").text("Please stop editing to download an image");
+    }
 }
 
 /**
@@ -368,6 +368,8 @@ function deleteFolder(folder) {
             }
         }
     });
+
+    return false;
 }
 
 /**
@@ -393,6 +395,8 @@ function deleteFile(fileName) {
             }
         }
     });
+
+    return false;
 }
 
 function removeByAttr(arr, attr, value) {

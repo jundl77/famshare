@@ -143,7 +143,6 @@ function getDropzone() {
       thumbnailHeight: 120,
       filesizeBase: 1000,
       maxFiles: gOptions.maxFiles,
-      filesizeBase: 1000,
       params: {},
       clickable: true,
       ignoreHiddenFiles: true,
@@ -395,11 +394,7 @@ function getDropzone() {
                 cross.style.visibility="visible";
             }
             file.previewElement.addEventListener('click', function (event) {
-                if (isEditing()) {
-                    downloadFile(file.name);
-                } else {
-                    $("#statusText").text("Please stop editing to download an image");
-                }
+                downloadFile(file.name);
             });
             cross.addEventListener('click', function (event) {
                 if (editing) {

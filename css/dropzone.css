@@ -206,8 +206,8 @@
       .dropzone .dz-preview:hover .dz-details {
         opacity: 1; }
     .dropzone .dz-preview.dz-file-preview .dz-image {
-      background: #999;
-      background: linear-gradient(to bottom, #eee, #ddd); }
+      background: transparent;
+      /*background: linear-gradient(to bottom, #eee, #ddd);*/ }
     .dropzone .dz-preview.dz-file-preview .dz-details {
       opacity: 1; }
     .dropzone .dz-preview.dz-image-preview {

@@ -313,19 +313,10 @@ div#content_wrapper {
 /* ----------------------------------------------- FILE BOX ---------------------------------------------- */
 /* ------------------------------------------------------------------------------------------------------- */
 .redFlash {
-    /* For red flash */
     -webkit-transition: background 0.10s ease-in-out;
     -moz-transition:    background 0.10s ease-in-out;
     -ms-transition:     background 0.10s ease-in-out;
     transition:         background 0.10s ease-in-out;
-}
-
-.backgroundRed {
-    background-color: #EF9A9A;
-}
-
-.borderRed{
-    border: 1px solid #EF9A9A;
 }
 
 #fileBox {

@@ -32,6 +32,7 @@ if (!empty($_FILES)) {
     }
 
     $path = $_POST["filePath"];
+
     foreach ($_FILES as $file) {
         $file_name = $file['name'];
         if (!preg_match_all("/^([\w ]*[.]*[(]*[)]*[-]*[\/]*)+$/", $file_name)) {
@@ -66,6 +67,10 @@ if (!empty($_FILES)) {
             header('HTTP/1.1 500 Internal Server Error');
             header('Content-type: text/plain');
             exit("File directory does not exist");
+        } else if ($file['error'] !== UPLOAD_ERR_OK) {
+            header('HTTP/1.1 500 Internal Server Error');
+            header('Content-type: text/plain');
+            exit("Upload failed with error code " . $_FILES['file']['error']);
         } else {
             ini_set('upload_max_filesize', $configs["upload_max_filesize"]);
             ini_set('post_max_size', $configs["post_max_size"]);
@@ -76,6 +81,10 @@ if (!empty($_FILES)) {
 
             if (move_uploaded_file($file_tmp_name, $storePath)) {
                 make_thumb($storePath, $thumbPath, $fileExt, 200);
+            } else {
+                header('HTTP/1.1 500 Internal Server Error');
+                header('Content-type: text/plain');
+                exit("Unexpected error encountered");
             }
         }
     }
