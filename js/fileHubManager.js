@@ -160,6 +160,7 @@ function showCurrentFilesHelper(fileArray) {
         var fileName = file.name;
         var fileSize = file.size;
         var fileThumbData = file.thumb_data;
+        var isImg = file.is_image;
 
         var path = $("#currentDirText").text() + fileName;
 
@@ -186,19 +187,16 @@ function showCurrentFilesHelper(fileArray) {
 
         // Add template for thumbnail
         var childDivs = templateObj.children;
-        var isImg = false;
         for (var j = 0; j < childDivs.length; j++) {
             var childDiv = childDivs[j];
             if (childDiv.classList.contains("dz-image") && fileThumbData !== null) {
-                isImg = true;
                 var img = childDiv.getElementsByTagName('img')[0];
                 img.src = "data:image/png;base64," + fileThumbData;
-            } else if (childDiv.classList.contains("dz-details")) {
-                if (isImg) {
-                    childDiv.style.visibility = "hidden";
-                } else {
-                    childDiv.style.visibility = "visible";
-                }
+            }
+
+            // Add file info if it is not an image
+            if (!isImg) {
+                childDiv.style.visibility = "visible";
             }
         }
 
@@ -307,7 +305,8 @@ function downloadFile(path) {
         document.downloadForm.filePath.value = path;
         document.downloadForm.submit();
     } else {
-        $("#statusText").text("Please stop editing to download an image");
+        // Uncommented because there is no way to differentiate between download and delete at the moment
+        // $("#statusText").text("Please stop editing to download an image");
     }
 }
 

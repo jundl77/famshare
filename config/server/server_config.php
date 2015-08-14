@@ -1,15 +1,6 @@
 <?php
 
 return array(
-    /*
-     * =================================================================================================================
-     * IMPORTANT:
-     * When changing the upload directories to outside the server folder, the java script will not
-     * be able to load thumbnails. Additionally, the actual data has to be included in uploadData and uploadDataThumb
-     * because the javascript changes from uploadData to uploadDataThumb the name when looking for the thumbnail images
-     * to display.
-     * =================================================================================================================
-     */
     "root_upload_dirs" => array(
         // Where to save the uploaded data
         "upload_data" => "./uploadData/",
