@@ -25,13 +25,7 @@ if (!empty($_FILES)) {
         exit("A root directory does not exist");
     }
 
-    if (!preg_match_all("/^([\w ]*[.]*[(]*[)]*[-]*[\/]*)+$/", $_POST["filePath"]) && $_POST["filePath"] !== "") {
-        header('HTTP/1.1 500 Internal Server Error');
-        header('Content-type: text/plain');
-        exit("File directory does not exist");
-    }
-
-    $path = $_POST["filePath"];
+    $path = sanitize($_POST["filePath"]);
 
     foreach ($_FILES as $file) {
         $file_name = $file['name'];
@@ -127,4 +121,21 @@ function make_thumb($src, $dest, $fileExt, $desired_width) {
     } elseif ($fileExt == 'bmp') {
         imagewbmp($virtual_image, $dest);
     }
+}
+
+function sanitize($val) {
+    if (!preg_match_all("/^([\w ]*[.]*[(]*[)]*[-]*[\/]*)+$/", $val) && $val !== "") {
+        echo json_encode(array('state' => "error", 'content' => "Invalid data received."));
+        exit;
+    }
+
+    $val = trim($val);
+    $val = strip_tags($val);
+    $val = htmlentities($val, ENT_QUOTES, 'UTF-8'); // convert funky chars to html entities
+    $pat = array("\r\n", "\n\r", "\n", "\r"); // remove returns
+    $val = str_replace($pat, '', $val);
+    $pat = array('/^\s+/', '/\s{2,}/', '/\s+\$/'); // remove multiple whitespaces
+    $rep = array('', ' ', '');
+    $val = preg_replace($pat, $rep, $val);
+    return trim($val);
 }

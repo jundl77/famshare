@@ -32,13 +32,8 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
         exit;
     }
 
-    if (!preg_match_all("/^([\w ]*[.]*[(]*[)]*[-]*[\/]*)+$/", $_POST["path"]) &&  $_POST["path"] !== "") {
-        echo json_encode(array('state' => "error", 'content' => "Invalid path received."));
-        exit;
-    }
-
-    $dataPath = $rootDir . $_POST["path"];
-    $thumbPath = $rootDir . $_POST["path"];
+    $dataPath = $rootDir . sanitize($_POST["path"]);
+    $thumbPath = $rootDir . sanitize($_POST["path"]);
 
     if (!file_exists($dataPath) || !file_exists($thumbPath)) {
         echo json_encode(array('state' => "error", 'content' => "New path does not exist."));
@@ -65,11 +60,8 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
         exit;
     }
 
-    if (!preg_match_all("/^([\w ]*[.]*[(]*[)]*[-]*[\/]*)+$/", $_POST["path"]) && $_POST["path"] !== "") {
-        echo json_encode(array('state' => "error", 'content' => "Invalid path received."));
-        exit;
-    }
-    $path = $_POST["path"];
+    $path = sanitize($_POST["path"]);
+
     $successNormal = mkdir($rootDir . $path);
     $successThumbnail = mkdir($thumbDir . $path);
 
@@ -90,11 +82,8 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
         exit;
     }
 
-    if (!preg_match_all("/^([\w ]*[.]*[(]*[)]*[-]*[\/]*)+$/", $_POST["path"]) && $_POST["path"] !== "") {
-        echo json_encode(array('state' => "error", 'content' => "Invalid path received."));
-        exit;
-    }
-    $path = $_POST["path"];
+    $path = strip_tags($_POST["path"]);
+
     try {
         deleteDir($rootDir . $path);
         deleteDir($thumbDir . $path);
@@ -114,11 +103,7 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
         exit;
     }
 
-    if (!preg_match_all("/^([\w ]*[.]*[(]*[)]*[-]*[\/]*)+$/", $_POST["path"]) && $_POST["path"] !== "") {
-        echo json_encode(array('state' => "error", 'content' => "Invalid path received."));
-        exit;
-    }
-    $path = $_POST["path"];
+    $path = sanitize($_POST["path"]);
     $successNormal = unlink($rootDir . $path);
 
     $successThumbnail = true;
@@ -245,5 +230,22 @@ function deleteDir($dirPath) {
         }
     }
     rmdir($dirPath);
+}
+
+function sanitize($val) {
+    if (!preg_match_all("/^([\w ]*[.]*[(]*[)]*[-]*[\/]*)+$/", $val) && $val !== "") {
+        echo json_encode(array('state' => "error", 'content' => "Invalid path received."));
+        exit;
+    }
+
+    $val = trim($val);
+    $val = strip_tags($val);
+    $val = htmlentities($val, ENT_QUOTES, 'UTF-8'); // convert funky chars to html entities
+    $pat = array("\r\n", "\n\r", "\n", "\r"); // remove returns
+    $val = str_replace($pat, '', $val);
+    $pat = array('/^\s+/', '/\s{2,}/', '/\s+\$/'); // remove multiple whitespaces
+    $rep = array('', ' ', '');
+    $val = preg_replace($pat, $rep, $val);
+    return trim($val);
 }
 

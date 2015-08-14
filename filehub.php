@@ -3,7 +3,7 @@ $configs = include('./config/server/server_config.php');
 
 $realm = 'Restricted area';
 $username = "user";
-$password = $rootDir = $configs["password"];
+$password = $configs["password"];
 
 //user => password
 $users = array($username => $password);
@@ -18,18 +18,20 @@ if (empty($_SERVER['PHP_AUTH_DIGEST'])) {
 }
 
 // analyze the PHP_AUTH_DIGEST variable
-if (!($data = http_digest_parse($_SERVER['PHP_AUTH_DIGEST'])) || !isset($users[$data['username']])) {
+if (!($data = http_digest_parse($_SERVER['PHP_AUTH_DIGEST'])) || !isset($users[sanitize($data['username'])])) {
 
     // False credentials
     die("False credentials");
 }
 
 // generate the valid response
-$A1 = md5($username . ':' . $realm . ':' . $users[$data['username']]);
-$A2 = md5($_SERVER['REQUEST_METHOD'] . ':' . $data['uri']);
-$valid_response = md5($A1 . ':' . $data['nonce'] . ':' . $data['nc'] . ':' . $data['cnonce'] . ':' . $data['qop'] . ':' . $A2);
+$A1 = md5($username . ':' . $realm . ':' . $users[sanitize($data['username'])]);
+$A2 = md5($_SERVER['REQUEST_METHOD'] . ':' . sanitize($data['uri']));
+$valid_response = md5($A1 . ':' . sanitize($data['nonce']) . ':' . sanitize($data['nc']) . ':' . sanitize($data['cnonce'])
+    . ':' . sanitize($data['qop']) . ':'
+    . $A2);
 
-if ($data['response'] != $valid_response) {
+if (sanitize($data['response']) != $valid_response) {
 
     // False credentials
     die("False credentials");
@@ -53,6 +55,22 @@ function http_digest_parse($txt)
     }
 
     return $needed_parts ? false : $data;
+}
+
+function sanitize($val) {
+    if (!preg_match_all("/^([\w ]*[.]*[(]*[)]*[-]*[\/]*)+$/", $val) && $val !== "") {
+        die("False credentials");
+    }
+
+    $val = trim($val);
+    $val = strip_tags($val);
+    $val = htmlentities($val, ENT_QUOTES, 'UTF-8'); // convert funky chars to html entities
+    $pat = array("\r\n", "\n\r", "\n", "\r"); // remove returns
+    $val = str_replace($pat, '', $val);
+    $pat = array('/^\s+/', '/\s{2,}/', '/\s+\$/'); // remove multiple whitespaces
+    $rep = array('', ' ', '');
+    $val = preg_replace($pat, $rep, $val);
+    return trim($val);
 }
 
 ?>
