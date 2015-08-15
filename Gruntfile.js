@@ -19,11 +19,9 @@ module.exports = function (grunt) {
             },
             target: {
                 files: {
-                    // js for html
                     'build/js/script.min.js': ['js/script.js'],
                     'build/js/filehub.min.js': ['build_temp/js/filehub.js'],
 
-                    // js libs
                     'build/js/jquery-2.1.1.min.js': ['js/api/jquery-2.1.1.js']
                 }
             }
