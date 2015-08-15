@@ -179,6 +179,7 @@ $(document).ready(function() {
                     width: "36.25em"
                 }, 1000);
 
+                document.getElementById("newFolderTextInput").value = '';
                 $("#newFolderText").text("New Folder");
             }
         } else if ($(window).width() > 960) {   // Again, only animate if on a computer

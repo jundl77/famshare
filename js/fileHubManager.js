@@ -195,7 +195,9 @@ function showCurrentFilesHelper(fileArray) {
             }
 
             // Add file info if it is not an image
-            if (!isImg) {
+            if (childDiv.classList.contains("dz-details") && isImg) {
+                childDiv.style.visibility = "hidden";
+            } else if (childDiv.classList.contains("dz-details")) {
                 childDiv.style.visibility = "visible";
             }
         }
