@@ -21,3 +21,5 @@
     <meta name="msapplication-config" content="/favicon/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
     <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="css/includes/includes.css"/>
+

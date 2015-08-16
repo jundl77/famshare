@@ -113,10 +113,6 @@ function flashRed() {
 }
 
 $(document).ready(function() {
-    if (gOptions.enabled) {
-        $('#title').text(gOptions.name + "Share");
-    }
-
     document.addEventListener("dragenter", dragenterDragleave);
     document.addEventListener("dragleave", dragenterDragleave);
 

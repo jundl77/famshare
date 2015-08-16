@@ -25,7 +25,8 @@ module.exports = function (grunt) {
                 files: {
                     'build/js/script.min.js': ['js/script.js'],
                     'build/js/filehub.min.js': ['build_temp/js/filehub.js'],
-                    'build/js/jquery-2.1.1.min.js': ['js/api/jquery-2.1.1.js']
+                    'build/js/jquery-2.1.1.min.js': ['js/api/jquery-2.1.1.js'],
+                    'build/js/includes/header.min.js': ['js/includes/header.js']
                 }
             }
         },
@@ -50,7 +51,14 @@ module.exports = function (grunt) {
                     'build/css/home/stylesheet_319.min.css': ['css/home/stylesheet_319.css'],
                     'build/css/home/stylesheet_479.min.css': ['css/home/stylesheet_479.css'],
                     'build/css/home/stylesheet_767.min.css': ['css/home/stylesheet_767.css'],
-                    'build/css/home/stylesheet_960.min.css': ['css/home/stylesheet_960.css']
+                    'build/css/home/stylesheet_960.min.css': ['css/home/stylesheet_960.css'],
+
+                    // error screen
+                    'build/css/errorScreen/errorScreen.min.css': ['css/errorScreen/errorScreen.css'],
+
+                    // includes
+                    'build/css/includes/includes.min.css': ['css/includes/includes.css'],
+                    'build/css/includes/header.min.css': ['css/includes/header.css']
                 }
             }
         },
@@ -137,6 +145,36 @@ module.exports = function (grunt) {
                     from: 'css/filehub/filehub.css',
                     to: 'css/filehub/filehub.min.css'
                 }]
+            },
+
+            errorScreen: {
+                src: ['errorScreen.php'],
+                dest: 'build/',
+                replacements: [{
+                    from: 'css/errorScreen/errorScreen.css',
+                    to: 'css/errorScreen/errorScreen.min.css'
+                }]
+            },
+
+            includes: {
+                src: ['includes/top.php'],
+                dest: 'build/includes/',
+                replacements: [{
+                    from: 'css/includes/includes.css',
+                    to: 'css/includes/includes.min.css'
+                }]
+            },
+
+            header: {
+                src: ['includes/header.php'],
+                dest: 'build/includes/',
+                replacements: [{
+                    from: 'css/includes/header.css',
+                    to: 'css/includes/header.min.css'
+                }, {
+                    from: 'js/includes/header.js',
+                    to: 'js/includes/header.min.js'
+                }]
             }
         },
 
@@ -148,7 +186,7 @@ module.exports = function (grunt) {
                     {expand: true, src: ['favicon/**'], dest: 'build/'},
                     {expand: true, src: ['fonts/**'], dest: 'build/'},
                     {expand: true, src: ['php/**'], dest: 'build/'},
-                    {expand: true, src: ['includes/**'], dest: 'build/'},
+                    {expand: true, src: ['includes/**', '!includes/header.php', '!includes/top.php'], dest: 'build/'},
 
                     // Files
                     {expand: true, src: ['images/file_icons/LICENSE'], dest: 'build/'},

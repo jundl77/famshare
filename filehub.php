@@ -1,5 +1,71 @@
 <?php
-include("includes/auth.php");
+include "./includes/sanitize.php";
+
+$configs = include('./config/server/server_config.php');
+
+$realm = 'Restricted area';
+$username = "user";
+$password = $configs["password"];
+
+//user => password
+$users = array($username => $password);
+
+if (empty($_SERVER['PHP_AUTH_DIGEST'])) {
+    header('HTTP/1.1 401 Unauthorized');
+    header('WWW-Authenticate: Digest realm="' . $realm .
+        '",qop="auth",nonce="' . uniqid() . '",opaque="' . md5($realm) . '"');
+
+    header("Location: errorScreen.php");
+    die();
+}
+
+// analyze the PHP_AUTH_DIGEST variable
+if (!($data = http_digest_parse($_SERVER['PHP_AUTH_DIGEST'])) || !isset($users[sanitize($data['username'])])) {
+
+    // False credentials
+    header("Location: errorScreen.php");
+    die();
+}
+
+// generate the valid response
+$A1 = md5($username . ':' . $realm . ':' . $users[sanitize($data['username'])]);
+$A2 = md5($_SERVER['REQUEST_METHOD'] . ':' . sanitize($data['uri']));
+$valid_response = md5($A1 . ':' . sanitize($data['nonce']) . ':' . sanitize($data['nc']) . ':' . sanitize($data['cnonce'])
+    . ':' . sanitize($data['qop']) . ':'
+    . $A2);
+
+if (sanitize($data['response']) != $valid_response) {
+
+    // False credentials
+    header("Location: errorScreen.php");
+    die($password);
+}
+
+// ok, valid username & password
+
+// function to parse the http auth header
+function http_digest_parse($txt) {
+    // protect against missing data
+    $needed_parts = array('nonce' => 1, 'nc' => 1, 'cnonce' => 1, 'qop' => 1, 'username' => 1, 'uri' => 1, 'response' => 1);
+    $data = array();
+    $keys = implode('|', array_keys($needed_parts));
+
+    preg_match_all('@(' . $keys . ')=(?:([\'"])([^\2]+?)\2|([^\s,]+))@', $txt, $matches, PREG_SET_ORDER);
+
+    foreach ($matches as $m) {
+        $data[$m[1]] = $m[3] ? $m[3] : $m[4];
+        unset($needed_parts[$m[1]]);
+    }
+
+    return $needed_parts ? false : $data;
+}
+
+function error_found(){
+    header("Location: errorScreen.php");
+    die();
+}
+
+set_error_handler('error_found');
 ?>
 
 <?php
@@ -32,12 +98,10 @@ href="css/filehub/filehub_420.css">
 include("includes/middle.php");
 ?>
 
-<div id="topDiv">
-    <div id="homeLink"><a href="index.php" id="link">
-            <div id="icon"><img src="images/logo.png"></div>
-            <div id="title">FamShare</div>
-        </a></div>
-</div>
+<?php
+include("includes/header.php");
+?>
+
 <div id="uploadTitle">
     <div id="titleText">File Hub</div>
 </div>

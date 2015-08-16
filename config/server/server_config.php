@@ -18,7 +18,7 @@ return array(
 
 
     // Password to enter (this is not very secure, please do not use an important password)
-    "password" => "test",
+    "password" => "password",
 
 
     // Max file size allowed by script
