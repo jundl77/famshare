@@ -1,7 +1,8 @@
-
 /*
  *
  * More info at [www.dropzonejs.com](http://www.dropzonejs.com)
+ *
+ * The MIT License (MIT)
  *
  * Copyright (c) 2012, Matias Meno
  *
@@ -1695,21 +1696,6 @@ function getDropzone() {
     vertSquashRatio = detectVerticalSquash(img);
     return ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh / vertSquashRatio);
   };
-
-
-  /*
-   * contentloaded.js
-   *
-   * Author: Diego Perini (diego.perini at gmail.com)
-   * Summary: cross-browser wrapper for DOMContentLoaded
-   * Updated: 20101020
-   * License: MIT
-   * Version: 1.2
-   *
-   * URL:
-   * http://javascript.nwbox.com/ContentLoaded/
-   * http://javascript.nwbox.com/ContentLoaded/MIT-LICENSE
-   */
 
   contentLoaded = function(win, fn) {
     var add, doc, done, init, poll, pre, rem, root, top;

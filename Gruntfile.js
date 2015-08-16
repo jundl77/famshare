@@ -1,6 +1,9 @@
 module.exports = function (grunt) {
 
     grunt.initConfig({
+
+        clean: ["build", "build_temp"],
+
         concat: {
             js_filehub: {
                 src: ['js/fileHubManager.js', 'js/filehub.js', 'js/api/dropzone.js'],
@@ -15,13 +18,13 @@ module.exports = function (grunt) {
 
         uglify: {
             options: {
-                mangle: false
+                mangle: false,
+                preserveComments: require('uglify-save-license')
             },
             target: {
                 files: {
                     'build/js/script.min.js': ['js/script.js'],
                     'build/js/filehub.min.js': ['build_temp/js/filehub.js'],
-
                     'build/js/jquery-2.1.1.min.js': ['js/api/jquery-2.1.1.js']
                 }
             }
@@ -145,10 +148,14 @@ module.exports = function (grunt) {
                     {expand: true, src: ['favicon/**'], dest: 'build/'},
                     {expand: true, src: ['fonts/**'], dest: 'build/'},
 
-                    // Files
+                    // Php Files
                     {expand: true, src: ['downloadHandler.php'], dest: 'build/'},
                     {expand: true, src: ['fileSystemHandler.php'], dest: 'build/'},
-                    {expand: true, src: ['uploadHandler.php'], dest: 'build/'}
+                    {expand: true, src: ['uploadHandler.php'], dest: 'build/'},
+
+                    // Other files
+                    {expand: true, src: ['images/file_icons/LICENSE'], dest: 'build/'},
+                    {expand: true, src: ['images/file_icons/README.md'], dest: 'build/'}
                 ]
             }
         },
@@ -191,6 +198,7 @@ module.exports = function (grunt) {
         }
     });
 
+    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
@@ -200,5 +208,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-mkdir');
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.registerTask('default', ['concat', 'uglify', 'cssmin','imagemin', 'replace', 'copy', 'mkdir']);
+
+    grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin','imagemin', 'replace', 'copy', 'mkdir',
+        'compress']);
 };
