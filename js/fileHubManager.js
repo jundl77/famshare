@@ -186,7 +186,7 @@ function showCurrentFilesHelper(fileArray) {
             node.innerHTML = getDropzone().filesize(fileSize);
         }
 
-        // Add template for thumbnail
+        // Add includes for thumbnail
         var childDivs = templateObj.children;
         for (var j = 0; j < childDivs.length; j++) {
             var childDiv = childDivs[j];

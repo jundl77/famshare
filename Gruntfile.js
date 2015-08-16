@@ -152,6 +152,9 @@ module.exports = function (grunt) {
                     {expand: true, src: ['downloadHandler.php'], dest: 'build/'},
                     {expand: true, src: ['fileSystemHandler.php'], dest: 'build/'},
                     {expand: true, src: ['uploadHandler.php'], dest: 'build/'},
+                    {expand: true, src: ['includes/auth.php'], dest: 'build/'},
+                    {expand: true, src: ['includes/bottom.php'], dest: 'build/'},
+                    {expand: true, src: ['includes/top.php'], dest: 'build/'},
 
                     // Other files
                     {expand: true, src: ['images/file_icons/LICENSE'], dest: 'build/'},
