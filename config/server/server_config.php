@@ -3,10 +3,10 @@
 return array(
     "root_upload_dirs" => array(
         // Where to save the uploaded data
-        "upload_data" => "./upload_data/",
+        "upload_data" => "../upload_data/",
 
         // In case the data is an image, store its thumbnail here in order to display it
-        "upload_data_thumb" => "./upload_data_thumb/"
+        "upload_data_thumb" => "../upload_data_thumb/"
     ),
 
 

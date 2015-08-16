@@ -71,7 +71,7 @@ module.exports = function (grunt) {
 
         replace: {
             index: {
-                src: ['index.html'],
+                src: ['index.php'],
                 dest: 'build/',
                 replacements: [{
                     from: 'css/home/stylesheet.css',
@@ -147,16 +147,10 @@ module.exports = function (grunt) {
                     {expand: true, src: ['config/**'], dest: 'build/'},
                     {expand: true, src: ['favicon/**'], dest: 'build/'},
                     {expand: true, src: ['fonts/**'], dest: 'build/'},
+                    {expand: true, src: ['php/**'], dest: 'build/'},
+                    {expand: true, src: ['includes/**'], dest: 'build/'},
 
-                    // Php Files
-                    {expand: true, src: ['downloadHandler.php'], dest: 'build/'},
-                    {expand: true, src: ['fileSystemHandler.php'], dest: 'build/'},
-                    {expand: true, src: ['uploadHandler.php'], dest: 'build/'},
-                    {expand: true, src: ['includes/auth.php'], dest: 'build/'},
-                    {expand: true, src: ['includes/bottom.php'], dest: 'build/'},
-                    {expand: true, src: ['includes/top.php'], dest: 'build/'},
-
-                    // Other files
+                    // Files
                     {expand: true, src: ['images/file_icons/LICENSE'], dest: 'build/'},
                     {expand: true, src: ['images/file_icons/README.md'], dest: 'build/'}
                 ]

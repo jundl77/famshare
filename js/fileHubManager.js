@@ -19,7 +19,7 @@ function updateFileStructure() {
 
     // post the dataUrl to php
     $.ajax({
-        url: "fileSystemHandler.php",
+        url: "php/fileSystemHandler.php",
         type: "POST",
         dataType : 'json',
         data: postData,
@@ -131,7 +131,7 @@ function showCurrentFiles() {
 
     // post the dataUrl to php
     $.ajax({
-        url: "fileSystemHandler.php",
+        url: "php/fileSystemHandler.php",
         type: "POST",
         dataType : 'json',
         data: postData,
@@ -281,7 +281,7 @@ function addFolder(name) {
 
     // post the dataUrl to php
     $.ajax({
-        url: "fileSystemHandler.php",
+        url: "php/fileSystemHandler.php",
         type: "POST",
         dataType : 'json',
         data: postData,
@@ -356,7 +356,7 @@ function deleteFolder(folder) {
 
     // post the dataUrl to php
     $.ajax({
-        url: "fileSystemHandler.php",
+        url: "php/fileSystemHandler.php",
         type: "POST",
         dataType : 'json',
         data: postData,
@@ -384,7 +384,7 @@ function deleteFile(fileName) {
 
     // post the dataUrl to php
     $.ajax({
-        url: "fileSystemHandler.php",
+        url: "php/fileSystemHandler.php",
         type: "POST",
         dataType : 'json',
         data: postData,

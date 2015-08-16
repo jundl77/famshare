@@ -1,4 +1,6 @@
 <?php
+include "./includes/sanitize.php";
+
 $configs = include('./config/server/server_config.php');
 
 $realm = 'Restricted area';
@@ -40,8 +42,7 @@ if (sanitize($data['response']) != $valid_response) {
 // ok, valid username & password
 
 // function to parse the http auth header
-function http_digest_parse($txt)
-{
+function http_digest_parse($txt) {
     // protect against missing data
     $needed_parts = array('nonce' => 1, 'nc' => 1, 'cnonce' => 1, 'qop' => 1, 'username' => 1, 'uri' => 1, 'response' => 1);
     $data = array();
@@ -55,20 +56,4 @@ function http_digest_parse($txt)
     }
 
     return $needed_parts ? false : $data;
-}
-
-function sanitize($val) {
-    if (!preg_match_all("/^([\w ]*[.]*[(]*[)]*[-]*[\/]*)+$/", $val) && $val !== "") {
-        die("False credentials");
-    }
-
-    $val = trim($val);
-    $val = strip_tags($val);
-    $val = htmlentities($val, ENT_QUOTES, 'UTF-8'); // convert funky chars to html entities
-    $pat = array("\r\n", "\n\r", "\n", "\r"); // remove returns
-    $val = str_replace($pat, '', $val);
-    $pat = array('/^\s+/', '/\s{2,}/', '/\s+\$/'); // remove multiple whitespaces
-    $rep = array('', ' ', '');
-    $val = preg_replace($pat, $rep, $val);
-    return trim($val);
 }

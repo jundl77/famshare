@@ -2,7 +2,7 @@
   "name": "famshare",
   "version": "1.0.0",
   "description": "A free file sharing website for the family to run at home! Where you and not Big Brother control your data.",
-  "main": "index.html",
+  "main": "index.php",
   "dependencies": {
     "grunt": "^0.4.5"
   },

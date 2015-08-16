@@ -33,7 +33,7 @@ include("includes/middle.php");
 ?>
 
 <div id="topDiv">
-    <div id="homeLink"><a href="index.html" id="link">
+    <div id="homeLink"><a href="index.php" id="link">
             <div id="icon"><img src="images/logo.png"></div>
             <div id="title">FamShare</div>
         </a></div>
@@ -59,13 +59,17 @@ include("includes/middle.php");
     <input type="text" name="newFolderTextInput" id="newFolderTextInput">
     <div id="seperator"></div>
 </div>
-<form action="uploadHandler.php" enctype= multipart/form-data id="fileBox" class="dropzone flashRed"></form>
+<form action="php/uploadHandler.php" enctype= multipart/form-data id="fileBox" class="dropzone flashRed"></form>
 <div id="statusBar">
     <div id="statusDiv" class="flashRed">
         <div id="statusTitle">Status:</div>
         <div id="statusText">Going well</div>
     </div>
 </div>
+
+<form action="php/downloadHandler.php" method="post" name="downloadForm" id="downloadForm">
+    <input type="hidden" name="filePath" value="">
+</form>
 
 <?php
 include("includes/bottom.php");

@@ -1,5 +1,6 @@
 <?php
-$configs = include('./config/server/server_config.php');
+include "../includes/sanitize.php";
+$configs = include('../config/server/server_config.php');
 
 if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] == "fileStructure") {
     $configs = $GLOBALS["configs"];
@@ -183,7 +184,7 @@ function getFileSystem($path, $fileSystem) {
 function getFilesInFolder($dataPath, $thumbPath) {
     $result  = array();
     $exts = array('jpg', 'jpeg', 'gif', 'png', 'wbmp');
-    $ICON_FOLDER = "./images/file_icons/";
+    $ICON_FOLDER = "../images/file_icons/";
     $files = scandir($dataPath);
 
     if (false !== $files) {
@@ -230,22 +231,5 @@ function deleteDir($dirPath) {
         }
     }
     rmdir($dirPath);
-}
-
-function sanitize($val) {
-    if (!preg_match_all("/^([\w ]*[.]*[(]*[)]*[-]*[\/]*)+$/", $val) && $val !== "") {
-        echo json_encode(array('state' => "error", 'content' => "Invalid path received."));
-        exit;
-    }
-
-    $val = trim($val);
-    $val = strip_tags($val);
-    $val = htmlentities($val, ENT_QUOTES, 'UTF-8'); // convert funky chars to html entities
-    $pat = array("\r\n", "\n\r", "\n", "\r"); // remove returns
-    $val = str_replace($pat, '', $val);
-    $pat = array('/^\s+/', '/\s{2,}/', '/\s+\$/'); // remove multiple whitespaces
-    $rep = array('', ' ', '');
-    $val = preg_replace($pat, $rep, $val);
-    return trim($val);
 }
 
