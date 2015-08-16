@@ -24,5 +24,6 @@
 <meta name="Keywords" content="famshare, file, sharing, free, family, home">
 <meta name="Description" content="A free file sharing website for the family to run at home! Where you and not Big
 Brother control your data.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link type="text/css" rel="stylesheet" href="css/includes/includes.css"/>
 

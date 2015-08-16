@@ -4,7 +4,7 @@
  * Properties marked with a * are enabled no matter what
  */
 gOptions = {
-    enabled: true,     // Enables or disables the config file
+    enabled: false,     // Enables or disables the config file
     name: 'Smith',       // Sets the name of the website from FamShare to SmithShare here for example (if enabled)
 
     // Dropzone values -- used by the file upload API (dropzone) -- more config options are in js/api/dropzone.js
