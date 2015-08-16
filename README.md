@@ -26,7 +26,9 @@ Below are a couple things you can easily configure yourself through configuratio
 
 ---
 
-* Change name of website from FamShare to YourLastNameShare (eg. SmithShare):
+#### Change Name
+
+Change the name of website from FamShare to YourLastNameShare (eg. SmithShare):
  
   ```
     1. Go to /config/client/client_config.js
@@ -37,7 +39,9 @@ Below are a couple things you can easily configure yourself through configuratio
   
 ---
 
-* Change upload directories on the server (where uploaded files are saved):
+#### Change Upload Directory
+
+Change the directories where uploaded files are saved:
 
  ``` 
     1. Go to /config/client/server_config.js
@@ -49,7 +53,7 @@ Below are a couple things you can easily configure yourself through configuratio
   
 ---
 
-* Change password:
+#### Change Password
 
  ``` 
     1. Go to /config/client/server_config.js
@@ -59,7 +63,7 @@ Below are a couple things you can easily configure yourself through configuratio
 
 ---
 
-* Change allowed file types:
+#### Change Allowed File Types
 
  ``` 
   1. Got to /config/client/server_config.js
