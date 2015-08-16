@@ -172,6 +172,9 @@ module.exports = function (grunt) {
                     from: 'css/includes/header.css',
                     to: 'css/includes/header.min.css'
                 }, {
+                    from: 'js/api/jquery-2.1.1.js',
+                    to: 'js/jquery-2.1.1.min.js'
+                }, {
                     from: 'js/includes/header.js',
                     to: 'js/includes/header.min.js'
                 }]

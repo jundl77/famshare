@@ -72,9 +72,6 @@ set_error_handler('error_found');
 include("includes/top.php");
 ?>
 
-<meta name="Keywords" content="famshare, file, sharing, free, family, home">
-<meta name="Description" content="A free file sharing website for the family to run at home! Where you and not Big
-    Brother control your data.">
 <link rel="stylesheet" href="css/dropzone.css">
 <link type="text/css" rel="stylesheet" href="css/filehub/filehub.css"/>
 <link rel="stylesheet" type="text/css" media="screen and (min-width:768px) and (max-width:960px)"
