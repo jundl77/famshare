@@ -1,2 +1,0 @@
-This is the default location where thumbnails of images that are uploaded are saved. Once deployed, this file should be
-removed.

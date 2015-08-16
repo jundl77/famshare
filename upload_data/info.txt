@@ -1,1 +1,0 @@
-This is the default location data that is uploaded is saved. Once deployed, this file should be removed.
