@@ -106,6 +106,6 @@ Change the directories where uploaded files are saved:
 3. Go to   ```  /config/client/client_config.js  ```  and change    ```  maxFilesize: 10000   ``` to your new size (in Megabytes)
 
 4. If you are using Nginx as a web-server, you also have to change    ```client_max_body_size 10000M;   ``` in
-   ```  /etc/nginx/nginx.conf   ```  /
+   ```  /etc/nginx/nginx.conf   ```  on the server
 
 ---
