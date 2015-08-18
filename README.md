@@ -21,6 +21,12 @@ You can configure FamShare to fit your own needs, and it works out of the box. A
 
 Max upload size is configurable - though it is 10GB by default. 
 
+## Set Up
+
+Just download the latest release and put it in the root directory of your web server.
+
+At the end of this page you can find a detailed tutorial on how to set up FamShare with [Nginx](http://nginx.org/en/) and PHP on a [Raspberry Pi](https://www.raspberrypi.org/) and connect it to an external hard drive.  
+
 ## Configure
 Below are a couple things you can easily configure yourself through configuration files. Of course you can also edit the code directly to achieve more personalization.
 
