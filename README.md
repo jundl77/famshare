@@ -4,7 +4,7 @@ FamShare is a free alternative to Dropbox, Google Drive or similar file sharing 
 
 It is a file sharing website that you can put on your own web-server so that you, and not Google own your data. 
 For example, if you don't want Google or Apple to have all your pictures, you can put your pictures on a computer or 
-raspberry-pi and host them through FamShare.
+Raspberry-Pi and host them through FamShare.
 
 ![](https://raw.githubusercontent.com/jundl77/FamShare/gh-pages/images/famshare-filhub.png)
 
@@ -25,14 +25,12 @@ Max upload size is configurable - though it is 10GB by default.
 
 Download the latest release and put it in the root directory of your web server.
 
-You also need to install PHP-GD if it is not already installed, as FamShare needs it to run properly.
+You also need to install PHP-GD if it is not already installed, as FamShare requires it to run properly.
 
 At the end of this page you can find a detailed tutorial on how to set up FamShare with [Nginx](https://en.wikipedia.org/wiki/Nginx) and PHP on a [Raspberry Pi](https://www.raspberrypi.org/) and connect it to an external hard drive.  
 
 ## Configure
 Below are a couple things you can easily configure yourself through configuration files. Of course you can also edit the code directly to achieve more personalization.
-
----
 
 #### Change Name
 
@@ -81,8 +79,7 @@ Change the directories where uploaded files are saved:
           'ppt', 'wmv'
       )
  ``` 
- To have a thumbnail for your new file type, add  ``` my_file_type_extension.png ```  to  ``` /images/file_icons/  ``` and the
- thumbnail will be load automatically
+ To have a thumbnail for your new file type, add  ``` my_file_type_extension.png ```  to  ``` /images/file_icons/  ``` and the thumbnail will be loaded automatically.
  
  ---
 
@@ -107,14 +104,14 @@ Change the directories where uploaded files are saved:
     "max_execution_time" => 36000
   ``` 
 
-  Note that you should give the script enough time to process larger files (here 10hrs for 10GB max :P )
+  Note that you should give the script enough time to process larger files (here 10hrs for 10GB max :P ).
 
-2. Then go into your   ``` php.ini   ```  file and change the same variables as above to values you just set
+2. Then go into your   ``` php.ini   ```  file and change the same variables as above to values you just set.
 
-3. Go to   ```  /config/client/client_config.js  ```  and change    ```  maxFilesize: 10000   ``` to your new size (in Megabytes)
+3. Go to   ```  /config/client/client_config.js  ```  and change    ```  maxFilesize: 10000   ``` to your new size (in Megabytes).
 
 4. If you are using Nginx as a web-server, you also have to change    ```client_max_body_size 10000M;   ``` in
-   ```  /etc/nginx/nginx.conf   ```  on the server
+   ```  /etc/nginx/nginx.conf   ```  on the server.
 
 ## Set up FamShare on a Raspberry Pi
 
@@ -149,7 +146,7 @@ First off, the assumption is that your Raspberry Pi is set-up and connected to t
     
  Find    ```  cgi.fix_pathinfo   ```,  uncomment it and set it to 0. **Important!**
  
- Find the following variables in the file and change them to the following. They all affect upload limits. They are set to allow file uploads up to 10GB (as does FamShare by default). To set your own size, go to the *Configure* section under *Change Max File Upload Size*. The times are given in seconds and the sizes in megabytes.
+ Find the following variables in the file and change them as shown below. They all affect upload limits. They are set to allow file uploads up to 10GB (as does FamShare by default). To set your own size, go to the *Configure* section under *Change Max File Upload Size*. The times are given in seconds and the sizes in megabytes.
  
  ```
  max_input_time=36000
@@ -163,12 +160,12 @@ First off, the assumption is that your Raspberry Pi is set-up and connected to t
 
     sudo nano /etc/nginx/nginx.conf
     
- And inside the http section add 
+ Inside the http section add: 
  
      # set client body size to 10GB 
      client_max_body_size 10000M;  
      
- Then do
+ Then do:
  
      sudo nano /etc/nginx/sites-available/default
      
@@ -182,7 +179,7 @@ And change it to:
      root /usr/share/nginx/www;
      index index.php index.html index.htm;
      
-Then find 
+Then find: 
 
      # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
      #
@@ -210,13 +207,13 @@ And remove the # in the lines below it to:
 
 Download the latest release of FamShare, extract it, and put all the content (not the build folder, but the content in the build folder) in   ```/usr/share/nginx/www ``` using [FileZilla](https://filezilla-project.org/) or any other FTP client.
 
-You should then give that folder permissions
+You should give the folder permissions:
 
     sudo chmod -R 775 /usr/share/nginx/www
 
 To configure FamShare, go to the *Configure* section.
 
-Everything should be up and running! To add an external hard drive to the Raspberry Pi so that you can store an unlimited amount of data read on.
+Everything should now be up and running! To add an external hard drive to the Raspberry Pi so that you can store an unlimited amount of data read on.
 
 **8. Set up an External Hard Drive**
 
@@ -226,30 +223,32 @@ Connect your hard drive to the Raspberry Pi and run
 
 to see if it is found.
 
-Find the partiton name of the hard drive
+Find the partiton name of the hard drive:
 
     sudo fdisk –l
 
-The partition should start with /dev (eg. /dev/sda1)
+The partition should start with /dev (eg. /dev/sda1).
 
 Format the disk to ext4 if it is not already in that format:
 
     sudo mkfs.ext4 /dev/MyPartitionNameFromAbove
 
-Mount the disk to the /mnt directory
+Mount the disk to the /mnt directory:
 
     sudo mount /dev/sda1 /mnt
  
- Give permission to that folder
+ Give permission to that folder:
  
      sudo chmod 775 /mnt
  
- Then to mount the drive at boot
+ Then to mount the drive at boot:
  
      sudo nano /etc/fstab
  
- And add 
+ And add: 
  
      /dev/MyPartitionNameFromAbove     /mnt     ext4     defaults     0     0
  
- You should now be good to go! 
+ You should now be ready to go!
+ 
+ For any remaining questions, feel free to contact me!
