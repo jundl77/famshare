@@ -219,7 +219,8 @@ module.exports = function (grunt) {
                     archive: 'build/famshare.zip'
                 },
                 files: [
-                    {src: ['build/**'], dest: '/'} // includes files in path and its subdirs
+                    // includes files in path and its subdirs
+                    {src: ['build/**', '!build/famshare.zip', '!build/.DS_Store'], dest: '/'}
                 ]
             }
         },
