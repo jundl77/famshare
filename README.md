@@ -115,3 +115,14 @@ Change the directories where uploaded files are saved:
    ```  /etc/nginx/nginx.conf   ```  on the server
 
 ## Set up FamShare on a Raspberry Pi
+
+Although this tutorial focuses on the Raspberry Pi, it is essentially the same on any Linux system. 
+
+First off, the assumption is that your Raspberry Pi is set-up and connected to the internet with a static IP and that port-forwarding is working. If you cannot port-forward, then unfortunetaly you cannot host a server at your home.
+
+**0. SSH into your Raspberry Pi**
+
+**1. Update your Raspberry PI**
+
+     sudo apt-get update  
+     sudo apt-get upgrade
