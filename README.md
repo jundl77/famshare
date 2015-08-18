@@ -23,7 +23,9 @@ Max upload size is configurable - though it is 10GB by default.
 
 ## Set Up
 
-Just download the latest release and put it in the root directory of your web server.
+Download the latest release and put it in the root directory of your web server.
+
+You also need to install PHP-GD if it is not already installed, as FamShare needs it to run properly.
 
 At the end of this page you can find a detailed tutorial on how to set up FamShare with [Nginx](https://en.wikipedia.org/wiki/Nginx) and PHP on a [Raspberry Pi](https://www.raspberrypi.org/) and connect it to an external hard drive.  
 
@@ -207,6 +209,10 @@ And remove the # in the lines below it to:
 **7. Set up FamSahre**
 
 Download the latest release of FamShare, extract it, and put all the content (not the build folder, but the content in the build folder) in   ```/usr/share/nginx/www ``` using [FileZilla](https://filezilla-project.org/) or any other FTP client.
+
+You should then give that folder permissions
+
+    sudo chmod -R 775 /usr/share/nginx/www
 
 To configure FamShare, go to the *Configure* section.
 
