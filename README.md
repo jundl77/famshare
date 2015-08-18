@@ -141,13 +141,13 @@ First off, the assumption is that your Raspberry Pi is set-up and connected to t
 
     sudo apt-get install php5-fpm
     
-**4. Set up PHP**
+**4. Configure PHP**
 
     sudo nano /etc/php5/fpm/php.ini
     
  Find    ```  cgi.fix_pathinfo   ```,  uncomment it and set it to 0.
  
- Find the following variables and change them. They all affect upload limits. They are set to allow file uploads up to 10GB (as does FamShare by default). You can change that however if you wish - if so, go to the *Configure* section under *Change Max File Upload Size*. The times are given in seconds and the sizes in megabytes.
+ Find the following variables in the file and change them to the following. They all affect upload limits. They are set to allow file uploads up to 10GB (as does FamShare by default). To set your own size, go to the *Configure* section under *Change Max File Upload Size*. The times are given in seconds and the sizes in megabytes.
  
  ```
  max_input_time=36000
@@ -156,3 +156,5 @@ First off, the assumption is that your Raspberry Pi is set-up and connected to t
  upload_max_filesize=10000M
  max_file_uploads=100
  ```
+
+**5. Configure Nginx**
