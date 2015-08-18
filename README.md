@@ -158,3 +158,92 @@ First off, the assumption is that your Raspberry Pi is set-up and connected to t
  ```
 
 **5. Configure Nginx**
+
+    sudo nano /etc/nginx/nginx.conf
+    
+ And inside the http section add 
+ 
+     # set client body size to 10GB 
+     client_max_body_size 10000M;  
+     
+ Then do
+ 
+     sudo nano /etc/nginx/sites-available/default
+     
+ Find the following lines:
+ 
+     root /usr/share/nginx/www;
+     index index.html index.htm;
+
+And change it to:
+
+     root /usr/share/nginx/www;
+     index index.php index.html index.htm;
+     
+Then find 
+
+     # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+     #
+     # location ~ \.php$ {
+     
+And remove the # in the lines below it to:
+
+    location ~ \.php$ {
+       fastcgi_split_path_info ^(.+\.php)(/.+)$;
+       # NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+    
+       # With php5-cgi alone:
+       # fastcgi_pass 127.0.0.1:9000;
+       # With php5-fpm:
+       fastcgi_pass unix:/var/run/php5-fpm.sock;
+       fastcgi_index index.php;
+       include fastcgi_params;
+    }
+
+**6. Install PHP-GD**
+
+    sudo apt-get install php5-gd
+    
+**7. Set up FamSahre**
+
+Download the latest release of FamShare, extract it, and put all the content (not the build folder, but the content in the build folder) in   ```/usr/share/nginx/www ``` using [FileZilla](https://filezilla-project.org/) or any other FTP client.
+
+To configure FamShare, go to the *Configure* section.
+
+Everything should be up and running! To add an external hard drive to the Raspberry Pi so that you can store an unlimited amount of data read on.
+
+**8. Set up External Hard**
+
+Connect your hard drive to the Raspberry Pi and run
+
+    sudo blkid
+
+to see if it is found.
+
+Find the partiton name of the hard drive
+
+    sudo fdisk –l
+
+The partition should start with /dev (eg. /dev/sda1)
+
+Format the disk to ext4 if it is not already in that format:
+
+    sudo mkfs.ext4 /dev/MyPartitionNameFromAbove
+
+Mount the disk to the /mnt directory
+
+    sudo mount /dev/sda1 /mnt
+ 
+ Give permission to that folder
+ 
+     sudo chmod 775 /mnt
+ 
+ Then to mount the drive at boot
+ 
+     sudo nano /etc/fstab
+ 
+ And add 
+ 
+     /dev/MyPartitionNameFromAbove     /mnt     ext4     defaults     0     0
+ 
+ You should now be good to go! 
