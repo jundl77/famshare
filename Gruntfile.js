@@ -1,3 +1,6 @@
+var pjson = require('./package.json');
+var version = pjson.version;
+
 module.exports = function (grunt) {
 
     grunt.initConfig({
@@ -216,11 +219,11 @@ module.exports = function (grunt) {
         compress: {
             main: {
                 options: {
-                    archive: 'build/famshare.zip'
+                    archive: 'build/famshare-' + version +'.zip'
                 },
                 files: [
                     // includes files in path and its subdirs
-                    {src: ['build/**', '!build/famshare.zip', '!build/.DS_Store'], dest: '/'}
+                    {src: ['build/**', '!build/famshare-' + version + '.zip', '!build/.DS_Store'], dest: '/'}
                 ]
             }
         },
