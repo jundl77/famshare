@@ -218,7 +218,7 @@ To configure FamShare, go to the *Configure* section.
 
 Everything should be up and running! To add an external hard drive to the Raspberry Pi so that you can store an unlimited amount of data read on.
 
-**8. Set up External Hard**
+**8. Set up an External Hard Drive**
 
 Connect your hard drive to the Raspberry Pi and run
 
