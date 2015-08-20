@@ -237,14 +237,18 @@
       font-size: 13px;
       min-width: 100%;
       max-width: 100%;
-      padding: 2em 1em;
+      padding: 2em 1.5em;
       text-align: center;
       color: rgba(0, 0, 0, 0.9);
       line-height: 150%; }
       .dropzone .dz-preview .dz-details .dz-size {
-        margin-bottom: 1em;
-        font-size: 16px; }
+          margin-top: 0.5em;
+        margin-bottom: 0.5em;
+        font-size: 16px;
+      font-family: OpenSans, sans-serif;}
       .dropzone .dz-preview .dz-details .dz-filename {
+          font-size: 14px;
+          font-family: OpenSans, sans-serif;
         white-space: nowrap; }
         .dropzone .dz-preview .dz-details .dz-filename:hover span {
           border: 1px solid rgba(200, 200, 200, 0.8);

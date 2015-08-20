@@ -172,7 +172,7 @@ $(document).ready(function() {
                     }, 100)
                 });
                 $("#currentDirText").animate({
-                    width: "36.25em"
+                    width: "32.5em"
                 }, 1000);
 
                 document.getElementById("newFolderTextInput").value = '';
@@ -187,7 +187,7 @@ $(document).ready(function() {
                     marginLeft: "1em"
                 }, 1000);
                 $("#currentDirText").animate({
-                    width: "25em"
+                    width: "21.25em"
                 }, 1000)
             });
 
