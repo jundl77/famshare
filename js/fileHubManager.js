@@ -160,7 +160,7 @@ function showCurrentFilesHelper(fileArray) {
         var file = fileArray[i];
         var fileName = file.name;
         var fileSize = file.size;
-        var fileThumbData = file.thumb_data;
+        //var fileThumbData = file.thumb_data;
         var isImg = file.is_image;
 
         var path = $("#currentDirText").text() + fileName;
@@ -190,9 +190,10 @@ function showCurrentFilesHelper(fileArray) {
         var childDivs = templateObj.children;
         for (var j = 0; j < childDivs.length; j++) {
             var childDiv = childDivs[j];
-            if (childDiv.classList.contains("dz-image") && fileThumbData !== null) {
+            if (childDiv.classList.contains("dz-image") /*&& fileThumbData !== null*/) {
                 var img = childDiv.getElementsByTagName('img')[0];
-                img.src = "data:image/png;base64," + fileThumbData;
+                //img.src = "data:image/png;base64," + fileThumbData;
+                loadThumbnail(img, path);
             }
 
             // Add file info if it is not an image
@@ -409,6 +410,28 @@ function removeByAttr(arr, attr, value) {
         }
     }
     return arr;
+}
+
+function loadThumbnail(img, path) {
+    var postData = {};
+    postData['file'] = path;
+
+    // post the dataUrl to php
+    $.ajax({
+        url: "php/thumbnailHandler.php",
+        type: "POST",
+        dataType : 'json',
+        data: postData,
+        success: function (response) {
+            if (response['state'] === "success") {
+                var thumbnail = JSON.parse(response['content']);
+                img.src = "data:image/png;base64," + thumbnail['thumb_data'];
+            } else {
+                flashRed();
+                $("#statusText").text("An error occurred while deleting a directory: " + response['content']);
+            }
+        }
+    });
 }
 
 /**

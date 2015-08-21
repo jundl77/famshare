@@ -197,13 +197,13 @@ function getFilesInFolder($dataPath, $thumbPath) {
                 $obj['name'] = $file;
                 $obj['size'] = filesize($newDataPath);
                 if ($correctExt) {
-                    $obj['thumb_data'] = base64_encode(file_get_contents($newThumbPath));
+                    //$obj['thumb_data'] = base64_encode(file_get_contents($newThumbPath));
                     $obj['is_image'] = true;
                 } else if (is_file($ICON_FOLDER . $fileExt . ".png")) {
-                    $obj['thumb_data'] = base64_encode(file_get_contents($ICON_FOLDER . $fileExt . ".png"));
+                    //$obj['thumb_data'] = base64_encode(file_get_contents($ICON_FOLDER . $fileExt . ".png"));
                     $obj['is_image'] = false;
                 } else {
-                    $obj['thumb_data'] = base64_encode(file_get_contents($ICON_FOLDER . "_blank.png"));
+                    //$obj['thumb_data'] = base64_encode(file_get_contents($ICON_FOLDER . "_blank.png"));
                     $obj['is_image'] = false;
                 }
 
