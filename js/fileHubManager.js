@@ -160,7 +160,6 @@ function showCurrentFilesHelper(fileArray) {
         var file = fileArray[i];
         var fileName = file.name;
         var fileSize = file.size;
-        //var fileThumbData = file.thumb_data;
         var isImg = file.is_image;
 
         var path = $("#currentDirText").text() + fileName;
@@ -190,9 +189,8 @@ function showCurrentFilesHelper(fileArray) {
         var childDivs = templateObj.children;
         for (var j = 0; j < childDivs.length; j++) {
             var childDiv = childDivs[j];
-            if (childDiv.classList.contains("dz-image") /*&& fileThumbData !== null*/) {
+            if (childDiv.classList.contains("dz-image")) {
                 var img = childDiv.getElementsByTagName('img')[0];
-                //img.src = "data:image/png;base64," + fileThumbData;
                 loadThumbnail(img, path);
             }
 
@@ -412,6 +410,13 @@ function removeByAttr(arr, attr, value) {
     return arr;
 }
 
+/**
+ * Loads the thumbnail of the image 'img' which is located at the path 'path'. 'path' is just the local path on the
+ * client path (location within the filehub)
+ *
+ * @param img the image to get the thumbnail for
+ * @param path the path of the image
+ */
 function loadThumbnail(img, path) {
     var postData = {};
     postData['file'] = path;
@@ -428,7 +433,7 @@ function loadThumbnail(img, path) {
                 img.src = "data:image/png;base64," + thumbnail['thumb_data'];
             } else {
                 flashRed();
-                $("#statusText").text("An error occurred while deleting a directory: " + response['content']);
+                $("#statusText").text("An error occurred while loading a thumbnail: " + response['content']);
             }
         }
     });
