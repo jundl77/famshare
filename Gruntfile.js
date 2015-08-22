@@ -59,6 +59,9 @@ module.exports = function (grunt) {
                     // error screen
                     'build/css/errorScreen/errorScreen.min.css': ['css/errorScreen/errorScreen.css'],
 
+                    // 404 screen
+                    'build/css/404Screen/404Screen.min.css': ['css/404Screen/404Screen.css'],
+
                     // includes
                     'build/css/includes/includes.min.css': ['css/includes/includes.css'],
                     'build/css/includes/header.min.css': ['css/includes/header.css']
@@ -156,6 +159,15 @@ module.exports = function (grunt) {
                 replacements: [{
                     from: 'css/errorScreen/errorScreen.css',
                     to: 'css/errorScreen/errorScreen.min.css'
+                }]
+            },
+
+            screen404: {
+                src: ['404Screen.php'],
+                dest: 'build/',
+                replacements: [{
+                    from: 'css/404Screen/404Screen.css',
+                    to: 'css/404Screen/404Screen.min.css'
                 }]
             },
 
