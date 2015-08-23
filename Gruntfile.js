@@ -9,7 +9,7 @@ module.exports = function (grunt) {
 
         concat: {
             js_filehub: {
-                src: ['js/fileHubManager.js', 'js/filehub.js', 'js/api/dropzone.js'],
+                src: ['js/fileHubManager.js', 'js/filehub.js', 'js/api/dropzone.js', 'js/api/exif.js'],
                 dest: 'build_temp/js/filehub.js'
             },
 
@@ -134,6 +134,9 @@ module.exports = function (grunt) {
                     to: 'filehub_319.min'
                 }, {
                     from: '<script type="text/javascript" src="js/api/dropzone.js"></script>',
+                    to: ''
+                }, {
+                    from: '<script type="text/javascript" src="js/api/exif.js"></script>',
                     to: ''
                 }, {
                     from: '<link rel="stylesheet" href="css/dropzone.css">',

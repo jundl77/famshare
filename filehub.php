@@ -84,6 +84,7 @@ href="css/filehub/filehub_420.css">
       href="css/filehub/filehub_319.css">
 <script type="text/javascript" src="config/client/client_config.js"></script>
 <script type="text/javascript" src="js/api/dropzone.js"></script>
+<script type="text/javascript" src="js/api/exif.js"></script>
 <script type="text/javascript" src="js/api/jquery-2.1.1.js"></script>
 <script type="text/javascript" src="js/fileHubManager.js"></script>
 <script type="text/javascript" src="js/filehub.js"></script>
