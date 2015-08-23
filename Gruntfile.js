@@ -44,7 +44,7 @@ module.exports = function (grunt) {
                     // about css
                     'build/css/filehub/filehub.min.css': ['build_temp/css/filehub.css'],
                     'build/css/filehub/filehub_319.min.css': ['css/filehub/filehub_319.css'],
-                    'build/css/filehub/filehub_420.min.css': ['css/filehub/filehub_420.css'],
+                    'build/css/filehub/filehub_430.min.css': ['css/filehub/filehub_430.css'],
                     'build/css/filehub/filehub_479.min.css': ['css/filehub/filehub_479.css'],
                     'build/css/filehub/filehub_767.min.css': ['css/filehub/filehub_767.css'],
                     'build/css/filehub/filehub_960.min.css': ['css/filehub/filehub_960.css'],
@@ -127,8 +127,8 @@ module.exports = function (grunt) {
                     from: 'filehub_479',
                     to: 'filehub_479.min'
                 }, {
-                    from: 'filehub_420',
-                    to: 'filehub_420.min'
+                    from: 'filehub_430',
+                    to: 'filehub_430.min'
                 }, {
                     from: 'filehub_319',
                     to: 'filehub_319.min'

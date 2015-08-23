@@ -32,6 +32,15 @@
     font-family: OpenSans, sans-serif;
 }
 
+#mobileFailText {
+    display: none;
+    text-align: center;
+    margin-top: 2em;
+    font-size: 2em;
+    color: #607D8B;
+    font-family: Dinobl, sans-serif;
+}
+
 #seperator {
     display: none;
 }
