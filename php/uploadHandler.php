@@ -91,6 +91,8 @@ if (!empty($_FILES)) {
 }
 
 function make_thumb($src, $dest, $fileExt, $desired_width) {
+    $exif = exif_read_data($src, 'IFD0');
+
     /* read the source image */
     if ($fileExt == 'gif') {
         $source_image = imagecreatefromgif($src);
@@ -116,6 +118,19 @@ function make_thumb($src, $dest, $fileExt, $desired_width) {
 
     /* copy source image at a resized size */
     imagecopyresampled($virtual_image, $source_image, 0, 0, 0, 0, $desired_width, $desired_height, $width, $height);
+
+    // Fix Orientation
+    switch($exif['Orientation']) {
+        case 3:
+            $virtual_image = imagerotate($virtual_image, 180, 0);
+            break;
+        case 6:
+            $virtual_image = imagerotate($virtual_image, -90, 0);
+            break;
+        case 8:
+            $virtual_image = imagerotate($virtual_image, 90, 0);
+            break;
+    }
 
     /* create the physical thumbnail image to its destination */
     if ($fileExt == 'gif') {
