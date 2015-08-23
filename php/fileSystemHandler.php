@@ -62,7 +62,6 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
     }
 
     $path = sanitize($_POST["path"]);
-
     if (!$path) {
         echo json_encode(array('state' => "error", 'content' => "Error, invalid folder name"));
         die();
@@ -88,14 +87,18 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
         exit;
     }
 
-    $path = strip_tags($_POST["path"]);
+    $path = sanitize($_POST["path"]);
+    if (!$path) {
+        echo json_encode(array('state' => "error", 'content' => "Error, unable to delete folder"));
+        die();
+    }
 
     try {
         deleteDir($rootDir . $path);
         deleteDir($thumbDir . $path);
-        echo json_encode(array('state' => "success", 'content' => "Deleted folder successfully."));
+        echo json_encode(array('state' => "success", 'content' => "Deleted folder successfully"));
     } catch (Exception $e) {
-        echo json_encode(array('state' => "error", 'content' => "Error, unable to delete folder: " . $e));
+        echo json_encode(array('state' => "error", 'content' => "Error, unable to delete folder"));
     }
 } else if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] == "deleteFile") {
     $configs = $GLOBALS["configs"];
@@ -110,6 +113,11 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
     }
 
     $path = sanitize($_POST["path"]);
+    if (!$path) {
+        echo json_encode(array('state' => "error", 'content' => "Error, unable to delete file"));
+        die();
+    }
+
     $successNormal = unlink($rootDir . $path);
 
     $successThumbnail = true;
@@ -120,7 +128,7 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
     if ($successNormal && $successThumbnail) {
         echo json_encode(array('state' => "success", 'content' => "Deleted file successfully."));
     } else {
-        echo json_encode(array('state' => "error", 'content' => "Error, unable to delete file: " . $rootDir . $path));
+        echo json_encode(array('state' => "error", 'content' => "Error, unable to delete file"));
     }
 }
 

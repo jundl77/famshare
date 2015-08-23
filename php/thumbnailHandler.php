@@ -13,6 +13,11 @@ if (isset($_POST["file"]) && !empty($_POST["file"])) {
     }
 
     $file = sanitize($_POST["file"]);
+    if (!$file) {
+        echo json_encode(array('state' => "error", 'content' => "Error, unable to load thumbnail."));
+        die();
+    }
+
     $file = substr($file, 1);
 
     $exts = array('jpg', 'jpeg', 'gif', 'png', 'wbmp');
