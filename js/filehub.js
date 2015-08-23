@@ -113,6 +113,9 @@ function flashRed() {
 }
 
 $(document).ready(function() {
+
+    $(document).foundation();
+
     document.addEventListener("dragenter", dragenterDragleave);
     document.addEventListener("dragleave", dragenterDragleave);
 
@@ -201,5 +204,9 @@ $(document).ready(function() {
     });
     $("#newFolderButton").mouseleave(function() {
         $(this).css( 'cursor', 'default' );
+    });
+
+    $("#viewModalClose").mousedown(function() {
+        $('#viewModal').foundation('reveal', 'close');
     });
 });
