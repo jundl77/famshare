@@ -8,7 +8,7 @@ Raspberry-Pi and host them through FamShare.
 
 ![](https://raw.githubusercontent.com/jundl77/FamShare/gh-pages/images/famshare-filhub.png)
 
-You can configure FamShare to fit your own needs, and it works out of the box. Although it is not the fastest,
+You can configure FamShare to fit your own needs, and it works out of the box. Although it is not perfect,
 (maybe you can help change that ;D ), it is password protected and easy to use. Great for the family!
 
 ## Features
