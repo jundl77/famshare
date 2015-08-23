@@ -27,17 +27,22 @@ if (!empty($_FILES)) {
     }
 
     $path = sanitize($_POST["filePath"]);
+    if (!$path) {
+        header('HTTP/1.1 500 Internal Server Error');
+        header('Content-type: text/plain');
+        exit("Invalid file path");
+    }
 
     foreach ($_FILES as $file) {
-        $file_name = $file['name'];
-        if (!preg_match_all("/^([\w ]*[.]*[(]*[)]*[-]*[\/]*)+$/", $file_name)) {
+        $file_name = sanitize($file['name']);
+        if (!$file_name) {
             header('HTTP/1.1 500 Internal Server Error');
             header('Content-type: text/plain');
             exit("Invalid file name");
         }
 
-        $file_size = $file['size'];
-        if (!preg_match_all("/^([\w ]*[.]*[\/]*)+$/", $file_size)) {
+        $file_size = sanitize($file['size']);
+        if (!$file_size) {
             header('HTTP/1.1 500 Internal Server Error');
             header('Content-type: text/plain');
             exit("Invalid file size");

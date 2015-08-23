@@ -134,7 +134,7 @@ function getDropzone() {
       url: null,
       method: "post",
       withCredentials: false,
-      parallelUploads: 2,
+      parallelUploads: gOptions.parallelUploads,
       uploadMultiple: false,
       maxFilesize: gOptions.maxFilesize,
       paramName: "file",

@@ -1,8 +1,8 @@
 <?php
 
 function sanitize($val) {
-    if (!preg_match_all("/^([\w ]*[.]*[(]*[)]*[-]*[\/]*)+$/", $val) && $val !== "") {
-        die("False credentials");
+    if (!preg_match_all("/^([\w ]*[.]*[(]*[)]*[-]*[\/]*[,]*[\x{00c0}-\x{00ff}]*)+$/", $val) && $val !== "") {
+        return false;
     }
 
     $val = trim($val);

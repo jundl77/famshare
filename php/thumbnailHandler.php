@@ -33,6 +33,6 @@ if (isset($_POST["file"]) && !empty($_POST["file"])) {
         $json_obj = json_encode($obj);
         echo json_encode(array('state' => "success", 'content' => $json_obj));
     } else {
-        echo json_encode(array('state' => "error", 'content' => "Unable to load thumbnail."));
+        echo json_encode(array('state' => "error", 'content' => "Error, unable to load thumbnail."));
     }
 }

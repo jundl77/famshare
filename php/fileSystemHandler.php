@@ -9,7 +9,7 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
     $rootDir = $configs["root_upload_dirs"]["upload_data"];
 
     if (!file_exists($rootDir)) {
-        echo json_encode(array('state' => "error", 'content' => "A root directory does not exist"));
+        echo json_encode(array('state' => "error", 'content' => "Error, a root directory does not exist"));
         exit;
     }
 
@@ -19,7 +19,7 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
     if ($jsonFileStructure != null) {
         echo json_encode(array('state' => "success", 'content' => $jsonFileStructure));
     } else {
-        echo json_encode(array('state' => "error", 'content' => "Unable to get file structure."));
+        echo json_encode(array('state' => "error", 'content' => "Error, unable to get file structure"));
     }
 } else if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] == "files") {
     $configs = $GLOBALS["configs"];
@@ -29,7 +29,7 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
     $thumbDir = $configs["root_upload_dirs"]["upload_data_thumb"];
 
     if (!file_exists($rootDir) || !file_exists($thumbDir)) {
-        echo json_encode(array('state' => "error", 'content' => "A root directory does not exist"));
+        echo json_encode(array('state' => "error", 'content' => "Error, a root directory does not exist"));
         exit;
     }
 
@@ -37,7 +37,7 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
     $thumbPath = $rootDir . sanitize($_POST["path"]);
 
     if (!file_exists($dataPath) || !file_exists($thumbPath)) {
-        echo json_encode(array('state' => "error", 'content' => "New path does not exist."));
+        echo json_encode(array('state' => "error", 'content' => "Error, new path does not exist"));
         exit;
     }
 
@@ -47,7 +47,7 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
     if ($jsonFiles != null) {
         echo json_encode(array('state' => "success", 'content' => $jsonFiles));
     } else {
-        echo json_encode(array('state' => "error", 'content' => "Unable to get files."));
+        echo json_encode(array('state' => "error", 'content' => "Error, unable to get files"));
     }
 } else if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] == "newFolder") {
     $configs = $GLOBALS["configs"];
@@ -57,11 +57,16 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
     $thumbDir = $configs["root_upload_dirs"]["upload_data_thumb"];
 
     if (!file_exists($rootDir) || !file_exists($thumbDir)) {
-        echo json_encode(array('state' => "error", 'content' => "A root directory does not exist"));
+        echo json_encode(array('state' => "error", 'content' => "Error, a root directory does not exist"));
         exit;
     }
 
     $path = sanitize($_POST["path"]);
+
+    if (!$path) {
+        echo json_encode(array('state' => "error", 'content' => "Error, invalid folder name"));
+        die();
+    }
 
     $successNormal = mkdir($rootDir . $path);
     $successThumbnail = mkdir($thumbDir . $path);
@@ -69,7 +74,7 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
     if ($successNormal && $successThumbnail) {
         echo json_encode(array('state' => "success", 'content' => "Created new folder"));
     } else {
-        echo json_encode(array('state' => "error", 'content' => "Unable to create new directory."));
+        echo json_encode(array('state' => "error", 'content' => "Error, unable to create new directory"));
     }
 } else if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] == "deleteFolder") {
     $configs = $GLOBALS["configs"];
@@ -79,7 +84,7 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
     $thumbDir = $configs["root_upload_dirs"]["upload_data_thumb"];
 
     if (!file_exists($rootDir) || !file_exists($thumbDir)) {
-        echo json_encode(array('state' => "error", 'content' => "A root directory does not exist"));
+        echo json_encode(array('state' => "error", 'content' => "Error, a root directory does not exist"));
         exit;
     }
 
@@ -90,7 +95,7 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
         deleteDir($thumbDir . $path);
         echo json_encode(array('state' => "success", 'content' => "Deleted folder successfully."));
     } catch (Exception $e) {
-        echo json_encode(array('state' => "error", 'content' => "Unable to delete folder: " . $e));
+        echo json_encode(array('state' => "error", 'content' => "Error, unable to delete folder: " . $e));
     }
 } else if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] == "deleteFile") {
     $configs = $GLOBALS["configs"];
@@ -100,7 +105,7 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
     $thumbDir = $configs["root_upload_dirs"]["upload_data_thumb"];
 
     if (!file_exists($rootDir) || !file_exists($thumbDir)) {
-        echo json_encode(array('state' => "error", 'content' => "A root directory does not exist"));
+        echo json_encode(array('state' => "error", 'content' => "Error, a root directory does not exist"));
         exit;
     }
 
@@ -115,7 +120,7 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
     if ($successNormal && $successThumbnail) {
         echo json_encode(array('state' => "success", 'content' => "Deleted file successfully."));
     } else {
-        echo json_encode(array('state' => "error", 'content' => "Unable to delete file: " . $rootDir . $path));
+        echo json_encode(array('state' => "error", 'content' => "Error, unable to delete file: " . $rootDir . $path));
     }
 }
 

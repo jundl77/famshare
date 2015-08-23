@@ -9,5 +9,6 @@ gOptions = {
 
     // Dropzone values -- used by the file upload API (dropzone) -- more config options are in js/api/dropzone.js
     maxFilesize: 10000,     //*, In mega byte
-    maxFiles: 100               //*
+    maxFiles: 1000,         //*
+    parallelUploads: 10     //*
 };

@@ -143,7 +143,7 @@ function showCurrentFiles() {
                 handleDeleteCrosses();
             } else {
                 flashRed();
-                $("#statusText").text("An error occurred while getting files: " + response['content']);
+                $("#statusText").text(response['content']);
             }
         }
     });
@@ -291,7 +291,7 @@ function addFolder(name) {
                 showCurrentDirectoryOnScreen();
             } else {
                 flashRed();
-                $("#statusText").text("An error occurred while creating a new directory: " + response['content']);
+                $("#statusText").text(response['content']);
             }
         }
     });
@@ -365,7 +365,7 @@ function deleteFolder(folder) {
                 showCurrentDirectoryOnScreen();
             } else {
                 flashRed();
-                $("#statusText").text("An error occurred while deleting a directory: " + response['content']);
+                $("#statusText").text(response['content']);
             }
         }
     });
@@ -392,7 +392,7 @@ function deleteFile(fileName) {
                 showCurrentDirectoryOnScreen();
             } else {
                 flashRed();
-                $("#statusText").text("An error occurred while deleting a directory: " + response['content']);
+                $("#statusText").text(response['content']);
             }
         }
     });
@@ -433,7 +433,7 @@ function loadThumbnail(img, path) {
                 img.src = "data:image/png;base64," + thumbnail['thumb_data'];
             } else {
                 flashRed();
-                $("#statusText").text("An error occurred while loading a thumbnail: " + response['content']);
+                $("#statusText").text(response['content']);
             }
         }
     });
