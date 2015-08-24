@@ -205,8 +205,4 @@ $(document).ready(function() {
     $("#newFolderButton").mouseleave(function() {
         $(this).css( 'cursor', 'default' );
     });
-
-    $("#viewModalClose").mousedown(function() {
-        $('#viewModal').foundation('reveal', 'close');
-    });
 });

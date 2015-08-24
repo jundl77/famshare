@@ -138,8 +138,7 @@ include("includes/header.php");
     <a class="close-reveal-modal" aria-label="Close">&#215;</a>
 </div>
 
-<script type="text/javascript" src="js/api/foundation.js"></script>
-<script type="text/javascript" src="js/api/foundation.reveal.js"></script>
+<script type="text/javascript" src="js/api/foundation.min.js"></script>
 
 <?php
 include("includes/bottom.php");
