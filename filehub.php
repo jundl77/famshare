@@ -70,6 +70,7 @@ set_error_handler('error_found');
 include("includes/top.php");
 ?>
 
+<link rel="stylesheet" href="css/foundation.css">
 <link rel="stylesheet" href="css/dropzone.css">
 <link type="text/css" rel="stylesheet" href="css/filehub/filehub.css"/>
 <link rel="stylesheet" type="text/css" media="screen and (min-width:768px) and (max-width:960px)"
@@ -82,10 +83,10 @@ include("includes/top.php");
 href="css/filehub/filehub_430.css">
 <link rel="stylesheet" type="text/css" media="screen and (max-width:319px)"
       href="css/filehub/filehub_319.css">
+<script type="text/javascript" src="js/api/jquery-2.1.1.js"></script>
 <script type="text/javascript" src="config/client/client_config.js"></script>
 <script type="text/javascript" src="js/api/dropzone.js"></script>
 <script type="text/javascript" src="js/api/exif.js"></script>
-<script type="text/javascript" src="js/api/jquery-2.1.1.js"></script>
 <script type="text/javascript" src="js/fileHubManager.js"></script>
 <script type="text/javascript" src="js/filehub.js"></script>
 <title>FamShare - Filehub</title>
@@ -131,6 +132,13 @@ include("includes/header.php");
 <form action="php/downloadHandler.php" method="post" name="downloadForm" id="downloadForm">
     <input type="hidden" name="filePath" value="">
 </form>
+
+<div id="viewModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+
+    <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+</div>
+
+<script type="text/javascript" src="js/api/foundation.min.js"></script>
 
 <?php
 include("includes/bottom.php");

@@ -27,10 +27,10 @@ if (!empty($_FILES)) {
     }
 
     $path = sanitize($_POST["filePath"]);
-    if (!$path) {
+    if ($path == false && !empty($val)) {
         header('HTTP/1.1 500 Internal Server Error');
         header('Content-type: text/plain');
-        exit("Invalid file path");
+        exit("Invalid file path: " . $path . ".");
     }
 
     foreach ($_FILES as $file) {

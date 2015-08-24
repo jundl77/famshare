@@ -211,7 +211,8 @@ function showCurrentFilesHelper(fileArray) {
         (function(filePath, obj, crossIn, isImgIn) {
             var childDivs = obj.children;
             templateObj.addEventListener('click', function (event) {
-                downloadFile(filePath);
+                //downloadFile(filePath);
+                $('#viewModal').foundation('reveal','open');
             });
             if (isImgIn) {
                 templateObj.addEventListener('mouseover', function (event) {

@@ -113,6 +113,9 @@ function flashRed() {
 }
 
 $(document).ready(function() {
+
+    $(document).foundation();
+
     document.addEventListener("dragenter", dragenterDragleave);
     document.addEventListener("dragleave", dragenterDragleave);
 

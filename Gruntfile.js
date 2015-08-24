@@ -14,7 +14,7 @@ module.exports = function (grunt) {
             },
 
             css_filehub: {
-                src: ['css/filehub/filehub.css', 'css/dropzone.css'],
+                src: ['css/filehub/filehub.css', 'css/dropzone.css', 'css/foundation.css'],
                 dest: 'build_temp/css/filehub.css'
             }
         },
@@ -139,6 +139,9 @@ module.exports = function (grunt) {
                     from: '<script type="text/javascript" src="js/api/exif.js"></script>',
                     to: ''
                 }, {
+                    from: '<link rel="stylesheet" href="css/foundation.css">',
+                    to: ''
+                }, {
                     from: '<link rel="stylesheet" href="css/dropzone.css">',
                     to: ''
                 }, {
@@ -210,6 +213,7 @@ module.exports = function (grunt) {
                     {expand: true, src: ['includes/**', '!includes/header.php', '!includes/top.php'], dest: 'build/'},
 
                     // Files
+                    {expand: true, src: ['js/api/foundation.min.js'], dest: 'build/'},
                     {expand: true, src: ['images/file_icons/LICENSE'], dest: 'build/'},
                     {expand: true, src: ['images/file_icons/README.md'], dest: 'build/'},
                     {expand: true, src: ['LICENSE'], dest: 'build/'},
