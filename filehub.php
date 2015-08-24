@@ -134,7 +134,18 @@ include("includes/header.php");
 </form>
 
 <div id="viewModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-
+    <div id="mainSectionModal">
+        <div id="backButtonModal"><img src="images/back-arrow.png"></div>
+        <video id="mediaView" preload controls>
+            <source src="ka300.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div id="forwardButtonModal"><img src="images/forward-arrow.png"></div>
+    </div>
+    <div id="horizontal_seperator"></div>
+    <div id="downloadButtonModal">
+        <div id="downloadButtonModalText">Download</div>
+    </div>
     <a class="close-reveal-modal" aria-label="Close">&#215;</a>
 </div>
 

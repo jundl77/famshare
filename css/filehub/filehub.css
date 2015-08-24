@@ -41,10 +41,6 @@
     font-family: Dinobl, sans-serif;
 }
 
-#seperator {
-    display: none;
-}
-
 /* ------------------------------------------------------------------------------------------------------  */
 /* ----------------------------------------------- TOOLBAR ----------------------------------------------- */
 /* ------------------------------------------------------------------------------------------------------- */
@@ -73,12 +69,7 @@
 
 #backButton img {
     display: block;
-}
-
-#backButton img {
     width: 100%;
-}
-#backButton img {
     height: 100%;
 }
 
@@ -93,12 +84,7 @@
 
 #forwardButton img {
     display: block;
-}
-
-#forwardButton img {
     width: 100%;
-}
-#forwardButton img {
     height: 100%;
 }
 
@@ -350,4 +336,84 @@
 /* ------------------------------------------------------------------------------------------------------- */
 #viewModal {
 
+}
+
+#mainSectionModal {
+    position: relative;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 39em;
+}
+
+#backButtonModal {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 9em;
+    width: 2em;
+    height: 2em;
+}
+
+#backButtonModal img {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+#mediaView {
+    position: relative;
+    display: inline-block;
+    margin-left: 2em;
+    margin-right: 2em;
+    height: 20em;
+    width: 30em;
+}
+
+#forwardButtonModal {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 9em;
+    width: 2em;
+    height: 2em;
+}
+
+#forwardButtonModal img {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+#horizontal_seperator {
+    display: block;
+    border-top: 1px solid #9E9E9E;
+    width: 100%;
+    margin-top: 0.8em;
+    margin-bottom: 1em;
+}
+
+#downloadButtonModal {
+    position: relative;
+    display: block;
+    margin-top: 0em;
+    float: right;
+    width: 8em;
+    height: 2em;
+    background-color: transparent;
+    border: 1px solid #607D8B;
+    border-radius: 2px 2px;
+}
+
+#downloadButtonModalText {
+    position: relative;
+    display: block;
+    margin-top: 0.25em;
+    margin-right: auto;
+    margin-left: auto;
+    float: right;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 1em;
+    color: #607D8B;
+    font-family: OpenSans, sans-serif;
 }
