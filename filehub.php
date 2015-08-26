@@ -137,7 +137,7 @@ include("includes/header.php");
     <div id="mainSectionModal">
         <div id="backButtonModal"><img src="images/back-arrow.png"></div>
         <video id="mediaView" preload="none" controls>
-            <source src="php/videoStreamHandler.php" type="video/mp4">
+            <source id="mp4Source" src="php/videoStreamHandler.php" type="video/mp4">
             Your browser does not support the video tag.
         </video>
         <div id="forwardButtonModal"><img src="images/forward-arrow.png"></div>

@@ -1,11 +1,33 @@
 <?php
 include "../includes/sanitize.php";
+$configs = include('../config/server/server_config.php');
 
-$file = '../upload_data/ka300.mp4';
+if (isset($_GET["file"]) && !empty($_GET["file"])) {
+    $configs = $GLOBALS["configs"];
 
-$stream = new VideoStream($file);
-$stream->start();
-exit;
+    // Get root directories
+    $rootDir = $configs["root_upload_dirs"]["upload_data"];
+
+    if (!file_exists($rootDir)) {
+        die();
+    }
+
+    $file = sanitize($_GET["file"]);
+    if (!$file) {
+        die();
+    }
+
+    $file = substr($file, 1);
+    $fileExt = strtolower(end(explode('.', $file)));
+
+    $full_dir = $rootDir . $file;
+
+    if (file_exists($full_dir) && $fileExt == 'mp4') {
+        $stream = new VideoStream($full_dir);
+        $stream->start();
+        exit;
+    }
+}
 
 /**
  * Description of VideoStream

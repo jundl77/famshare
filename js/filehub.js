@@ -1,5 +1,4 @@
 var dragCount = 0;
-var fileAdded = false;
 var newFolderInput = false;
 
 /**

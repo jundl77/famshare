@@ -209,29 +209,52 @@ function showCurrentFilesHelper(fileArray) {
 
         // Add events (mouse over, mouse leave and click) and hide file size and name by default
         (function(filePath, obj, crossIn, isImgIn) {
+            //var dzDetails = templateObj.getElementsByClassName("dz-details");
+
             var childDivs = obj.children;
-            templateObj.addEventListener('click', function (event) {
-                //downloadFile(filePath);
-                $('#viewModal').foundation('reveal','open');
-            });
-            if (isImgIn) {
-                templateObj.addEventListener('mouseover', function (event) {
-                    for (var j = 0; j < childDivs.length; j++) {
-                        var childDiv = childDivs[j];
-                        if (childDiv.classList.contains("dz-details")) {
-                            childDiv.style.visibility = "visible";
-                        }
-                    }
-                });
-                templateObj.addEventListener('mouseleave', function (event) {
-                    for (var j = 0; j < childDivs.length; j++) {
-                        var childDiv = childDivs[j];
-                        if (childDiv.classList.contains("dz-details")) {
-                            childDiv.style.visibility = "hidden";
-                        }
-                    }
-                });
+            var dzDetailsDiv;
+            var dzDownloadDiv;
+            for (var j = 0; j < childDivs.length; j++) {
+                var childDiv = childDivs[j];
+                if (childDiv.classList.contains("dz-details")) {
+                    dzDetailsDiv = childDiv;
+                } else if (childDiv.classList.contains("dz-download")) {
+                    dzDownloadDiv = childDiv;
+                }
             }
+
+            dzDetailsDiv.addEventListener('click', function (event) {
+                if (loadViewMedia(filePath)) {
+                    $('#viewModal').foundation('reveal','open');
+                }
+            });
+            dzDownloadDiv.addEventListener('click', function (event) {
+                downloadFile(filePath);
+            });
+            templateObj.addEventListener('mouseover', function (event) {
+                for (var j = 0; j < childDivs.length; j++) {
+                    var childDiv = childDivs[j];
+                    if (childDiv.classList.contains("dz-details") && isImgIn) {
+                        childDiv.style.visibility = "visible";
+                    }
+
+                    if (childDiv.classList.contains("dz-download")) {
+                        childDiv.style.visibility = "visible";
+                    }
+                }
+            });
+            templateObj.addEventListener('mouseleave', function (event) {
+                for (var j = 0; j < childDivs.length; j++) {
+                    var childDiv = childDivs[j];
+                    if (childDiv.classList.contains("dz-details") && isImgIn) {
+                        childDiv.style.visibility = "hidden";
+                    }
+
+                    if (childDiv.classList.contains("dz-download")) {
+                        childDiv.style.visibility = "hidden";
+                    }
+                }
+            });
             crossIn.addEventListener('click', function (event) {
                 if (editing) {
                     deleteFile(filePath);
@@ -438,6 +461,26 @@ function loadThumbnail(img, path) {
             }
         }
     });
+}
+
+/**
+ *
+ * @param filePath
+ */
+function loadViewMedia(filePath) {
+    var fileExtension = filePath.toLowerCase().split('.').pop();
+    var imgExtensions = ['jpg', 'jpeg', 'gif', 'png', 'wbmp'];
+    if (fileExtension === "mp4") {
+        var player = document.getElementById('mediaView');
+        var mp4Vid = document.getElementById('mp4Source');
+        $(mp4Vid).attr('src', "php/videoStreamHandler.php?file=" + filePath);
+        player.load();
+        return true;
+    } else if ($.inArray(fileExtension, imgExtensions)) {
+        return true;
+    }
+
+    return false;
 }
 
 /**

@@ -34,7 +34,7 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
     }
 
     $dataPath = $rootDir . sanitize($_POST["path"]);
-    $thumbPath = $rootDir . sanitize($_POST["path"]);
+    $thumbPath = $thumbDir . sanitize($_POST["path"]);
 
     if (!file_exists($dataPath) || !file_exists($thumbPath)) {
         echo json_encode(array('state' => "error", 'content' => "Error, new path does not exist"));
