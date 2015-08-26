@@ -197,22 +197,19 @@ function getFileSystem($path, $fileSystem) {
 function getFilesInFolder($dataPath, $thumbPath) {
     $result  = array();
     $exts = array('jpg', 'jpeg', 'gif', 'png', 'wbmp');
-    $ICON_FOLDER = "../images/file_icons/";
     $files = scandir($dataPath);
 
     if (false !== $files) {
         foreach ($files as $file) {
             $newDataPath = $dataPath . $file;
-            $newThumbPath = $thumbPath .$file;
+            $newThumbPath = $thumbPath . $file;
             if ( '.' != $file && '..' != $file && $file != ".DS_Store" && !is_dir($newDataPath)) {
                 $fileExt = strtolower(end(explode('.', $file)));
                 $correctExt = in_array($fileExt, $exts);
                 $obj['name'] = $file;
                 $obj['size'] = filesize($newDataPath);
-                if ($correctExt) {
+                if ($correctExt && file_exists($newThumbPath)) {
                     $obj['is_image'] = true;
-                } else if (is_file($ICON_FOLDER . $fileExt . ".png")) {
-                    $obj['is_image'] = false;
                 } else {
                     $obj['is_image'] = false;
                 }

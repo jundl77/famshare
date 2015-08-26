@@ -136,8 +136,8 @@ include("includes/header.php");
 <div id="viewModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
     <div id="mainSectionModal">
         <div id="backButtonModal"><img src="images/back-arrow.png"></div>
-        <video id="mediaView" preload controls>
-            <source src="ka300.mp4" type="video/mp4">
+        <video id="mediaView" preload="none" controls>
+            <source src="php/videoStreamHandler.php" type="video/mp4">
             Your browser does not support the video tag.
         </video>
         <div id="forwardButtonModal"><img src="images/forward-arrow.png"></div>
