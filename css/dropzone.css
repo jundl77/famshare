@@ -413,11 +413,9 @@
 .dz-download {
     position: relative;
     visibility: hidden;
-    width: 90%;
+    width: 100%;
     margin-top: -2em;
     margin-bottom: 1em;
-    margin-left: 5%;
-    margin-right: 5%;
     height: 2em;
     z-index: 999;
     background: rgba(96, 125, 139, .5);
