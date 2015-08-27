@@ -9,13 +9,15 @@ if (isset($_POST["filePath"]) && !empty($_POST["filePath"])) {
     $rootDir = $configs["root_upload_dirs"]["upload_data"];
 
     if (!file_exists($rootDir)) {
-        die("A root directory does not exist");
+        header("Location: ../errorScreen.php");
+        die();
     }
 
     $fullPath = $rootDir . sanitize($_POST["filePath"]);
 
     if (!is_file($fullPath)) {
-        die("File does not exist");
+        header("Location: ../errorScreen.php");
+        die();
     }
 
     $fileNameParts = explode("/", $fullPath);

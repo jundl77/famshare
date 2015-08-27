@@ -4,6 +4,8 @@
  * which is used as a map to track the current directory
  */
 var currentDir = null;
+var currentFiles = null;
+var currentViewObject = null;
 var fileSystem;
 var forwardDir = null;
 var backDir = null;
@@ -137,8 +139,8 @@ function showCurrentFiles() {
         data: postData,
         success: function (response) {
             if (response['state'] === "success") {
-                var files = JSON.parse(response['content']);
-                showCurrentFilesHelper(files);
+                currentFiles = JSON.parse(response['content']);
+                showCurrentFilesHelper(currentFiles);
                 doneLoadingFiles = true;
                 handleDeleteCrosses();
             } else {
@@ -224,7 +226,7 @@ function showCurrentFilesHelper(fileArray) {
             }
 
             dzDetailsDiv.addEventListener('click', function (event) {
-                if (loadViewMedia(filePath)) {
+                if (loadViewMedia(filePath, fileName)) {
                     $('#viewModal').foundation('reveal','open');
                 }
             });
@@ -467,7 +469,7 @@ function loadThumbnail(img, path) {
  *
  * @param filePath
  */
-function loadViewMedia(filePath) {
+function loadViewMedia(filePath, fileName) {
     var fileExtension = filePath.toLowerCase().split('.').pop();
     var imgExtensions = ['jpg', 'jpeg', 'gif', 'png', 'wbmp'];
     if (fileExtension === "mp4") {
@@ -480,6 +482,7 @@ function loadViewMedia(filePath) {
 
         $(mp4Vid).attr('src', "php/mediaViewHandler.php?video=" + filePath);
         player.load();
+        currentViewObject = fileName;
         return true;
     } else if ($.inArray(fileExtension, imgExtensions) !== -1) {
         var image = document.getElementById('imageView');
@@ -488,6 +491,7 @@ function loadViewMedia(filePath) {
         $("#videoView").css("display", "none");
 
         getDimensionAndLoadImage(filePath, image);
+        currentViewObject = fileName;
         return true;
     }
 
@@ -532,6 +536,66 @@ function getDimensionAndLoadImage(filePath, image) {
             }
         }
     });
+}
+
+function nextViewObject() {
+    for (var i = 0; i < currentFiles.length; i++) {
+        var file = currentFiles[i];
+        var fileName = file.name;
+
+        if (fileName === currentViewObject) {
+            var done = false;
+            while (!done) {
+                var nextFileName = currentFiles[i].name;
+
+                if (nextFileName === fileName) {
+                    i = (i + 1) % currentFiles.length;
+                    continue;
+                }
+
+                var path = $("#currentDirText").text() + nextFileName;
+                if (loadViewMedia(path, nextFileName)) {
+                    done = true;
+                }
+
+                i = (i + 1) % currentFiles.length;
+            }
+
+            break;
+        }
+    }
+}
+
+function previousViewObject() {
+    for (var i = 0; i < currentFiles.length; i++) {
+        var file = currentFiles[i];
+        var fileName = file.name;
+
+        if (fileName === currentViewObject) {
+            var done = false;
+            while (!done) {
+                var nextFileName = currentFiles[i].name;
+
+                if (nextFileName === fileName) {
+                    i = (i - 1 + currentFiles.length) % currentFiles.length;
+                    continue;
+                }
+
+                var path = $("#currentDirText").text() + nextFileName;
+                if (loadViewMedia(path, nextFileName)) {
+                    done = true;
+                }
+
+                i = (i - 1 + currentFiles.length) % currentFiles.length;
+            }
+
+            break;
+        }
+    }
+}
+
+function getCurrentViewObject() {
+    return currentViewObject;
 }
 
 /**

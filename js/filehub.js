@@ -204,4 +204,35 @@ $(document).ready(function() {
     $("#newFolderButton").mouseleave(function() {
         $(this).css( 'cursor', 'default' );
     });
+
+    $("#backButtonModal").mouseenter(function() {
+        $(this).css( 'cursor', 'pointer' );
+    });
+    $("#backButtonModal").mouseleave(function() {
+        $(this).css( 'cursor', 'default' );
+    });
+    $("#backButtonModal").click(function() {
+        previousViewObject();
+    });
+
+    $("#forwardButtonModal").mouseenter(function() {
+        $(this).css( 'cursor', 'pointer' );
+    });
+    $("#forwardButtonModal").mouseleave(function() {
+        $(this).css( 'cursor', 'default' );
+    });
+    $("#forwardButtonModal").click(function() {
+        nextViewObject();
+    });
+
+    $("#downloadButtonModal").mouseenter(function() {
+        $(this).css( 'cursor', 'pointer' );
+    });
+    $("#downloadButtonModal").mouseleave(function() {
+        $(this).css( 'cursor', 'default' );
+    });
+    $("#downloadButtonModal").click(function() {
+        var path = $("#currentDirText").text() + getCurrentViewObject();
+        downloadFile(path);
+    });
 });

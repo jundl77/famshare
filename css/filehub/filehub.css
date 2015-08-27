@@ -336,6 +336,7 @@
 /* ------------------------------------------------------------------------------------------------------- */
 #viewModal {
     width:90%;
+    outline: none;
 }
 
 #imageView {
@@ -362,7 +363,7 @@
 }
 
 #modalButtons {
-    position: absolute;
+    position: relative;
     display: inline-block;
     margin-left: 45%;
     margin-right: auto;
