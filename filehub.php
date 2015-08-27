@@ -135,15 +135,17 @@ include("includes/header.php");
 
 <div id="viewModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
     <div id="mainSectionModal">
-        <div id="backButtonModal"><img src="images/back-arrow.png"></div>
         <img id="imageView" class="mediaView" src="">
         <video id="videoView" class="mediaView" preload="none" poster controls>
             <source id="mp4Source" src="php/mediaViewHandler.php" type="video/mp4">
             Your browser does not support the video tag.
         </video>
-        <div id="forwardButtonModal"><img src="images/forward-arrow.png"></div>
     </div>
     <div id="horizontal_seperator"></div>
+    <div id="modalButtons">
+    <div id="backButtonModal"><img src="images/back-arrow.png"></div>
+    <div id="forwardButtonModal"><img src="images/forward-arrow.png"></div>
+    </div>
     <div id="downloadButtonModal">
         <div id="downloadButtonModalText">Download</div>
     </div>

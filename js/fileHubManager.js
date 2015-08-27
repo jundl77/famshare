@@ -475,9 +475,8 @@ function loadViewMedia(filePath) {
         var mp4Vid = document.getElementById('mp4Source');
 
         $("#imageView").css("display", "none");
+        $("#mainSectionModal").css("width", "30em");
         $("#videoView").css("display", "inline-block");
-        $("#forwardButtonModal").css("margin-bottom", "9em");
-        $("#backButtonModal").css("margin-bottom", "9em");
 
         $(mp4Vid).attr('src', "php/mediaViewHandler.php?video=" + filePath);
         player.load();
@@ -487,23 +486,51 @@ function loadViewMedia(filePath) {
 
         $("#imageView").css("display", "inline-block");
         $("#videoView").css("display", "none");
-        $("#forwardButtonModal").css("margin-bottom", "0em");
-        $("#backButtonModal").css("margin-bottom", "0em");
 
-        image.src = "php/mediaViewHandler.php?image=" + filePath;
+        getDimensionAndLoadImage(filePath, image);
         return true;
     }
 
     return false;
 }
 
-/**
- * Returns true if the the file hub is being edited, else false
- *
- * @returns {boolean} true if the the file hub is being edited, else false
- */
-function isEditing() {
-    return editing;
+function getDimensionAndLoadImage(filePath, image) {
+    var postData = {};
+    postData['file'] = filePath;
+    postData['type'] = "info";
+
+    // post the dataUrl to php
+    $.ajax({
+        url: "php/mediaViewHandler.php",
+        type: "POST",
+        dataType : 'json',
+        data: postData,
+        success: function (response) {
+            if (response['state'] === "success") {
+                var info = response['content'];
+                var width = info['width'];
+                var height = info['height'];
+                var windowWidth = $(window).width();
+
+                $("#forwardButtonModal").css("margin-bottom", "0em");
+                $("#backButtonModal").css("margin-bottom", "0em");
+
+                if (width * 0.8 > windowWidth) {
+                    var ratio = height / width;
+                    width = windowWidth * 0.8;
+                    height = width * ratio;
+                }
+                $("#mainSectionModal").css("width", width +"px");
+                $("#imageView").css("width", width + "px");
+                $("#imageView").css("height", height + "px");
+
+                image.src = "php/mediaViewHandler.php?image=" + filePath;
+            } else {
+                flashRed();
+                $("#statusText").text(response['content']);
+            }
+        }
+    });
 }
 
 /**

@@ -2,7 +2,43 @@
 include "../includes/sanitize.php";
 $configs = include('../config/server/server_config.php');
 
-if (isset($_GET["video"]) && !empty($_GET["video"])) {
+if (isset($_POST["file"]) && !empty($_POST["file"]) && $_POST["type"] == "info") {
+    $configs = $GLOBALS["configs"];
+
+    // Get root directories
+    $rootDir = $configs["root_upload_dirs"]["upload_data"];
+
+    if (!file_exists($rootDir)) {
+        echo json_encode(array('state' => "error", 'content' => "Error, a root directory does not exist"));
+        exit;
+    }
+
+    $file = sanitize($_POST["file"]);
+    if (!$file) {
+        die();
+    }
+
+    $file = substr($file, 1);
+
+    $dataPath = $rootDir . $file;
+
+    if (!file_exists($dataPath)) {
+        echo json_encode(array('state' => "error", 'content' => "Error, path does not exist"));
+        exit;
+    }
+
+    list($width, $height) = getimagesize($dataPath);
+    $jsonData = array (
+        "width" => $width,
+        "height" => $height
+    );
+
+    if ($jsonData != null) {
+        echo json_encode(array('state' => "success", 'content' => $jsonData));
+    } else {
+        echo json_encode(array('state' => "error", 'content' => "Error, unable to get files"));
+    }
+} else if (isset($_GET["video"]) && !empty($_GET["video"])) {
     $configs = $GLOBALS["configs"];
 
     // Get root directories

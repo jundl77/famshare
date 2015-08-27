@@ -363,12 +363,22 @@
     width: 39em;
 }
 
+#modalButtons {
+    position: absolute;
+    display: inline-block;
+    margin-left: 45%;
+    margin-right: auto;
+    width: 6em;
+    height: 2em;
+}
+
 #backButtonModal {
     position: relative;
     display: inline-block;
-    margin-bottom: 9em;
+    margin-right: 1em;
     width: 2em;
     height: 2em;
+    opacity: 0.8;
 }
 
 #backButtonModal img {
@@ -380,9 +390,9 @@
 #forwardButtonModal {
     position: relative;
     display: inline-block;
-    margin-bottom: 9em;
     width: 2em;
     height: 2em;
+    opacity: 0.8;
 }
 
 #forwardButtonModal img {
