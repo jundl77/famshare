@@ -466,8 +466,11 @@ function loadThumbnail(img, path) {
 }
 
 /**
+ * This function loads either an image or a video into the media modal (what is opened when you click on the non
+ * download portion of a file icon in the file hub)
  *
- * @param filePath
+ * @param filePath the file path of the object to load into the media modal
+ * @param fileName the name of the file that is to be loaded into the media modal
  */
 function loadViewMedia(filePath, fileName) {
     var fileExtension = filePath.toLowerCase().split('.').pop();
@@ -498,6 +501,13 @@ function loadViewMedia(filePath, fileName) {
     return false;
 }
 
+/**
+ * Get the dimensions of the image that is to be loaded and adjusts the image tag accordingly to make it as big as
+ * possible while still retaining image dimensions, and the loads the image into the image tag
+ *
+ * @param filePath the file path of the image to load into image object
+ * @param image the image object that is to be filled with the actual image
+ */
 function getDimensionAndLoadImage(filePath, image) {
     var postData = {};
     postData['file'] = filePath;
@@ -538,6 +548,11 @@ function getDimensionAndLoadImage(filePath, image) {
     });
 }
 
+/**
+ * Gets the next object that is viewable (image or video) and displays it in the media modal.
+ *
+ * This means that the function loops forwards in the current files array until it finds an object it can view.
+ */
 function nextViewObject() {
     for (var i = 0; i < currentFiles.length; i++) {
         var file = currentFiles[i];
@@ -549,6 +564,8 @@ function nextViewObject() {
                 var nextFileName = currentFiles[i].name;
 
                 if (nextFileName === fileName) {
+
+                    // Mod the index to loop
                     i = (i + 1) % currentFiles.length;
                     continue;
                 }
@@ -558,6 +575,7 @@ function nextViewObject() {
                     done = true;
                 }
 
+                // Mod the index to loop
                 i = (i + 1) % currentFiles.length;
             }
 
@@ -566,6 +584,11 @@ function nextViewObject() {
     }
 }
 
+/**
+ * Gets the previous object that is viewable (image or video) and displays it in the media modal.
+ *
+ * This means that the function loops backwards in the current files array until it finds an object it can view.
+ */
 function previousViewObject() {
     for (var i = 0; i < currentFiles.length; i++) {
         var file = currentFiles[i];
@@ -577,6 +600,8 @@ function previousViewObject() {
                 var nextFileName = currentFiles[i].name;
 
                 if (nextFileName === fileName) {
+
+                    // Mod the index to loop and add currentFiles.length to avoid negative mod numbers
                     i = (i - 1 + currentFiles.length) % currentFiles.length;
                     continue;
                 }
@@ -586,6 +611,8 @@ function previousViewObject() {
                     done = true;
                 }
 
+
+                // Mod the index to loop and add currentFiles.length to avoid negative mod numbers
                 i = (i - 1 + currentFiles.length) % currentFiles.length;
             }
 
@@ -594,6 +621,11 @@ function previousViewObject() {
     }
 }
 
+/**
+ * Gets the current object that is being viewed in the media modal
+ *
+ * @returns {*} the current object that is being viewed in the media modal
+ */
 function getCurrentViewObject() {
     return currentViewObject;
 }
