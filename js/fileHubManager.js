@@ -554,15 +554,24 @@ function getDimensionAndLoadImage(filePath, image) {
  * This means that the function loops forwards in the current files array until it finds an object it can view.
  */
 function nextViewObject() {
+    // Go through all files
     for (var i = 0; i < currentFiles.length; i++) {
         var file = currentFiles[i];
         var fileName = file.name;
 
+        // Pause the player in case it is playing
+        var player = document.getElementById('videoView');
+        player.pause();
+
+        // Stop here if this is the current file
         if (fileName === currentViewObject) {
+
+            // Now go and find the next available file to display that comes after the current file
             var done = false;
             while (!done) {
                 var nextFileName = currentFiles[i].name;
 
+                // Skip if the file found is the current file
                 if (nextFileName === fileName) {
 
                     // Mod the index to loop
@@ -590,15 +599,24 @@ function nextViewObject() {
  * This means that the function loops backwards in the current files array until it finds an object it can view.
  */
 function previousViewObject() {
+    // Go through all files
     for (var i = 0; i < currentFiles.length; i++) {
         var file = currentFiles[i];
         var fileName = file.name;
 
+        // Pause the player in case it is playing
+        var player = document.getElementById('videoView');
+        player.pause();
+
+        // Stop here if this is the current file
         if (fileName === currentViewObject) {
+
+            // Now go and find the next available file to display that comes before the current file
             var done = false;
             while (!done) {
                 var nextFileName = currentFiles[i].name;
 
+                // Skip if the file found is the current file
                 if (nextFileName === fileName) {
 
                     // Mod the index to loop and add currentFiles.length to avoid negative mod numbers
