@@ -2,7 +2,7 @@
 include "../includes/sanitize.php";
 $configs = include('../config/server/server_config.php');
 
-if (isset($_GET["file"]) && !empty($_GET["file"])) {
+if (isset($_GET["video"]) && !empty($_GET["video"])) {
     $configs = $GLOBALS["configs"];
 
     // Get root directories
@@ -12,7 +12,7 @@ if (isset($_GET["file"]) && !empty($_GET["file"])) {
         die();
     }
 
-    $file = sanitize($_GET["file"]);
+    $file = sanitize($_GET["video"]);
     if (!$file) {
         die();
     }
@@ -26,6 +26,32 @@ if (isset($_GET["file"]) && !empty($_GET["file"])) {
         $stream = new VideoStream($full_dir);
         $stream->start();
         exit;
+    }
+} else if (isset($_GET["image"]) && !empty($_GET["image"])) {
+    $configs = $GLOBALS["configs"];
+
+    // Get root directories
+    $rootDir = $configs["root_upload_dirs"]["upload_data"];
+
+    if (!file_exists($rootDir)) {
+        die();
+    }
+
+    $file = sanitize($_GET["image"]);
+    if (!$file) {
+        die();
+    }
+
+    $file = substr($file, 1);
+    $exts = array('jpg', 'jpeg', 'gif', 'png', 'wbmp');
+
+    $fileExt = strtolower(end(explode('.', $file)));
+    $correctExt = in_array($fileExt, $exts);
+
+    if ($correctExt && file_exists($rootDir . $file)) {
+        header('Content-Type: image/' . $fileExt);
+        readfile($rootDir . $file);
+        exit();
     }
 }
 

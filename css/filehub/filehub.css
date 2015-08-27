@@ -338,6 +338,23 @@
 
 }
 
+#imageView {
+    display: none;
+}
+
+#videoView {
+    display: inline-block;
+}
+
+.mediaView {
+    position: relative;
+    display: inline-block;
+    margin-left: 2em;
+    margin-right: 2em;
+    height: 20em;
+    width: 30em;
+}
+
 #mainSectionModal {
     position: relative;
     display: block;
@@ -358,15 +375,6 @@
     display: block;
     height: 100%;
     width: 100%;
-}
-
-#mediaView {
-    position: relative;
-    display: inline-block;
-    margin-left: 2em;
-    margin-right: 2em;
-    height: 20em;
-    width: 30em;
 }
 
 #forwardButtonModal {

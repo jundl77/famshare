@@ -29,7 +29,7 @@ function updateFileStructure() {
                 showCurrentDirectoryOnScreen();
             } else {
                 flashRed();
-                $("#statusText").text("An error occurred while the getting file structure: " + response['content']);
+                $("#statusText").text(response['content']);
             }
         }
     });
@@ -471,12 +471,26 @@ function loadViewMedia(filePath) {
     var fileExtension = filePath.toLowerCase().split('.').pop();
     var imgExtensions = ['jpg', 'jpeg', 'gif', 'png', 'wbmp'];
     if (fileExtension === "mp4") {
-        var player = document.getElementById('mediaView');
+        var player = document.getElementById('videoView');
         var mp4Vid = document.getElementById('mp4Source');
-        $(mp4Vid).attr('src', "php/videoStreamHandler.php?file=" + filePath);
+
+        $("#imageView").css("display", "none");
+        $("#videoView").css("display", "inline-block");
+        $("#forwardButtonModal").css("margin-bottom", "9em");
+        $("#backButtonModal").css("margin-bottom", "9em");
+
+        $(mp4Vid).attr('src', "php/mediaViewHandler.php?video=" + filePath);
         player.load();
         return true;
-    } else if ($.inArray(fileExtension, imgExtensions)) {
+    } else if ($.inArray(fileExtension, imgExtensions) !== -1) {
+        var image = document.getElementById('imageView');
+
+        $("#imageView").css("display", "inline-block");
+        $("#videoView").css("display", "none");
+        $("#forwardButtonModal").css("margin-bottom", "0em");
+        $("#backButtonModal").css("margin-bottom", "0em");
+
+        image.src = "php/mediaViewHandler.php?image=" + filePath;
         return true;
     }
 

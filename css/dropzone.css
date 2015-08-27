@@ -241,8 +241,8 @@
       color: rgba(0, 0, 0, 0.9);
       line-height: 150%; }
       .dropzone .dz-preview .dz-details .dz-size {
-          margin-top: 0.5em;
-        margin-bottom: 1em;
+          margin-top: 2em;
+        margin-bottom: 0.5em;
         font-size: 16px;
       font-family: OpenSans, sans-serif;}
       .dropzone .dz-preview .dz-details .dz-filename {
@@ -414,24 +414,24 @@
     position: relative;
     visibility: hidden;
     width: 90%;
-    margin-top: -3em;
+    margin-top: -2em;
     margin-bottom: 1em;
     margin-left: 5%;
     margin-right: 5%;
-    height: 3em;
+    height: 2em;
     z-index: 999;
-    background-color: #607D8B;
-    opacity: 0.5;
+    background: rgba(96, 125, 139, .5);
 }
 
 .dz-download-text {
     position: relative;
-    padding-top: 0.75em;
+    padding-top: 0.3em;
     width: 5em;
-    height: 3em;
+    height: 2em;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
     font-size: 15px;
+    color: black;
     font-family: OpenSans, sans-serif;
 }
