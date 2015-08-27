@@ -515,11 +515,12 @@ function getDimensionAndLoadImage(filePath, image) {
                 $("#forwardButtonModal").css("margin-bottom", "0em");
                 $("#backButtonModal").css("margin-bottom", "0em");
 
-                if (width * 0.8 > windowWidth) {
+                if (width * 0.7 > windowWidth) {
                     var ratio = height / width;
-                    width = windowWidth * 0.8;
+                    width = windowWidth * 0.7;
                     height = width * ratio;
                 }
+
                 $("#mainSectionModal").css("width", width +"px");
                 $("#imageView").css("width", width + "px");
                 $("#imageView").css("height", height + "px");
