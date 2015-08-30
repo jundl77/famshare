@@ -45,7 +45,7 @@ if (!empty($_FILES)) {
         if (!$file_size) {
             header('HTTP/1.1 500 Internal Server Error');
             header('Content-type: text/plain');
-            exit("Invalid file size");
+            exit("Invalid file size: " . $file['size'] . ", $file_size");
         }
 
         $file_tmp_name = $file['tmp_name'];
@@ -93,7 +93,7 @@ if (!empty($_FILES)) {
 function make_thumb($src, $dest, $fileExt, $desired_width) {
     $exif = exif_read_data($src, 'IFD0');
 
-    /* read the source image */
+    // Read the source image
     if ($fileExt == 'gif') {
         $source_image = imagecreatefromgif($src);
     } elseif ($fileExt == 'jpg' || $fileExt == 'jpeg') {
@@ -107,32 +107,44 @@ function make_thumb($src, $dest, $fileExt, $desired_width) {
         return;
     }
 
-    $width = imagesx($source_image);
-    $height = imagesy($source_image);
-
-    /* find the "desired height" of this thumbnail, relative to the desired width  */
-    $desired_height = floor($height * ($desired_width / $width));
-
-    /* create a new, "virtual" image */
-    $virtual_image = imagecreatetruecolor($desired_width, $desired_height);
-
-    /* copy source image at a resized size */
-    imagecopyresampled($virtual_image, $source_image, 0, 0, 0, 0, $desired_width, $desired_height, $width, $height);
-
-    // Fix Orientation
+    // Fix Orientation of original image - this has to be done because of stupid apple products who can't save their
+    // orientation like everybody else, ugh!
     switch($exif['Orientation']) {
         case 3:
-            $virtual_image = imagerotate($virtual_image, 180, 0);
+            $source_image = imagerotate($source_image, 180, 0);
             break;
         case 6:
-            $virtual_image = imagerotate($virtual_image, -90, 0);
+            $source_image = imagerotate($source_image, -90, 0);
             break;
         case 8:
-            $virtual_image = imagerotate($virtual_image, 90, 0);
+            $source_image = imagerotate($source_image, 90, 0);
             break;
     }
 
-    /* create the physical thumbnail image to its destination */
+    // Save turned source image again (overwrites false orientation)
+    if ($fileExt == 'gif') {
+        imagegif($source_image, $src);
+    } elseif ($fileExt == 'jpg' || $fileExt == 'jpeg') {
+        imagejpeg($source_image, $src);
+    } elseif ($fileExt == 'png') {
+        imagepng($source_image, $src);
+    } elseif ($fileExt == 'bmp') {
+        imagewbmp($source_image, $src);
+    }
+
+    $width = imagesx($source_image);
+    $height = imagesy($source_image);
+
+    // Find the "desired height" of this thumbnail, relative to the desired width
+    $desired_height = floor($height * ($desired_width / $width));
+
+    // Create a new, "virtual" image
+    $virtual_image = imagecreatetruecolor($desired_width, $desired_height);
+
+    // Copy source image at a resized size
+    imagecopyresampled($virtual_image, $source_image, 0, 0, 0, 0, $desired_width, $desired_height, $width, $height);
+
+    // Create the physical thumbnail image to its destination
     if ($fileExt == 'gif') {
         imagegif($virtual_image, $dest);
     } elseif ($fileExt == 'jpg' || $fileExt == 'jpeg') {
