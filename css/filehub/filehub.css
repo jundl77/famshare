@@ -352,8 +352,8 @@
 .mediaView {
     position: relative;
     display: inline-block;
-    height: 20em;
-    width: 30em;
+    height: 26em;
+    width: 40em;
 }
 
 #mainSectionModal {
@@ -361,7 +361,7 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 30em;
+    width: 40em;
 }
 
 #modalButtons {

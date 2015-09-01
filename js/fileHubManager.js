@@ -11,6 +11,44 @@ var forwardDir = null;
 var backDir = null;
 var doneLoadingFiles = false;
 var editing = false;
+var videoView = false;
+var imageView = false;
+
+/**
+ * Returns true if a video is currently being displayed, otherwise returns false
+ *
+ * @returns {boolean} true if a video is currently being displayed, otherwise false
+ */
+function isVideoView() {
+    return videoView;
+}
+
+/**
+ * To be set to true if the video view is open and false if it has been closed
+ *
+ * @param value true if the video view is open and false if it has been closed
+ */
+function setVideoView(value) {
+    videoView = value;
+}
+
+/**
+ * Returns true if an image is currently being displayed, otherwise returns false
+ *
+ * @returns {boolean} true if an image is currently being displayed, otherwise false
+ */
+function isImageView() {
+    return imageView;
+}
+
+/**
+ * To be set to true if the image view is open and false if it has been closed
+ *
+ * @param value true if the image view is open and false if it has been closed
+ */
+function setImageView(value) {
+    imageView = value;
+}
 
 /**
  * Updates the client side file system structure of the server upload section
@@ -480,12 +518,14 @@ function loadViewMedia(filePath, fileName) {
         var mp4Vid = document.getElementById('mp4Source');
 
         $("#imageView").css("display", "none");
-        $("#mainSectionModal").css("width", "30em");
+        $("#mainSectionModal").css("width", "40em");
         $("#videoView").css("display", "inline-block");
 
         $(mp4Vid).attr('src', "php/mediaViewHandler.php?video=" + filePath);
         player.load();
         currentViewObject = fileName;
+        videoView = true;
+        imageView = false;
         return true;
     } else if ($.inArray(fileExtension, imgExtensions) !== -1) {
         var image = document.getElementById('imageView');
@@ -495,9 +535,13 @@ function loadViewMedia(filePath, fileName) {
 
         getDimensionAndLoadImage(filePath, image);
         currentViewObject = fileName;
+        videoView = false;
+        imageView = true;
         return true;
     }
 
+    videoView = false;
+    imageView = false;
     return false;
 }
 
@@ -513,8 +557,8 @@ function getDimensionAndLoadImage(filePath, image) {
     postData['file'] = filePath;
     postData['type'] = "info";
 
-    // post the dataUrl to php
-    $.ajax({
+    // Post the data to php
+    var xhr = $.ajax({
         url: "php/mediaViewHandler.php",
         type: "POST",
         dataType : 'json',

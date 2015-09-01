@@ -111,6 +111,35 @@ function flashRed() {
     });
 }
 
+/**
+ * This function handles requests the create new folders. This includes animations, and the actual sending of the request
+ * to the server
+ */
+function makeNewFolder() {
+    var folderName = $('#newFolderTextInput').val();
+    if (folderName !== "") {
+        addFolder(folderName);
+    }
+
+    // Only animate if on a computer
+    if ($(window).width() > 960) {
+        $("#newFolderTextInput").animate({
+            width: "0em",
+            marginLeft: "0em"
+        }, 1000, function () {
+            $("#newFolderTextInput").animate({
+                opacity: "0"
+            }, 100)
+        });
+        $("#currentDirText").animate({
+            width: "32.5em"
+        }, 1000);
+
+        document.getElementById("newFolderTextInput").value = '';
+        $("#newFolderText").text("New Folder");
+    }
+}
+
 $(document).ready(function() {
 
     $(document).foundation();
@@ -158,28 +187,7 @@ $(document).ready(function() {
 
     $("#newFolderButton").click(function() {
         if (newFolderInput || $(window).width() <= 960) {
-            var folderName = $('#newFolderTextInput').val();
-            if (folderName !== "") {
-                addFolder(folderName);
-            }
-
-            // Only animate if on a computer
-            if ($(window).width() > 960) {
-                $("#newFolderTextInput").animate({
-                    width: "0em",
-                    marginLeft: "0em"
-                }, 1000, function () {
-                    $("#newFolderTextInput").animate({
-                        opacity: "0"
-                    }, 100)
-                });
-                $("#currentDirText").animate({
-                    width: "32.5em"
-                }, 1000);
-
-                document.getElementById("newFolderTextInput").value = '';
-                $("#newFolderText").text("New Folder");
-            }
+            makeNewFolder();
         } else if ($(window).width() > 960) {   // Again, only animate if on a computer
             $("#newFolderTextInput").animate({
                 opacity: "0.87"
@@ -236,7 +244,28 @@ $(document).ready(function() {
         downloadFile(path);
     });
 
+    $("body").keypress(function(event) {
+        if (event.which == 32 && isVideoView()) {
+            event.preventDefault();
+            var player = document.getElementById('videoView');
+            if (player.paused) {
+                player.play();
+            } else {
+                player.pause();
+            }
+        }
+    });
+
+    $("#newFolderTextInput").keypress(function(event) {
+        if (event.which == 13) {
+            event.preventDefault();
+            makeNewFolder();
+        }
+    });
+
     $(document).on('close.fndtn.reveal', '[data-reveal]', function () {
+        setVideoView(false);
+        setImageView(false);
         $("#statusBar").css("margin-bottom", 0 + "px");
     });
 });
