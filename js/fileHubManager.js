@@ -524,20 +524,27 @@ function getDimensionAndLoadImage(filePath, image) {
                 var info = response['content'];
                 var width = info['width'];
                 var height = info['height'];
-                var windowWidth = $(window).width();
+                var revealModalWidth = $("#viewModal").width();
 
                 $("#forwardButtonModal").css("margin-bottom", "0em");
                 $("#backButtonModal").css("margin-bottom", "0em");
 
-                if (width * 0.7 > windowWidth) {
+                if (width * 0.9 > revealModalWidth) {
                     var ratio = height / width;
-                    width = windowWidth * 0.7;
+                    width = revealModalWidth * 0.9;
                     height = width * ratio;
                 }
 
                 $("#mainSectionModal").css("width", width +"px");
                 $("#imageView").css("width", width + "px");
                 $("#imageView").css("height", height + "px");
+                var revealModalHeight = $("#viewModal").height();
+
+                var newDocHeight = revealModalHeight - $(document).height();
+
+                if (newDocHeight > 0) {
+                    $("#statusBar").css("margin-bottom", newDocHeight + $("#viewModal").offset().top + 300 + "px");
+                }
 
                 image.src = "php/mediaViewHandler.php?image=" + filePath;
             } else {

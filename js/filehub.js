@@ -235,4 +235,8 @@ $(document).ready(function() {
         var path = $("#currentDirText").text() + getCurrentViewObject();
         downloadFile(path);
     });
+
+    $(document).on('close.fndtn.reveal', '[data-reveal]', function () {
+        $("#statusBar").css("margin-bottom", 0 + "px");
+    });
 });
