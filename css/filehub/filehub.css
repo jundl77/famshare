@@ -196,9 +196,9 @@
 /* ------------------------------------------------------------------------------------------------------- */
 .redFlash {
     -webkit-transition: background 0.10s ease-in-out;
-    -moz-transition:    background 0.10s ease-in-out;
-    -ms-transition:     background 0.10s ease-in-out;
-    transition:         background 0.10s ease-in-out;
+    -moz-transition: background 0.10s ease-in-out;
+    -ms-transition: background 0.10s ease-in-out;
+    transition: background 0.10s ease-in-out;
 }
 
 #fileBox {
@@ -335,7 +335,7 @@
 /* ------------------------------------------------ MODAL ------------------------------------------------ */
 /* ------------------------------------------------------------------------------------------------------- */
 #viewModal {
-    width:90%;
+    width: 90%;
     margin-left: auto;
     margin-right: auto;
     outline: none;

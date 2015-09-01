@@ -27,19 +27,19 @@ function login(password) {
     return false;
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
     if (gOptions.enabled) {
         $('#title').text(gOptions.name + "Share");
     }
 
-    $("#passwordBox").keypress(function(event) {
+    $("#passwordBox").keypress(function (event) {
         if (event.which == 13) {
             event.preventDefault();
             login(document.getElementById("passwordBox").value);
         }
     });
 
-    $("#enterButton").click(function() {
+    $("#enterButton").click(function () {
         if (passBoxView) {
             login(document.getElementById("passwordBox").value);
         } else {
@@ -63,15 +63,15 @@ $(document).ready(function() {
         }
     });
 
-    $("#enterButton").mouseenter(function() {
-        $(this).css( 'cursor', 'pointer' );
-        $(this).fadeTo(100, 0.7, function() {
+    $("#enterButton").mouseenter(function () {
+        $(this).css('cursor', 'pointer');
+        $(this).fadeTo(100, 0.7, function () {
             $(this).css("background-color", "#263238");
         }).fadeTo(100, 1);
     });
-    $("#enterButton").mouseleave(function() {
-        $(this).css( 'cursor', 'pointer' );
-        $(this).fadeTo(100, 0.7, function() {
+    $("#enterButton").mouseleave(function () {
+        $(this).css('cursor', 'pointer');
+        $(this).fadeTo(100, 0.7, function () {
             $(this).css("background-color", "#607D8B");
         }).fadeTo(100, 1);
     });

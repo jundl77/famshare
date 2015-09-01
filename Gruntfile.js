@@ -240,7 +240,7 @@ module.exports = function (grunt) {
         compress: {
             main: {
                 options: {
-                    archive: 'build/famshare-' + version +'.zip'
+                    archive: 'build/famshare-' + version + '.zip'
                 },
                 files: [
                     // includes files in path and its subdirs
@@ -272,6 +272,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin','imagemin', 'replace', 'copy', 'mkdir',
+    grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin', 'imagemin', 'replace', 'copy', 'mkdir',
         'compress']);
 };

@@ -102,11 +102,11 @@ function flashRed() {
     $("#toolbar").css("background-color", "#EF9A9A");
     $("#fileBox").css("border", "1px solid #EF9A9A");
     $("#statusBar").css("background-color", "#EF9A9A");
-    $(".flashRed").fadeTo(300, 0.2, function() {
+    $(".flashRed").fadeTo(300, 0.2, function () {
         $("#toolbar").css("background-color", "#E4E2E3");
         $("#fileBox").css("border", "1px solid #9E9E9E");
         $("#statusBar").css("background-color", "#E4E2E3");
-        $(".flashRed").fadeTo(300, 1, function() {
+        $(".flashRed").fadeTo(300, 1, function () {
         });
     });
 }
@@ -140,7 +140,7 @@ function makeNewFolder() {
     }
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
 
     $(document).foundation();
 
@@ -151,47 +151,47 @@ $(document).ready(function() {
     disbaleForwardButton();
     updateFileStructure();
 
-    $("#backButton").click(function() {
+    $("#backButton").click(function () {
         back();
     });
-    $("#backButton").mouseenter(function() {
+    $("#backButton").mouseenter(function () {
         if (getBackState()) {
-            $(this).css( 'cursor', 'pointer' );
+            $(this).css('cursor', 'pointer');
         }
     });
-    $("#backButton").mouseleave(function() {
-        $(this).css( 'cursor', 'default' );
+    $("#backButton").mouseleave(function () {
+        $(this).css('cursor', 'default');
     });
 
-    $("#forwardButton").click(function() {
+    $("#forwardButton").click(function () {
         forward();
     });
-    $("#forwardButton").mouseenter(function() {
+    $("#forwardButton").mouseenter(function () {
         if (getForwardState()) {
             $(this).css('cursor', 'pointer');
         }
     });
-    $("#forwardButton").mouseleave(function() {
-        $(this).css( 'cursor', 'default' );
+    $("#forwardButton").mouseleave(function () {
+        $(this).css('cursor', 'default');
     });
 
-    $("#editButton").click(function() {
+    $("#editButton").click(function () {
         editFileHubContent();
     });
-    $("#editButton").mouseenter(function() {
-        $(this).css( 'cursor', 'pointer' );
+    $("#editButton").mouseenter(function () {
+        $(this).css('cursor', 'pointer');
     });
-    $("#editButton").mouseleave(function() {
-        $(this).css( 'cursor', 'default' );
+    $("#editButton").mouseleave(function () {
+        $(this).css('cursor', 'default');
     });
 
-    $("#newFolderButton").click(function() {
+    $("#newFolderButton").click(function () {
         if (newFolderInput || $(window).width() <= 960) {
             makeNewFolder();
         } else if ($(window).width() > 960) {   // Again, only animate if on a computer
             $("#newFolderTextInput").animate({
                 opacity: "0.87"
-            }, 100, function() {
+            }, 100, function () {
                 $("#newFolderTextInput").animate({
                     width: "10em",
                     marginLeft: "1em"
@@ -206,45 +206,45 @@ $(document).ready(function() {
 
         newFolderInput = !newFolderInput;
     });
-    $("#newFolderButton").mouseenter(function() {
-        $(this).css( 'cursor', 'pointer' );
+    $("#newFolderButton").mouseenter(function () {
+        $(this).css('cursor', 'pointer');
     });
-    $("#newFolderButton").mouseleave(function() {
-        $(this).css( 'cursor', 'default' );
+    $("#newFolderButton").mouseleave(function () {
+        $(this).css('cursor', 'default');
     });
 
-    $("#backButtonModal").mouseenter(function() {
-        $(this).css( 'cursor', 'pointer' );
+    $("#backButtonModal").mouseenter(function () {
+        $(this).css('cursor', 'pointer');
     });
-    $("#backButtonModal").mouseleave(function() {
-        $(this).css( 'cursor', 'default' );
+    $("#backButtonModal").mouseleave(function () {
+        $(this).css('cursor', 'default');
     });
-    $("#backButtonModal").click(function() {
+    $("#backButtonModal").click(function () {
         previousViewObject();
     });
 
-    $("#forwardButtonModal").mouseenter(function() {
-        $(this).css( 'cursor', 'pointer' );
+    $("#forwardButtonModal").mouseenter(function () {
+        $(this).css('cursor', 'pointer');
     });
-    $("#forwardButtonModal").mouseleave(function() {
-        $(this).css( 'cursor', 'default' );
+    $("#forwardButtonModal").mouseleave(function () {
+        $(this).css('cursor', 'default');
     });
-    $("#forwardButtonModal").click(function() {
+    $("#forwardButtonModal").click(function () {
         nextViewObject();
     });
 
-    $("#downloadButtonModal").mouseenter(function() {
-        $(this).css( 'cursor', 'pointer' );
+    $("#downloadButtonModal").mouseenter(function () {
+        $(this).css('cursor', 'pointer');
     });
-    $("#downloadButtonModal").mouseleave(function() {
-        $(this).css( 'cursor', 'default' );
+    $("#downloadButtonModal").mouseleave(function () {
+        $(this).css('cursor', 'default');
     });
-    $("#downloadButtonModal").click(function() {
+    $("#downloadButtonModal").click(function () {
         var path = $("#currentDirText").text() + getCurrentViewObject();
         downloadFile(path);
     });
 
-    $("body").keypress(function(event) {
+    $("body").keypress(function (event) {
         if (event.which == 32 && isVideoView()) {
             event.preventDefault();
             var player = document.getElementById('videoView');
@@ -256,7 +256,7 @@ $(document).ready(function() {
         }
     });
 
-    $("#newFolderTextInput").keypress(function(event) {
+    $("#newFolderTextInput").keypress(function (event) {
         if (event.which == 13) {
             event.preventDefault();
             makeNewFolder();

@@ -90,7 +90,8 @@ if (!empty($_FILES)) {
     }
 }
 
-function make_thumb($src, $dest, $fileExt, $desired_width) {
+function make_thumb($src, $dest, $fileExt, $desired_width)
+{
     $exif = exif_read_data($src, 'IFD0');
 
     // Read the source image
@@ -109,7 +110,7 @@ function make_thumb($src, $dest, $fileExt, $desired_width) {
 
     // Fix Orientation of original image - this has to be done because of stupid apple products who can't save their
     // orientation like everybody else, ugh!
-    switch($exif['Orientation']) {
+    switch ($exif['Orientation']) {
         case 3:
             $source_image = imagerotate($source_image, 180, 0);
             break;

@@ -1,6 +1,7 @@
 <?php
 
-function sanitize($val) {
+function sanitize($val)
+{
     if (!preg_match_all("/^([\w]*[.()-\/,\s]*[\x{0080}-\x{00FF}]*)+$/", $val) && $val !== "") {
         return false;
     }

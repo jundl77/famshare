@@ -1725,10 +1725,10 @@ function getDropzone() {
         var vertSquashRatio;
         vertSquashRatio = detectVerticalSquash(img);
         dh = dh / vertSquashRatio;
-        ctx.translate( dx+dw/2, dy+dh/2 );
-        ctx.rotate(-o*Math.PI/180);
-        dx = -dw/2;
-        dy = -dh/2;
+        ctx.translate(dx + dw / 2, dy + dh / 2);
+        ctx.rotate(-o * Math.PI / 180);
+        dx = -dw / 2;
+        dy = -dh / 2;
         return ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh / vertSquashRatio);
     };
 

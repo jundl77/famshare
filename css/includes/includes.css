@@ -3,10 +3,12 @@
     font-family: "Dinobl";
     src: url(../../fonts/Dinobl.ttf) format("truetype");
 }
+
 @font-face {
     font-family: "OpenSans";
     src: url(../../fonts/open-sans/OpenSans-Regular.ttf) format("truetype");
 }
+
 @font-face {
     font-family: "OpenSans-Bold";
     src: url(../../fonts/open-sans/OpenSans-Bold.ttf) format("truetype");
@@ -15,9 +17,9 @@
 /* Document */
 html, body {
     background-color: #F5F5F5;
-    height:100%;
-    margin:0;
-    padding:0;
+    height: 100%;
+    margin: 0;
+    padding: 0;
     width: 100%;
 }
 

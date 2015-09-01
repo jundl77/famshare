@@ -133,7 +133,8 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
 }
 
 
-function getFileSystem($path, $fileSystem) {
+function getFileSystem($path, $fileSystem)
+{
     // On first time search root directory
     if ($fileSystem == null) {
         $fileSystemArray = scandir($path);
@@ -144,7 +145,8 @@ function getFileSystem($path, $fileSystem) {
         for ($i = 0; $i < $size; $i++) {
             $newPath = $path . $fileSystemArray[$i] . "/";
             if ($fileSystemArray[$i] != "." && $fileSystemArray[$i] != ".."
-                && $fileSystemArray[$i] != ".DS_Store" && is_dir($newPath)) {
+                && $fileSystemArray[$i] != ".DS_Store" && is_dir($newPath)
+            ) {
                 array_push($tempFileSystemArray, $fileSystemArray[$i]);
             }
         }
@@ -172,7 +174,8 @@ function getFileSystem($path, $fileSystem) {
         for ($j = 0; $j < $newSize; $j++) {
             $newPathLocal = $newPath . $newFileSystemArray[$j] . "/";
             if ($newFileSystemArray[$j] != "." && $newFileSystemArray[$j] != ".."
-                && $newFileSystemArray[$j] != ".DS_Store" && is_dir($newPathLocal)) {
+                && $newFileSystemArray[$j] != ".DS_Store" && is_dir($newPathLocal)
+            ) {
                 array_push($tempFileSystemArray, $newFileSystemArray[$j]);
             }
         }
@@ -194,8 +197,9 @@ function getFileSystem($path, $fileSystem) {
     return $fileSystem;
 }
 
-function getFilesInFolder($dataPath, $thumbPath) {
-    $result  = array();
+function getFilesInFolder($dataPath, $thumbPath)
+{
+    $result = array();
     $exts = array('jpg', 'jpeg', 'gif', 'png', 'wbmp');
     $files = scandir($dataPath);
 
@@ -203,7 +207,7 @@ function getFilesInFolder($dataPath, $thumbPath) {
         foreach ($files as $file) {
             $newDataPath = $dataPath . $file;
             $newThumbPath = $thumbPath . $file;
-            if ( '.' != $file && '..' != $file && $file != ".DS_Store" && !is_dir($newDataPath)) {
+            if ('.' != $file && '..' != $file && $file != ".DS_Store" && !is_dir($newDataPath)) {
                 $fileExt = strtolower(end(explode('.', $file)));
                 $correctExt = in_array($fileExt, $exts);
                 $obj['name'] = $file;
@@ -222,8 +226,9 @@ function getFilesInFolder($dataPath, $thumbPath) {
     return array_values($result);
 }
 
-function deleteDir($dirPath) {
-    if (! is_dir($dirPath)) {
+function deleteDir($dirPath)
+{
+    if (!is_dir($dirPath)) {
         throw new InvalidArgumentException("$dirPath must be a directory");
     }
     if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {

@@ -1,4 +1,3 @@
-
 /**
  * The file system manager grabs the current file system of the server upload section and turns it into a graph
  * which is used as a map to track the current directory
@@ -61,7 +60,7 @@ function updateFileStructure() {
     $.ajax({
         url: "php/fileSystemHandler.php",
         type: "POST",
-        dataType : 'json',
+        dataType: 'json',
         data: postData,
         success: function (response) {
             if (response['state'] === "success") {
@@ -81,7 +80,7 @@ function updateFileStructure() {
  *
  * @param fileStructure the raw JSON fileStructure to parse
  */
-var parseFileStructure = function(fileStructure) {
+var parseFileStructure = function (fileStructure) {
     var obj = JSON.parse(fileStructure);
     fileSystem = parseFileStructureHelper(obj, null);
 };
@@ -93,7 +92,7 @@ var parseFileStructure = function(fileStructure) {
  * @param parentDir the parent directory of the folder
  * @returns {Folder} the folderArray as a folder object
  */
-var parseFileStructureHelper = function(folderArray, parentDir) {
+var parseFileStructureHelper = function (folderArray, parentDir) {
     if (folderArray['content'] == null) {
         return new Folder(folderArray['name'], parentDir);
     } else {
@@ -135,7 +134,7 @@ function showCurrentFolders() {
             + dir.name + "</div></div>";
         var templateObj = Dropzone.createElement(template.trim());
         container.appendChild(templateObj);
-        (function(dirIn, template) {
+        (function (dirIn, template) {
             var cross = template.getElementsByClassName("folder-delete");
             templateObj.addEventListener('click', function (event) {
                 if (doneLoadingFiles && !editing) {
@@ -173,7 +172,7 @@ function showCurrentFiles() {
     $.ajax({
         url: "php/fileSystemHandler.php",
         type: "POST",
-        dataType : 'json',
+        dataType: 'json',
         data: postData,
         success: function (response) {
             if (response['state'] === "success") {
@@ -248,7 +247,7 @@ function showCurrentFilesHelper(fileArray) {
         templateObj.appendChild(cross);
 
         // Add events (mouse over, mouse leave and click) and hide file size and name by default
-        (function(filePath, obj, crossIn, isImgIn) {
+        (function (filePath, obj, crossIn, isImgIn) {
             //var dzDetails = templateObj.getElementsByClassName("dz-details");
 
             var childDivs = obj.children;
@@ -265,7 +264,7 @@ function showCurrentFilesHelper(fileArray) {
 
             dzDetailsDiv.addEventListener('click', function (event) {
                 if (loadViewMedia(filePath, fileName)) {
-                    $('#viewModal').foundation('reveal','open');
+                    $('#viewModal').foundation('reveal', 'open');
                 }
             });
             dzDownloadDiv.addEventListener('click', function (event) {
@@ -304,15 +303,15 @@ function showCurrentFilesHelper(fileArray) {
     }
 
     // Make each image fill the div completely
-    $(".dz-image").each(function(){
+    $(".dz-image").each(function () {
         var refH = $(this).height();
         var refW = $(this).width();
-        var refRatio = refW/refH;
+        var refRatio = refW / refH;
 
         var imgH = $(this).children("img").height();
         var imgW = $(this).children("img").width();
 
-        if ( (imgW/imgH) < refRatio ) {
+        if ((imgW / imgH) < refRatio) {
             $(this).addClass("portrait");
         } else {
             $(this).addClass("landscape");
@@ -346,7 +345,7 @@ function addFolder(name) {
     $.ajax({
         url: "php/fileSystemHandler.php",
         type: "POST",
-        dataType : 'json',
+        dataType: 'json',
         data: postData,
         success: function (response) {
             if (response['state'] === "success") {
@@ -393,18 +392,18 @@ function handleDeleteCrosses() {
     if (editing) {
         activateEditButton();
         for (var i = 0; i < folderCrosses.length; i++) {
-            folderCrosses[i].style.visibility="visible";
+            folderCrosses[i].style.visibility = "visible";
         }
         for (var j = 0; j < fileCrosses.length; j++) {
-            fileCrosses[j].style.visibility="visible";
+            fileCrosses[j].style.visibility = "visible";
         }
     } else {
         deactivateEditButton();
         for (var i2 = 0; i2 < folderCrosses.length; i2++) {
-            folderCrosses[i2].style.visibility="hidden";
+            folderCrosses[i2].style.visibility = "hidden";
         }
         for (var j2 = 0; j2 < fileCrosses.length; j2++) {
-            fileCrosses[j2].style.visibility="hidden";
+            fileCrosses[j2].style.visibility = "hidden";
         }
     }
 }
@@ -421,7 +420,7 @@ function deleteFolder(folder) {
     $.ajax({
         url: "php/fileSystemHandler.php",
         type: "POST",
-        dataType : 'json',
+        dataType: 'json',
         data: postData,
         success: function (response) {
             if (response['state'] === "success") {
@@ -449,7 +448,7 @@ function deleteFile(fileName) {
     $.ajax({
         url: "php/fileSystemHandler.php",
         type: "POST",
-        dataType : 'json',
+        dataType: 'json',
         data: postData,
         success: function (response) {
             if (response['state'] === "success") {
@@ -466,9 +465,9 @@ function deleteFile(fileName) {
 
 function removeByAttr(arr, attr, value) {
     var i = arr.length;
-    while (i--){
+    while (i--) {
         if (arr[i] && arr[i].hasOwnProperty(attr) && (arguments.length > 2 && arr[i][attr] === value)) {
-            arr.splice(i,1);
+            arr.splice(i, 1);
         }
     }
     return arr;
@@ -489,7 +488,7 @@ function loadThumbnail(img, path) {
     $.ajax({
         url: "php/thumbnailHandler.php",
         type: "POST",
-        dataType : 'json',
+        dataType: 'json',
         data: postData,
         success: function (response) {
             if (response['state'] === "success") {
@@ -561,7 +560,7 @@ function getDimensionAndLoadImage(filePath, image) {
     var xhr = $.ajax({
         url: "php/mediaViewHandler.php",
         type: "POST",
-        dataType : 'json',
+        dataType: 'json',
         data: postData,
         success: function (response) {
             if (response['state'] === "success") {
@@ -579,7 +578,7 @@ function getDimensionAndLoadImage(filePath, image) {
                     height = width * ratio;
                 }
 
-                $("#mainSectionModal").css("width", width +"px");
+                $("#mainSectionModal").css("width", width + "px");
                 $("#imageView").css("width", width + "px");
                 $("#imageView").css("height", height + "px");
                 var revealModalHeight = $("#viewModal").height();
