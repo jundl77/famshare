@@ -4,7 +4,7 @@ include("includes/top.php");
 
     <meta name="Keywords" content="famshare, file, sharing, free, family, home">
     <meta name="Description" content="A free file sharing website for the family to run at home! Where you and not Big
-Brother control your data.">
+        Brother control your data.">
     <meta charset="UTF-8">
     <link type="text/css" rel="stylesheet" href="css/home/stylesheet.css"/>
     <link rel="stylesheet" type="text/css" media="screen and (min-width:768px) and (max-width:960px)"

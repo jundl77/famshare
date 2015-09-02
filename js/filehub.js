@@ -1,5 +1,7 @@
 var dragCount = 0;
 var newFolderInput = false;
+var forwardButtonModal = true;
+var backwardButtonModal = true;
 
 /**
  * Disables the back button
@@ -44,6 +46,39 @@ function deactivateEditButton() {
     $("#editText").css("color", "#607D8B");
     $("#editButton").css("border", "1px solid #607D8B");
 }
+
+/**
+ *
+ */
+function disableMediaViewForwardButton() {
+    $("#forwardButtonModal").css("opacity", "0.4");
+    forwardButtonModal = false;
+}
+
+/**
+ *
+ */
+function disableMediaViewBackButton() {
+    $("#backButtonModal").css("opacity", "0.4");
+    backwardButtonModal = false;
+}
+
+/**
+ *
+ */
+function enableMediaViewForwardButton() {
+    $("#forwardButtonModal").css("opacity", "0.8");
+    forwardButtonModal = true;
+}
+
+/**
+ *
+ */
+function enableMediaViewBackButton() {
+    $("#backButtonModal").css("opacity", "0.8");
+    backwardButtonModal = true;
+}
+
 
 /**
  * Drag enter and leave screen function
@@ -147,6 +182,8 @@ $(document).ready(function () {
     document.addEventListener("dragenter", dragenterDragleave);
     document.addEventListener("dragleave", dragenterDragleave);
 
+    setDocHeight($(document).height());
+
     disableBackButton();
     disbaleForwardButton();
     updateFileStructure();
@@ -214,23 +251,35 @@ $(document).ready(function () {
     });
 
     $("#backButtonModal").mouseenter(function () {
-        $(this).css('cursor', 'pointer');
+        if (backwardButtonModal) {
+            $(this).css('cursor', 'pointer');
+        }
     });
     $("#backButtonModal").mouseleave(function () {
-        $(this).css('cursor', 'default');
+        if (backwardButtonModal) {
+            $(this).css('cursor', 'default');
+        }
     });
     $("#backButtonModal").click(function () {
-        previousViewObject();
+        if (backwardButtonModal) {
+            previousViewObject();
+        }
     });
 
     $("#forwardButtonModal").mouseenter(function () {
-        $(this).css('cursor', 'pointer');
+        if (forwardButtonModal) {
+            $(this).css('cursor', 'pointer');
+        }
     });
     $("#forwardButtonModal").mouseleave(function () {
-        $(this).css('cursor', 'default');
+        if (forwardButtonModal) {
+            $(this).css('cursor', 'default');
+        }
     });
     $("#forwardButtonModal").click(function () {
-        nextViewObject();
+        if (forwardButtonModal) {
+            nextViewObject();
+        }
     });
 
     $("#downloadButtonModal").mouseenter(function () {

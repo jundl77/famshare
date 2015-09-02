@@ -12,6 +12,7 @@ var doneLoadingFiles = false;
 var editing = false;
 var videoView = false;
 var imageView = false;
+var docHeight;
 
 /**
  * Returns true if a video is currently being displayed, otherwise returns false
@@ -29,6 +30,10 @@ function isVideoView() {
  */
 function setVideoView(value) {
     videoView = value;
+}
+
+function setDocHeight(value) {
+    docHeight = value;
 }
 
 /**
@@ -513,35 +518,55 @@ function loadViewMedia(filePath, fileName) {
     var fileExtension = filePath.toLowerCase().split('.').pop();
     var imgExtensions = ['jpg', 'jpeg', 'gif', 'png', 'wbmp'];
     if (fileExtension === "mp4") {
-        var player = document.getElementById('videoView');
-        var mp4Vid = document.getElementById('mp4Source');
+        disableMediaViewBackButton();
+        disableMediaViewForwardButton();
 
         $("#imageView").css("display", "none");
         $("#mainSectionModal").css("width", "40em");
         $("#videoView").css("display", "inline-block");
 
+        var player = document.getElementById('videoView');
+        var mp4Vid = document.getElementById('mp4Source');
+
+        // Clear content by setting the video to a 1x1 image
+        $(mp4Vid).attr('src', 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==');
+
+        player.addEventListener('progress', videoMediaLoaded);
         $(mp4Vid).attr('src', "php/mediaViewHandler.php?video=" + filePath);
+
         player.load();
         currentViewObject = fileName;
-        videoView = true;
-        imageView = false;
         return true;
     } else if ($.inArray(fileExtension, imgExtensions) !== -1) {
-        var image = document.getElementById('imageView');
+        disableMediaViewBackButton();
+        disableMediaViewForwardButton();
 
+        // Clear content by setting the image to a 1x1 image
+        $('#imageView').attr('src', 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==');
         $("#imageView").css("display", "inline-block");
         $("#videoView").css("display", "none");
 
+        var image = document.getElementById('imageView');
+
         getDimensionAndLoadImage(filePath, image);
         currentViewObject = fileName;
-        videoView = false;
-        imageView = true;
         return true;
     }
 
     videoView = false;
     imageView = false;
     return false;
+}
+
+/**
+ * This function is executed when a video is being loaded into the media viewer
+ */
+function videoMediaLoaded() {
+    videoView = true;
+    imageView = false;
+
+    enableMediaViewBackButton();
+    enableMediaViewForwardButton();
 }
 
 /**
@@ -557,7 +582,7 @@ function getDimensionAndLoadImage(filePath, image) {
     postData['type'] = "info";
 
     // Post the data to php
-    var xhr = $.ajax({
+    $.ajax({
         url: "php/mediaViewHandler.php",
         type: "POST",
         dataType: 'json',
@@ -583,12 +608,14 @@ function getDimensionAndLoadImage(filePath, image) {
                 $("#imageView").css("height", height + "px");
                 var revealModalHeight = $("#viewModal").height();
 
-                var newDocHeight = revealModalHeight - $(document).height();
+                var topOffset = $("#viewModal").offset().top;
+                var newDocHeight = (revealModalHeight + topOffset) - docHeight;
 
                 if (newDocHeight > 0) {
-                    $("#statusBar").css("margin-bottom", newDocHeight + $("#viewModal").offset().top + 300 + "px");
+                    $("#statusBar").css("margin-bottom", newDocHeight + 300 + "px");
                 }
 
+                image.addEventListener('load', imageMediaLoaded);
                 image.src = "php/mediaViewHandler.php?image=" + filePath;
             } else {
                 flashRed();
@@ -597,6 +624,18 @@ function getDimensionAndLoadImage(filePath, image) {
         }
     });
 }
+
+/**
+ * This function is executed when an image is done loading in the media viewer
+ */
+function imageMediaLoaded() {
+    videoView = false;
+    imageView = true;
+
+    enableMediaViewBackButton();
+    enableMediaViewForwardButton();
+}
+
 
 /**
  * Gets the next object that is viewable (image or video) and displays it in the media modal.
