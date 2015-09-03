@@ -252,7 +252,7 @@ function showCurrentFilesHelper(fileArray) {
         templateObj.appendChild(cross);
 
         // Add events (mouse over, mouse leave and click) and hide file size and name by default
-        (function (filePath, obj, crossIn, isImgIn) {
+        (function (filePath, fileName, obj, crossIn, isImgIn) {
             //var dzDetails = templateObj.getElementsByClassName("dz-details");
 
             var childDivs = obj.children;
@@ -304,7 +304,7 @@ function showCurrentFilesHelper(fileArray) {
                     deleteFile(filePath);
                 }
             });
-        })(path, templateObj, cross, isImg);
+        })(path, fileName, templateObj, cross, isImg);
     }
 
     // Make each image fill the div completely
@@ -822,6 +822,23 @@ function back() {
         flashRed();
         $("#statusText").text("Please stop editing first before going back");
     }
+}
+
+/**
+ *
+ *
+ * @param isImage
+ * @param name
+ * @param size
+ */
+function addFileToCurrentFiles(isImage, name, size) {
+    var newFile = {
+        is_image: isImage,
+        name: name,
+        size: size
+    };
+
+    currentFiles.push(newFile);
 }
 
 /**

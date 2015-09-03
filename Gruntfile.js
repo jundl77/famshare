@@ -9,7 +9,7 @@ module.exports = function (grunt) {
 
         concat: {
             js_filehub: {
-                src: ['js/fileHubManager.js', 'js/filehub.js', 'js/api/dropzone.js', 'js/api/exif.js'],
+                src: ['js/fileHubManager.js', 'js/filehub.js', 'js/api/dropzone.js', 'js/api/exif.js', 'js/api/spin.js'],
                 dest: 'build_temp/js/filehub.js'
             },
 
