@@ -517,6 +517,7 @@ function loadThumbnail(img, path) {
 function loadViewMedia(filePath, fileName) {
     var fileExtension = filePath.toLowerCase().split('.').pop();
     var imgExtensions = ['jpg', 'jpeg', 'gif', 'png', 'wbmp'];
+
     if (fileExtension === "mp4") {
         disableMediaViewBackButton();
         disableMediaViewForwardButton();
@@ -524,6 +525,7 @@ function loadViewMedia(filePath, fileName) {
         $("#imageView").css("display", "none");
         $("#mainSectionModal").css("width", "40em");
         $("#videoView").css("display", "inline-block");
+        $("#statusBar").css("margin-bottom", "0px");
 
         var player = document.getElementById('videoView');
         var mp4Vid = document.getElementById('mp4Source');
@@ -562,6 +564,9 @@ function loadViewMedia(filePath, fileName) {
  * This function is executed when a video is being loaded into the media viewer
  */
 function videoMediaLoaded() {
+    var spinner = getSpinner();
+    spinner.stop();
+
     videoView = true;
     imageView = false;
 
@@ -613,6 +618,8 @@ function getDimensionAndLoadImage(filePath, image) {
 
                 if (newDocHeight > 0) {
                     $("#statusBar").css("margin-bottom", newDocHeight + 300 + "px");
+                } else {
+                    $("#statusBar").css("margin-bottom", "0px");
                 }
 
                 image.addEventListener('load', imageMediaLoaded);
@@ -629,6 +636,9 @@ function getDimensionAndLoadImage(filePath, image) {
  * This function is executed when an image is done loading in the media viewer
  */
 function imageMediaLoaded() {
+    var spinner = getSpinner();
+    spinner.stop();
+
     videoView = false;
     imageView = true;
 
@@ -643,6 +653,8 @@ function imageMediaLoaded() {
  * This means that the function loops forwards in the current files array until it finds an object it can view.
  */
 function nextViewObject() {
+    initSpinner(document.getElementById('mainSectionModal'));
+
     // Go through all files
     for (var i = 0; i < currentFiles.length; i++) {
         var file = currentFiles[i];
@@ -688,6 +700,8 @@ function nextViewObject() {
  * This means that the function loops backwards in the current files array until it finds an object it can view.
  */
 function previousViewObject() {
+    initSpinner(document.getElementById('mainSectionModal'));
+
     // Go through all files
     for (var i = 0; i < currentFiles.length; i++) {
         var file = currentFiles[i];

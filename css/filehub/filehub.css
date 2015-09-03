@@ -362,6 +362,7 @@
     margin-left: auto;
     margin-right: auto;
     width: 40em;
+    z-index: 1000;
 }
 
 #modalButtons {

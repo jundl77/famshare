@@ -156,6 +156,7 @@ include("includes/header.php");
     </div>
 
     <script type="text/javascript" src="js/api/foundation.min.js"></script>
+    <script type="text/javascript" src="js/api/spin.js"></script>
 
 <?php
 include("includes/bottom.php");
