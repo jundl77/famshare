@@ -176,10 +176,11 @@ if (!empty($_FILES)) {
  * @param string $totalSize - original file size (in bytes)
  * @return bool true if the file was created from the chunks, else false
  */
-function create_file_from_chunks($tempDir, $rootDir, $fileName, $chunkSize, $totalSize) {
+function create_file_from_chunks($tempDir, $rootDir, $fileName, $chunkSize, $totalSize)
+{
     // Count all the parts of this file
     $total_files = 0;
-    foreach(scandir($tempDir) as $file) {
+    foreach (scandir($tempDir) as $file) {
         if (stripos($file, $fileName) !== false) {
             $total_files++;
         }
@@ -191,18 +192,18 @@ function create_file_from_chunks($tempDir, $rootDir, $fileName, $chunkSize, $tot
 
         // create the final destination file
         if (($fp = fopen($rootDir . $fileName, 'w')) !== false) {
-            for ($i=1; $i<=$total_files; $i++) {
-                fwrite($fp, file_get_contents($tempDir.'/'.$fileName.'.part'.$i));
+            for ($i = 1; $i <= $total_files; $i++) {
+                fwrite($fp, file_get_contents($tempDir . '/' . $fileName . '.part' . $i));
             }
             fclose($fp);
         } else {
-           return false;
+            return false;
         }
 
         // Rename the temporary directory (to avoid access from other
         // Concurrent chunks uploads) and than delete it
-        if (rename($tempDir, $tempDir.'_UNUSED')) {
-            remove_dir_rec($tempDir.'_UNUSED');
+        if (rename($tempDir, $tempDir . '_UNUSED')) {
+            remove_dir_rec($tempDir . '_UNUSED');
         } else {
             remove_dir_rec($tempDir);
         }
@@ -217,7 +218,8 @@ function create_file_from_chunks($tempDir, $rootDir, $fileName, $chunkSize, $tot
  * @param string $dir - directory path
  * @link http://php.net/manual/en/function.rmdir.php
  */
-function remove_dir_rec($dir) {
+function remove_dir_rec($dir)
+{
     if (is_dir($dir)) {
         $objects = scandir($dir);
         foreach ($objects as $object) {

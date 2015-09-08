@@ -177,10 +177,10 @@ function makeNewFolder() {
 }
 
 /**
-* Creates a new spinner on the target object target. A spinner is a spinning wheel used to illustrate waiting times
-*
-* @returns {*} the spinner object
-*/
+ * Creates a new spinner on the target object target. A spinner is a spinning wheel used to illustrate waiting times
+ *
+ * @returns {*} the spinner object
+ */
 function initSpinner(target) {
     var opts = {
         lines: 13 // The number of lines to draw

@@ -3,7 +3,8 @@
  * Licensed under the MIT license
  * http://spin.js.org/
  */
-;(function (root, factory) {
+;
+(function (root, factory) {
 
     /* CommonJS */
     if (typeof module == 'object' && module.exports) module.exports = factory()
@@ -261,10 +262,10 @@
             }
 
             var margin = -(o.width + o.length) * o.scale * 2 + 'px', g = css(grp(), {
-                    position: 'absolute',
-                    top: margin,
-                    left: margin
-                }), i
+                position: 'absolute',
+                top: margin,
+                left: margin
+            }), i
 
             function seg(i, dx, filter) {
                 ins(

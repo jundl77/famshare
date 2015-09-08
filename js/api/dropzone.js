@@ -1321,13 +1321,13 @@ function getDropzone() {
             var postData = {};
             postData['filePath'] = $("#currentDirText").text().substring(1);
 
-            var resumable = new Resumable ({
-                target:'php/resumableUploadHandler.php',
+            var resumable = new Resumable({
+                target: 'php/resumableUploadHandler.php',
                 query: postData,
                 maxFiles: gOptions.maxFiles,
                 simultaneousUploads: gOptions.parallelUploads,
                 testChunks: true,
-                maxFilesErrorCallback: function() {
+                maxFilesErrorCallback: function () {
                     flashRed();
                     $("#statusText").text("Too many files uploaded, reload.");
                 }
