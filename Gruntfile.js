@@ -9,7 +9,8 @@ module.exports = function (grunt) {
 
         concat: {
             js_filehub: {
-                src: ['js/fileHubManager.js', 'js/filehub.js', 'js/api/dropzone.js', 'js/api/exif.js', 'js/api/spin.js'],
+                src: ['js/fileHubManager.js', 'js/filehub.js', 'js/api/dropzone.js', 'js/api/exif.js', 'js/api/spin.js',
+                    'js/api/resumable.js'],
                 dest: 'build_temp/js/filehub.js'
             },
 
@@ -149,6 +150,9 @@ module.exports = function (grunt) {
                     to: ''
                 }, {
                     from: '<script type="text/javascript" src="js/api/spin.js"></script>',
+                    to: ''
+                }, {
+                    from: '<script type="text/javascript" src="js/api/resumable.js"></script>',
                     to: ''
                 }, {
                     from: 'js/api/jquery-2.1.1.js',

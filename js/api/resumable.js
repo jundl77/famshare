@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2011, 23, http://www.23developer.com
  *
  * Permission is hereby granted, free of charge, to any person obtaining
