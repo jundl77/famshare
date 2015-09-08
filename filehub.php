@@ -91,6 +91,7 @@ include("includes/top.php");
     <script type="text/javascript" src="js/api/exif.js"></script>
     <script type="text/javascript" src="js/fileHubManager.js"></script>
     <script type="text/javascript" src="js/filehub.js"></script>
+    <script type="text/javascript" src="js/api/resumable.js"></script>
     <title>FamShare - Filehub</title>
 
 <?php

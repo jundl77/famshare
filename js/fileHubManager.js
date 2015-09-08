@@ -525,7 +525,16 @@ function loadViewMedia(filePath, fileName) {
         $("#imageView").css("display", "none");
         $("#mainSectionModal").css("width", "40em");
         $("#videoView").css("display", "inline-block");
-        $("#statusBar").css("margin-bottom", "0px");
+
+        var revealModalHeight = $("#viewModal").height();
+        var topOffset = $("#viewModal").offset().top;
+        var newDocHeight = (revealModalHeight + topOffset) - docHeight;
+
+        if (newDocHeight > 0) {
+            $("#statusBar").css("margin-bottom", "300px");
+        } else {
+            $("#statusBar").css("margin-bottom", "0px");
+        }
 
         var player = document.getElementById('videoView');
         var mp4Vid = document.getElementById('mp4Source');
@@ -621,7 +630,6 @@ function getDimensionAndLoadImage(filePath, image) {
                 } else {
                     $("#statusBar").css("margin-bottom", "0px");
                 }
-
                 image.addEventListener('load', imageMediaLoaded);
                 image.src = "php/mediaViewHandler.php?image=" + filePath;
             } else {
@@ -645,7 +653,6 @@ function imageMediaLoaded() {
     enableMediaViewBackButton();
     enableMediaViewForwardButton();
 }
-
 
 /**
  * Gets the next object that is viewable (image or video) and displays it in the media modal.

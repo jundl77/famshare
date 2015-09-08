@@ -148,6 +148,9 @@ module.exports = function (grunt) {
                     from: '<script type="text/javascript" src="js/fileHubManager.js"></script>',
                     to: ''
                 }, {
+                    from: '<script type="text/javascript" src="js/api/spin.js"></script>',
+                    to: ''
+                }, {
                     from: 'js/api/jquery-2.1.1.js',
                     to: 'js/jquery-2.1.1.min.js'
                 }, {

@@ -362,6 +362,16 @@ $(document).ready(function () {
     });
 
     $(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
+        var revealModalHeight = $("#viewModal").height();
+        var topOffset = $("#viewModal").offset().top;
+        var newDocHeight = (revealModalHeight + topOffset) - docHeight;
+
+        if (newDocHeight > 0) {
+            $("#statusBar").css("margin-bottom", "300px");
+        } else {
+            $("#statusBar").css("margin-bottom", "0px");
+        }
+
         initSpinner(document.getElementById('mainSectionModal'));
     });
 });

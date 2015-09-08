@@ -493,11 +493,13 @@
     font-size: 13px;
     top: 130px;
     left: -10px;
-    width: 140px;
+    width: 150px;
     background: #be2626;
     background: linear-gradient(to bottom, #be2626, #a92222);
     padding: 0.5em 1.2em;
     color: white;
+    font-family: OpenSans, sans-serif;
+    text-align: center;
 }
 
 .dropzone .dz-preview .dz-error-message:after {
