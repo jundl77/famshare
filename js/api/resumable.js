@@ -75,7 +75,7 @@
             maxChunkRetries: undefined,
             chunkRetryInterval: undefined,
             permanentErrors: [400, 404, 415, 500, 501],
-            maxFiles: 1,
+            maxFiles: undefined,
             withCredentials: false,
             xhrTimeout: 0,
             maxFilesErrorCallback: function (files, errorCount) {
