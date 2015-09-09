@@ -419,7 +419,7 @@ function getDropzone() {
                     }
                     cross.addEventListener('click', function (event) {
                         if (editing) {
-                            deleteFile("/" + file.name);
+                            deleteFile(path);
                         }
                     });
 
@@ -1324,7 +1324,7 @@ function getDropzone() {
             var resumable = new Resumable({
                 target: 'php/resumableUploadHandler.php',
                 query: postData,
-                maxFiles: gOptions.maxFiles,
+                maxFiles: 1,
                 simultaneousUploads: gOptions.parallelUploads,
                 testChunks: true,
                 maxFilesErrorCallback: function () {
@@ -1348,15 +1348,21 @@ function getDropzone() {
                     Dropzone.prototype.defaultOptions.uploadprogress(file.file, progressValue, null);
                 });
 
-                resumable.on('fileSuccess', function (file) {
-                    Dropzone.prototype.defaultOptions.complete(file.file);
-                    Dropzone.prototype.defaultOptions.success(file.file);
-                });
+                resumable.on('fileSuccess', (function(_this) {
+                    return function (file) {
+                        return _this._finished([file.file], "success", null);
+                    }
+                })(this));
 
-                resumable.on('error', function (message, file) {
-                    Dropzone.prototype.defaultOptions.complete(file.file);
-                    Dropzone.prototype.defaultOptions.error(file.file, message);
-                });
+                resumable.on('error', (function(_this) {
+                    return function (message, file) {
+                        return _this._errorProcessing([file.file], message, null);
+                    }
+                })(this));
+
+                var success = (function(_this) {
+                    return _this._finished(file, "success", null);
+                })(this);
             } else {
                 // Not supported, fall back on old upload method
                 var file, formData, handleError, headerName, headerValue, headers, i, input, inputName, inputType, key, method, option, progressObj, response, updateProgress, url, value, xhr, _i, _j, _k, _l, _len, _len1, _len2, _len3, _m, _ref, _ref1, _ref2, _ref3, _ref4, _ref5;

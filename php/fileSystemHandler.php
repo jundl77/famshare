@@ -144,7 +144,8 @@ function getFileSystem($path, $fileSystem)
         $size = count($fileSystemArray);
         for ($i = 0; $i < $size; $i++) {
             $newPath = $path . $fileSystemArray[$i] . "/";
-            if ($fileSystemArray[$i] != "." && $fileSystemArray[$i] != ".."
+            $tempFile = strpos($fileSystemArray[$i], "73mp") !== false;
+            if ($fileSystemArray[$i] != "." && $fileSystemArray[$i] != ".." && !$tempFile
                 && $fileSystemArray[$i] != ".DS_Store" && is_dir($newPath)
             ) {
                 array_push($tempFileSystemArray, $fileSystemArray[$i]);
@@ -173,7 +174,8 @@ function getFileSystem($path, $fileSystem)
         $newSize = count($newFileSystemArray);
         for ($j = 0; $j < $newSize; $j++) {
             $newPathLocal = $newPath . $newFileSystemArray[$j] . "/";
-            if ($newFileSystemArray[$j] != "." && $newFileSystemArray[$j] != ".."
+            $tempFile = strpos($newFileSystemArray[$j], "73mp") !== false;
+            if ($newFileSystemArray[$j] != "." && $newFileSystemArray[$j] != ".." && !$tempFile
                 && $newFileSystemArray[$j] != ".DS_Store" && is_dir($newPathLocal)
             ) {
                 array_push($tempFileSystemArray, $newFileSystemArray[$j]);
@@ -207,6 +209,7 @@ function getFilesInFolder($dataPath, $thumbPath)
         foreach ($files as $file) {
             $newDataPath = $dataPath . $file;
             $newThumbPath = $thumbPath . $file;
+
             if ('.' != $file && '..' != $file && $file != ".DS_Store" && !is_dir($newDataPath)) {
                 $fileExt = strtolower(end(explode('.', $file)));
                 $correctExt = in_array($fileExt, $exts);

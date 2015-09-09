@@ -49,7 +49,8 @@ if (isset($_GET["resumableIdentifier"]) && !empty($_GET["resumableIdentifier"]))
         die();
     }
 
-    $fullDir = $rootDir . $path . $resumableIdentifier;
+    $temp = "73mp_";
+    $fullDir = $rootDir . $path . $temp . $resumableIdentifier;
     $chunkFile = $fullDir . '/' . $resumableFilename . '.part' . $resumableChunkNumber;
 
     if (file_exists($chunkFile)) {
@@ -135,7 +136,8 @@ if (!empty($_FILES)) {
 
             // Init the destination file (format <filename.ext>.part<#chunk>
             // The file is stored in a temporary directory
-            $fullDir = $rootDir . $path . $resumableIdentifier;
+            $temp = "73mp_";
+            $fullDir = $rootDir . $path . $temp . $resumableIdentifier;
             $dest_file = $fullDir . '/' . $resumableFilename . '.part' . $resumableChunkNumber;
 
             // Create the temporary directory

@@ -57,7 +57,7 @@
         $.defaults = {
             chunkSize: 1 * 1024 * 1024,
             forceChunkSize: false,
-            simultaneousUploads: 3,
+            simultaneousUploads: 10,
             fileParameterName: 'file',
             throttleProgressCallbacks: 0.5,
             query: {},
@@ -75,7 +75,7 @@
             maxChunkRetries: undefined,
             chunkRetryInterval: undefined,
             permanentErrors: [400, 404, 415, 500, 501],
-            maxFiles: undefined,
+            maxFiles: 1,
             withCredentials: false,
             xhrTimeout: 0,
             maxFilesErrorCallback: function (files, errorCount) {
