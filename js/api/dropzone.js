@@ -408,7 +408,11 @@ function getDropzone() {
                     var imgExtensions = ['jpg', 'jpeg', 'gif', 'png', 'wbmp'];
                     var isImage = $.inArray(fileExtension, imgExtensions) > -1;
 
-                    addFileToCurrentFiles(isImage, file.name, file.size);
+                    if (isImage) {
+                        addFileToCurrentFiles("image", file.name, file.size);
+                    } else {
+                        addFileToCurrentFiles("null", file.name, file.size);
+                    }
 
                     // Add deletion cross
                     var cross = document.createElement("div");

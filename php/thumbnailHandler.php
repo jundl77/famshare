@@ -18,6 +18,12 @@ if (isset($_POST["file"]) && !empty($_POST["file"])) {
         die();
     }
 
+    $type = sanitize($_POST["type"]);
+    if (!$type) {
+        echo json_encode(array('state' => "error", 'content' => "Error, unable to load thumbnail " . $file));
+        die();
+    }
+
     $file = substr($file, 1);
 
     $exts = array('jpg', 'jpeg', 'gif', 'png', 'wbmp');
@@ -30,6 +36,8 @@ if (isset($_POST["file"]) && !empty($_POST["file"])) {
         $obj['thumb_data'] = base64_encode(file_get_contents($thumbDir . $file));
     } else if (is_file($ICON_FOLDER . $fileExt . ".png")) {
         $obj['thumb_data'] = base64_encode(file_get_contents($ICON_FOLDER . $fileExt . ".png"));
+    } else if ($type === "temp") {
+        $obj['thumb_data'] = base64_encode(file_get_contents($ICON_FOLDER . "_temp.png"));
     } else {
         $obj['thumb_data'] = base64_encode(file_get_contents($ICON_FOLDER . "_blank.png"));
     }

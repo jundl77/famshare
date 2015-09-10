@@ -204,7 +204,7 @@ function showCurrentFilesHelper(fileArray) {
         var file = fileArray[i];
         var fileName = file.name;
         var fileSize = file.size;
-        var isImg = file.is_image;
+        var fileType = file.type;
 
         var path = $("#currentDirText").text() + fileName;
 
@@ -235,14 +235,22 @@ function showCurrentFilesHelper(fileArray) {
             var childDiv = childDivs[j];
             if (childDiv.classList.contains("dz-image")) {
                 var img = childDiv.getElementsByTagName('img')[0];
-                loadThumbnail(img, path);
+                loadThumbnail(img, fileType, path);
             }
 
             // Add file info if it is not an image
-            if (childDiv.classList.contains("dz-details") && isImg) {
+            if (childDiv.classList.contains("dz-details") && fileType === "image") {
                 childDiv.style.visibility = "hidden";
             } else if (childDiv.classList.contains("dz-details")) {
                 childDiv.style.visibility = "visible";
+            }
+
+            // Lower opacity if the file is a temporary file
+            if (childDiv.classList.contains("dz-details") && fileType === "temp") {
+                childDiv.style.opacity = "0.4";
+            }
+            if (childDiv.classList.contains("dz-image") && fileType === "temp") {
+                childDiv.style.opacity = "0.4";
             }
         }
 
@@ -252,7 +260,7 @@ function showCurrentFilesHelper(fileArray) {
         templateObj.appendChild(cross);
 
         // Add events (mouse over, mouse leave and click) and hide file size and name by default
-        (function (filePath, fileName, obj, crossIn, isImgIn) {
+        (function (filePath, fileName, obj, crossIn, fileTypeIn, parentPath) {
             //var dzDetails = templateObj.getElementsByClassName("dz-details");
 
             var childDivs = obj.children;
@@ -278,11 +286,11 @@ function showCurrentFilesHelper(fileArray) {
             templateObj.addEventListener('mouseover', function (event) {
                 for (var j = 0; j < childDivs.length; j++) {
                     var childDiv = childDivs[j];
-                    if (childDiv.classList.contains("dz-details") && isImgIn) {
+                    if (childDiv.classList.contains("dz-details") && fileTypeIn === "image") {
                         childDiv.style.visibility = "visible";
                     }
 
-                    if (childDiv.classList.contains("dz-download")) {
+                    if (childDiv.classList.contains("dz-download") && fileTypeIn !== "temp") {
                         childDiv.style.visibility = "visible";
                     }
                 }
@@ -290,21 +298,21 @@ function showCurrentFilesHelper(fileArray) {
             templateObj.addEventListener('mouseleave', function (event) {
                 for (var j = 0; j < childDivs.length; j++) {
                     var childDiv = childDivs[j];
-                    if (childDiv.classList.contains("dz-details") && isImgIn) {
+                    if (childDiv.classList.contains("dz-details") && fileTypeIn === "image") {
                         childDiv.style.visibility = "hidden";
                     }
 
-                    if (childDiv.classList.contains("dz-download")) {
+                    if (childDiv.classList.contains("dz-download") && fileTypeIn !== "temp") {
                         childDiv.style.visibility = "hidden";
                     }
                 }
             });
             crossIn.addEventListener('click', function (event) {
                 if (editing) {
-                    deleteFile(filePath);
+                    deleteFile(parentPath, fileName, fileTypeIn);
                 }
             });
-        })(path, fileName, templateObj, cross, isImg);
+        })(path, fileName, templateObj, cross, fileType, $("#currentDirText").text());
     }
 
     // Make each image fill the div completely
@@ -444,10 +452,18 @@ function deleteFolder(folder) {
 /**
  * Removes the file that was clicked on at the given path
  */
-function deleteFile(fileName) {
+function deleteFile(filePath, fileName, fileType) {
+    if (fileType === "temp") {
+
+        // Delegate to folder deletion, since the temp file is a folder
+        var folderName = "73mpXX4242XX" + fileName + "XX4242XX";
+        deleteFolder(new Folder(folderName, null));
+        return false;
+    }
+
     var postData = {};
     postData['command'] = "deleteFile";
-    postData['path'] = fileName.substring(1);
+    postData['path'] = filePath.substring(1) + fileName;
 
     // post the dataUrl to php
     $.ajax({
@@ -485,9 +501,10 @@ function removeByAttr(arr, attr, value) {
  * @param img the image to get the thumbnail for
  * @param path the path of the image
  */
-function loadThumbnail(img, path) {
+function loadThumbnail(img, type, path) {
     var postData = {};
     postData['file'] = path;
+    postData['type'] = type;
 
     // post the dataUrl to php
     $.ajax({
@@ -834,13 +851,13 @@ function back() {
 /**
  *
  *
- * @param isImage
+ * @param type
  * @param name
  * @param size
  */
-function addFileToCurrentFiles(isImage, name, size) {
+function addFileToCurrentFiles(type, name, size) {
     var newFile = {
-        is_image: isImage,
+        type: type,
         name: name,
         size: size
     };

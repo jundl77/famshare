@@ -94,6 +94,25 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
     }
 
     try {
+        // Check if the file is a temp file
+        $pathArray = explode("\/", $path);
+
+        $parentDir = substr($rootDir, 0, strlen($rootDir) - 1);
+        $fileBeginning  = array_pop($pathArray);
+
+        for ($i = 0; $i < sizeof($pathArray); $i++) {
+            $parentDir .= $pathArray[$i] . "/";
+        }
+        $dirArray = scandir($parentDir);
+        foreach ($dirArray as $file) {
+            if ($tempFile = strpos($file, $fileBeginning) !== false) {
+                deleteDir($parentDir . "/" . $file);
+
+                exit(json_encode(array('state' => "success", 'content' => "Deleted file successfully")));
+            }
+        }
+
+
         deleteDir($rootDir . $path);
         deleteDir($thumbDir . $path);
         echo json_encode(array('state' => "success", 'content' => "Deleted folder successfully"));
@@ -209,16 +228,31 @@ function getFilesInFolder($dataPath, $thumbPath)
         foreach ($files as $file) {
             $newDataPath = $dataPath . $file;
             $newThumbPath = $thumbPath . $file;
+            $tempFile = strpos($file, "73mp") !== false;
+            if (('.' != $file && '..' != $file && $file != ".DS_Store" && !is_dir($newDataPath)) || $tempFile) {
+                if ($tempFile) {
+                    $pathArray = explode("XX4242XX", $file);
+                    $obj['name'] = $pathArray[1];
 
-            if ('.' != $file && '..' != $file && $file != ".DS_Store" && !is_dir($newDataPath)) {
-                $fileExt = strtolower(end(explode('.', $file)));
-                $correctExt = in_array($fileExt, $exts);
-                $obj['name'] = $file;
-                $obj['size'] = filesize($newDataPath);
-                if ($correctExt && file_exists($newThumbPath)) {
-                    $obj['is_image'] = true;
+                    $io = popen ( '/usr/bin/du -sk ' . $newDataPath, 'r' );
+                    $size = fgets ( $io, 4096);
+                    $size = substr ( $size, 0, strpos ( $size, "\t" ) );
+                    pclose ( $io );
+                    $obj['size'] = $size;
+
+                    $obj['type'] = "temp";
                 } else {
-                    $obj['is_image'] = false;
+                    $fileExt = strtolower(end(explode('.', $file)));
+                    $correctExt = in_array($fileExt, $exts);
+                    $obj['name'] = $file;
+
+                    $obj['size'] = filesize($newDataPath);
+
+                    if ($correctExt && file_exists($newThumbPath)) {
+                        $obj['type'] = "image";
+                    } else {
+                        $obj['type'] = "null";
+                    }
                 }
 
                 $result[] = $obj;
