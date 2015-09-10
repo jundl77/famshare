@@ -85,33 +85,14 @@ Change the directories where uploaded files are saved:
 
 #### Change Max File Upload Size
 
-1. This is a bit more complicated, start off by going to  ``` /config/server/server_config.php  ``` and changing:
+1. Go to  ``` /config/server/server_config.php  ``` and change:
 
  ```php
     // Max file size allowed by script
     "max_size_byte_script" => 10737418240, // in bytes
-
-    // Max file size allowed by the php engine
-    "upload_max_filesize" => "10000M",
-
-    // The max size of a request that can be posted to a php script, should be bigger than upload_max_filesize
-    "post_max_size" => "11000M",
-
-    // Max input time in seconds allowed for script to parse data
-    "max_input_time" => 36000,
-
-    // Max time in seconds allowed for script to run before it is terminated by the parser
-    "max_execution_time" => 36000
   ``` 
-
-  Note that you should give the script enough time to process larger files (here 10hrs for 10GB max :P ).
-
-2. Then go into your   ``` php.ini   ```  file and change the same variables as above to values you just set.
-
-3. Go to   ```  /config/client/client_config.js  ```  and change    ```  maxFilesize: 10000   ``` to your new size (in Megabytes).
-
-4. If you are using Nginx as a web-server, you also have to change    ```client_max_body_size 10000M;   ``` in
-   ```  /etc/nginx/nginx.conf   ```  on the server.
+  
+2. Go to   ```  /config/client/client_config.js  ```  and change    ```  maxFilesize: 10000   ``` to your new size (in Megabytes).
 
 ## Set up FamShare on a Raspberry Pi
 
