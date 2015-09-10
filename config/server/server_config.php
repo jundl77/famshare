@@ -28,18 +28,23 @@ return array(
     /*
      * ================================================================================================
      * IMPORTANT:
-     * The below values have to be changed in the php.ini file as well (same name)
+     * This file is for the alternative upload method using Dropzone.js in case the default method fails.
+     * If you have a modern browser and everything seems to work fine as it is, you should be able to
+     * just ignore this. It is only relevant if chunked uploading doesn't work and FamShare resorts to
+     * direct uploading.
+     *
+     * NOTE: The below values have to be changed in the php.ini file as well (same name)
      * ================================================================================================
      */
     // Max file size allowed by the php engine
-    "upload_max_filesize" => "10000M",   // not actual # of megabyte (to power of base 10)
+    "upload_max_filesize" => "10M",   // not actual # of megabyte (to power of base 10)
 
     // The max size of a request that can be posted to a php script, should be bigger than upload_max_filesize
-    "post_max_size" => "11000M",    // not actual # of megabyte (to power of base 10)
+    "post_max_size" => "15M",    // not actual # of megabyte (to power of base 10)
 
     // Max input time in seconds allowed for script to parse data
-    "max_input_time" => 36000,
+    "max_input_time" => 360,
 
     // Max time in seconds allowed for script to run before it is terminated by the parser
-    "max_execution_time" => 36000
+    "max_execution_time" => 300
 );
