@@ -277,7 +277,7 @@ function showCurrentFilesHelper(fileArray) {
             }
 
             dzDetailsDiv.addEventListener('click', function (event) {
-                if (loadViewMedia(filePath, fileName)) {
+                if (loadViewMedia(filePath, fileName, fileTypeIn)) {
                     $('#viewModal').foundation('reveal', 'open');
                 }
             });
@@ -531,12 +531,15 @@ function loadThumbnail(img, type, path) {
  *
  * @param filePath the file path of the object to load into the media modal
  * @param fileName the name of the file that is to be loaded into the media modal
+ * @param fileType the type of the file
  */
-function loadViewMedia(filePath, fileName) {
+function loadViewMedia(filePath, fileName, fileType) {
     var fileExtension = filePath.toLowerCase().split('.').pop();
     var imgExtensions = ['jpg', 'jpeg', 'gif', 'png', 'wbmp'];
 
-    if (fileExtension === "mp4") {
+    if (fileType === "temp") {
+        return false;
+    } else if (fileExtension === "mp4") {
         disableMediaViewBackButton();
         disableMediaViewForwardButton();
 
@@ -706,7 +709,7 @@ function nextViewObject() {
                 }
 
                 var path = $("#currentDirText").text() + nextFileName;
-                if (loadViewMedia(path, nextFileName)) {
+                if (loadViewMedia(path, nextFileName, currentFiles[i].type)) {
                     done = true;
                 }
 
@@ -753,7 +756,7 @@ function previousViewObject() {
                 }
 
                 var path = $("#currentDirText").text() + nextFileName;
-                if (loadViewMedia(path, nextFileName)) {
+                if (loadViewMedia(path, nextFileName, currentFiles[i].type)) {
                     done = true;
                 }
 
