@@ -5,6 +5,11 @@ var backwardButtonModal = true;
 var spinner = null;
 
 /**
+ * This script controls the javascript behind the file hub elements. In other words, it directly interacts with the
+ * document. It is like the "view" in a MVC.
+ */
+
+/**
  * Disables the back button
  */
 function disableBackButton() {
@@ -49,7 +54,7 @@ function deactivateEditButton() {
 }
 
 /**
- *
+ * Disables the media view forward button
  */
 function disableMediaViewForwardButton() {
     $("#forwardButtonModal").css("opacity", "0.4");
@@ -57,7 +62,7 @@ function disableMediaViewForwardButton() {
 }
 
 /**
- *
+ * Disables the media view back button
  */
 function disableMediaViewBackButton() {
     $("#backButtonModal").css("opacity", "0.4");
@@ -65,7 +70,7 @@ function disableMediaViewBackButton() {
 }
 
 /**
- *
+ * Enables the media view forward button
  */
 function enableMediaViewForwardButton() {
     $("#forwardButtonModal").css("opacity", "0.8");
@@ -73,7 +78,7 @@ function enableMediaViewForwardButton() {
 }
 
 /**
- *
+ * Enables the media view back button
  */
 function enableMediaViewBackButton() {
     $("#backButtonModal").css("opacity", "0.8");
@@ -218,6 +223,9 @@ function getSpinner() {
     return spinner;
 }
 
+/**
+ * Here event driven functions are housed (Ex. mouse hover over button etc.)
+ */
 $(document).ready(function () {
 
     $(document).foundation();

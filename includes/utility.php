@@ -1,5 +1,16 @@
 <?php
+/**
+ * Some utility functions used all over FamShare
+ */
 
+/**
+ * Make a thumbnail of a newly uploaded file if it is an image
+ *
+ * @param $src the source of the file
+ * @param $dest where to save the thumbnail
+ * @param $fileExt the file extension (to check if the file is an image)
+ * @param $desired_width the desired width of the thumbnail, height and width are kept in ratio
+ */
 function make_thumb($src, $dest, $fileExt, $desired_width)
 {
     $exif = exif_read_data($src, 'IFD0');

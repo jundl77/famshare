@@ -3,6 +3,11 @@ include "../includes/sanitize.php";
 include "../includes/utility.php";
 $configs = include('../config/server/server_config.php');
 
+/**
+ * This is the backup upload script. It does not have resumable uploads and it interacts with Dropzone instead of
+ * with resumable.js.
+ */
+
 if (!empty($_FILES)) {
     $configs = $GLOBALS["configs"];
 

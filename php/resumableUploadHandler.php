@@ -1,26 +1,18 @@
 <?php
-/**
- * This is the implementation of the server side part of
- * Resumable.js client script, which sends/uploads files
- * to a server in several chunks.
- *
- * The script receives the files in a standard way as if
- * the files were uploaded using standard HTML form (multipart).
- *
- * This PHP script stores all the chunks of a file in a temporary
- * directory (`temp`) with the extension `_part<#ChunkN>`. Once all
- * the parts have been uploaded, a final destination file is
- * being created from all the stored parts (appending one by one).
- *
- * @author Gregory Chris (http://online-php.com)
- * @email www.online.php@gmail.com
- */
-
 include "../includes/sanitize.php";
 include "../includes/utility.php";
 $configs = include('../config/server/server_config.php');
 
-// Check if request is GET and the requested chunk exists or not. this makes testChunks work
+/**
+ * The resumableUploadHandler is the standard way of uploading, as opposed to the uploadHandler which servers as a
+ * backup. It interacts with resumable.js and not with Dropzone. The resumableUploadHandler uploads files in chunks so
+ * that the uploads can be resumed at a later time if they are interrupted. This is especially advantageous for large
+ * files, where errors can easily occur.
+ */
+
+/**
+ * Check if request wants to know whether a file is partially uploaded
+ */
 if (isset($_GET["resumableIdentifier"]) && !empty($_GET["resumableIdentifier"])) {
     $configs = $GLOBALS["configs"];
 
@@ -60,6 +52,9 @@ if (isset($_GET["resumableIdentifier"]) && !empty($_GET["resumableIdentifier"]))
     }
 }
 
+/**
+ * Handle the actual upload request
+ */
 if (!empty($_FILES)) {
     $configs = $GLOBALS["configs"];
 
@@ -215,10 +210,9 @@ function create_file_from_chunks($tempDir, $rootDir, $fileName, $chunkSize, $tot
 }
 
 /**
- * Delete a directory RECURSIVELY
+ * Delete a directory recursively
  *
  * @param string $dir - directory path
- * @link http://php.net/manual/en/function.rmdir.php
  */
 function remove_dir_rec($dir)
 {

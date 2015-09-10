@@ -2,6 +2,14 @@
 include "../includes/sanitize.php";
 $configs = include('../config/server/server_config.php');
 
+/**
+ * The mediaViewHandler sends data to the media view of the file hub. It ensures that images are seen in full size and
+ * that videos can be streamed directly from the file hub.
+ */
+
+/**
+ * Checks if the incoming request is asking for information
+ */
 if (isset($_POST["file"]) && !empty($_POST["file"]) && $_POST["type"] == "info") {
     $configs = $GLOBALS["configs"];
 
@@ -38,7 +46,12 @@ if (isset($_POST["file"]) && !empty($_POST["file"]) && $_POST["type"] == "info")
     } else {
         echo json_encode(array('state' => "error", 'content' => "Error, unable to get files"));
     }
-} else if (isset($_GET["video"]) && !empty($_GET["video"])) {
+}
+
+/**
+ * Checks if the incoming request is asking for a video streaming
+ */
+else if (isset($_GET["video"]) && !empty($_GET["video"])) {
     $configs = $GLOBALS["configs"];
 
     // Get root directories
@@ -63,7 +76,12 @@ if (isset($_POST["file"]) && !empty($_POST["file"]) && $_POST["type"] == "info")
         $stream->start();
         exit;
     }
-} else if (isset($_GET["image"]) && !empty($_GET["image"])) {
+}
+
+/**
+ * Checks if the incoming request is asking for a full size image
+ */
+else if (isset($_GET["image"]) && !empty($_GET["image"])) {
     $configs = $GLOBALS["configs"];
 
     // Get root directories
@@ -176,7 +194,7 @@ class VideoStream
     }
 
     /**
-     * close curretly opened stream
+     * Close curretly opened stream
      */
     private function end()
     {
@@ -185,7 +203,7 @@ class VideoStream
     }
 
     /**
-     * perform the streaming of calculated range
+     * Perform the streaming of calculated range
      */
     private function stream()
     {

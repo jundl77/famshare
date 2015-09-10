@@ -1,5 +1,14 @@
 var passBoxView = false;
 
+/**
+ * The javascript behind the home page. This script handles the login request and interacts directly with the document.
+ */
+
+/**
+ * Gets the HTTP Object for authentication
+ *
+ * @returns {boolean} returns the HTTP object on success, or false on failure
+ */
 function getHTTPObject() {
     var xmlhttp = false;
     if (typeof XMLHttpRequest != 'undefined') {
@@ -13,6 +22,12 @@ function getHTTPObject() {
     return xmlhttp;
 }
 
+/**
+ * Sends a request to log in to the server
+ *
+ * @param password the password to try to authenticate
+ * @returns {boolean} return false on error
+ */
 function login(password) {
     var username = "user";
     var http = getHTTPObject();
@@ -27,6 +42,9 @@ function login(password) {
     return false;
 }
 
+/**
+ * Controls the document via javascript events (onhover etc.)
+ */
 $(document).ready(function () {
     if (gOptions.enabled) {
         $('#title').text(gOptions.name + "Share");

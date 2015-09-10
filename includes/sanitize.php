@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * This function makes sure the value given is safe to use (free of code injections, etc.)
+ *
+ * @param $val string the value to check for safety
+ * @return string the safe value to use, or false if it failed to make the value safe
+ */
 function sanitize($val)
 {
     if (!preg_match_all("/^([\w]*[.()-\/,\s]*[\x{0080}-\x{00FF}]*)+$/", $val) && $val !== "") {

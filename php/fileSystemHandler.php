@@ -2,6 +2,15 @@
 include "../includes/sanitize.php";
 $configs = include('../config/server/server_config.php');
 
+/**
+ * The FileSystemHandler handles all the server side functionality to the file hub. For example, it worries about
+ * creating new folders, deleting files and folders, getting the file structure etc. However it has nothing to do
+ * with file uploads.
+ */
+
+/**
+ * Check for request to get file structure
+ */
 if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] == "fileStructure") {
     $configs = $GLOBALS["configs"];
 
@@ -21,7 +30,12 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
     } else {
         echo json_encode(array('state' => "error", 'content' => "Error, unable to get file structure"));
     }
-} else if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] == "files") {
+}
+
+/**
+ * Check for request to get files in a folder
+ */
+else if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] == "files") {
     $configs = $GLOBALS["configs"];
 
     // Get root directories
@@ -49,7 +63,12 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
     } else {
         echo json_encode(array('state' => "error", 'content' => "Error, unable to get files"));
     }
-} else if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] == "newFolder") {
+}
+
+/**
+ * Check for request to make a new folder
+ */
+else if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] == "newFolder") {
     $configs = $GLOBALS["configs"];
 
     // Get root directories
@@ -75,7 +94,12 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
     } else {
         echo json_encode(array('state' => "error", 'content' => "Error, unable to create new directory"));
     }
-} else if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] == "deleteFolder") {
+}
+
+/**
+ * Check for request to delete a folder
+ */
+else if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] == "deleteFolder") {
     $configs = $GLOBALS["configs"];
 
     // Get root directories
@@ -95,31 +119,37 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
 
     try {
         // Check if the file is a temp file
-        $pathArray = explode("\/", $path);
+        if (!file_exists($rootDir . $path)) {
+            $pathArray = explode("/", $path);
 
-        $parentDir = substr($rootDir, 0, strlen($rootDir) - 1);
-        $fileBeginning  = array_pop($pathArray);
-
-        for ($i = 0; $i < sizeof($pathArray); $i++) {
-            $parentDir .= $pathArray[$i] . "/";
-        }
-        $dirArray = scandir($parentDir);
-        foreach ($dirArray as $file) {
-            if ($tempFile = strpos($file, $fileBeginning) !== false) {
-                deleteDir($parentDir . "/" . $file);
-
-                exit(json_encode(array('state' => "success", 'content' => "Deleted file successfully")));
+            $parentDir = $rootDir;
+            $fileBeginning = array_pop($pathArray);
+            for ($i = 0; $i < sizeof($pathArray); $i++) {
+                $parentDir .= $pathArray[$i] . "/";
             }
+
+            $dirArray = scandir($parentDir);
+            foreach ($dirArray as $file) {
+                if ($tempFile = strpos($file, $fileBeginning) !== false) {
+                    deleteDir($parentDir . "/" . $file);
+
+                    exit(json_encode(array('state' => "success", 'content' => "Deleted file successfully")));
+                }
+            }
+        } else {
+            deleteDir($rootDir . $path);
+            deleteDir($thumbDir . $path);
+            echo json_encode(array('state' => "success", 'content' => "Deleted folder successfully"));
         }
-
-
-        deleteDir($rootDir . $path);
-        deleteDir($thumbDir . $path);
-        echo json_encode(array('state' => "success", 'content' => "Deleted folder successfully"));
     } catch (Exception $e) {
         echo json_encode(array('state' => "error", 'content' => "Error, unable to delete folder"));
     }
-} else if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] == "deleteFile") {
+}
+
+/**
+ * Check for request to delete a file
+ */
+else if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] == "deleteFile") {
     $configs = $GLOBALS["configs"];
 
     // Get root directories
@@ -151,7 +181,13 @@ if (isset($_POST["command"]) && !empty($_POST["command"]) && $_POST["command"] =
     }
 }
 
-
+/**
+ * Recursively get the file structure of the root folder set in the config file and return it as an array
+ *
+ * @param $path string the path of the root folder - so where to start getting the file structure
+ * @param $fileSystem array the current array of the fileSystem, exists because of recursion
+ * @return array the final file structure as a graph in an array
+ */
 function getFileSystem($path, $fileSystem)
 {
     // On first time search root directory
@@ -218,6 +254,13 @@ function getFileSystem($path, $fileSystem)
     return $fileSystem;
 }
 
+/**
+ * Get the files in a folder as an array
+ *
+ * @param $dataPath string the path to the parent folder
+ * @param $thumbPath string the path to the parent folder where the thumbnails are kept for images
+ * @return array a final array containing a list of files in the given directory with some extra data for each file
+ */
 function getFilesInFolder($dataPath, $thumbPath)
 {
     $result = array();
@@ -263,6 +306,11 @@ function getFilesInFolder($dataPath, $thumbPath)
     return array_values($result);
 }
 
+/**
+ * Delete the directory at the given path recursively
+ *
+ * @param $dirPath string the location of the directory to delete
+ */
 function deleteDir($dirPath)
 {
     if (!is_dir($dirPath)) {

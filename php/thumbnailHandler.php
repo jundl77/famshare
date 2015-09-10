@@ -2,6 +2,14 @@
 include "../includes/sanitize.php";
 $configs = include('../config/server/server_config.php');
 
+/**
+ * The thumbnailHandler sends back the right thumbnail for a given file. There are four types of thumbnails.
+ *  1. Real thumbnails of images
+ *  2. Thumbnails for file types if the file type is has a thumbnail for it and the file type is not an image
+ *  3. Thumbails for temporary files fromt the resumable upload
+ *  4. A blank thumbnail if all else failed
+ */
+
 if (isset($_POST["file"]) && !empty($_POST["file"])) {
     $configs = $GLOBALS["configs"];
 

@@ -1,7 +1,3 @@
-/**
- * The file system manager grabs the current file system of the server upload section and turns it into a graph
- * which is used as a map to track the current directory
- */
 var currentDir = null;
 var currentFiles = null;
 var currentViewObject = null;
@@ -13,6 +9,11 @@ var editing = false;
 var videoView = false;
 var imageView = false;
 var docHeight;
+
+/**
+ * The fileHubManager communicates with the server to display the objects. It has methods like deleteFile() or other
+ * client side functions which trigger an ajax request to the server. It is like the "controller" in an MVC.
+ */
 
 /**
  * Returns true if a video is currently being displayed, otherwise returns false
@@ -849,11 +850,11 @@ function back() {
 }
 
 /**
+ * Add a file to the currenFiles array
  *
- *
- * @param type
- * @param name
- * @param size
+ * @param type the type of the file to add (Ex, image, temp, etc.)
+ * @param name the name of the file to add
+ * @param size the size of the file to add
  */
 function addFileToCurrentFiles(type, name, size) {
     var newFile = {

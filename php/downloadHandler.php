@@ -2,6 +2,10 @@
 include "../includes/sanitize.php";
 $configs = include('../config/server/server_config.php');
 
+/**
+ * The downloadHandler manages download request. It sends the content of a file on request back to the client.
+ */
+
 if (isset($_POST["filePath"]) && !empty($_POST["filePath"])) {
     $configs = $GLOBALS["configs"];
 
