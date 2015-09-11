@@ -1,6 +1,6 @@
 {
     "name": "famshare",
-    "version": "0.9.0",
+    "version": "1.0.0",
     "description": "A free file sharing website for the family to run at home! Where you and not Big Brother control your data.",
     "main": "index.php",
     "dependencies": {

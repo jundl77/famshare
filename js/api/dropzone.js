@@ -423,7 +423,7 @@ function getDropzone() {
                     }
                     cross.addEventListener('click', function (event) {
                         if (editing) {
-                            deleteFile(path);
+                            deleteFile($("#currentDirText").text(), file.name, file.type);
                         }
                     });
 

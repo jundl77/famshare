@@ -40,12 +40,12 @@ if (isset($_POST["file"]) && !empty($_POST["file"])) {
     $fileExt = strtolower(end(explode('.', $file)));
     $correctExt = in_array($fileExt, $exts);
 
-    if ($correctExt && file_exists($thumbDir . $file)) {
+    if ($type === "temp") {
+        $obj['thumb_data'] = base64_encode(file_get_contents($ICON_FOLDER . "_temp.png"));
+    } else if ($correctExt && file_exists($thumbDir . $file)) {
         $obj['thumb_data'] = base64_encode(file_get_contents($thumbDir . $file));
     } else if (is_file($ICON_FOLDER . $fileExt . ".png")) {
         $obj['thumb_data'] = base64_encode(file_get_contents($ICON_FOLDER . $fileExt . ".png"));
-    } else if ($type === "temp") {
-        $obj['thumb_data'] = base64_encode(file_get_contents($ICON_FOLDER . "_temp.png"));
     } else {
         $obj['thumb_data'] = base64_encode(file_get_contents($ICON_FOLDER . "_blank.png"));
     }
