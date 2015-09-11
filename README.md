@@ -6,7 +6,7 @@ It is a file sharing website that you can put on your own web-server so that you
 For example, if you don't want Google or Apple to have all your pictures, you can put your pictures on a computer or 
 Raspberry-Pi and host them through FamShare.
 
-![](https://raw.githubusercontent.com/jundl77/FamShare/gh-pages/images/famshare-filhub.png)
+![](https://raw.githubusercontent.com/jundl77/FamShare/gh-pages/images/famshare-filehub.png)
 
 You can configure FamShare to fit your own needs, and it works out of the box. Although it is not perfect,
 (maybe you can help change that ;D ), it is password protected and easy to use. Great for the family!
