@@ -224,7 +224,8 @@ module.exports = function (grunt) {
                     {expand: true, src: ['images/file_icons/LICENSE'], dest: 'build/'},
                     {expand: true, src: ['images/file_icons/README.md'], dest: 'build/'},
                     {expand: true, src: ['LICENSE'], dest: 'build/'},
-                    {expand: true, src: ['README.md'], dest: 'build/'}
+                    {expand: true, src: ['README.md'], dest: 'build/'},
+                    {expand: true, src: ['VERSION.txt'], dest: 'build/'}
                 ]
             }
         },
