@@ -55,7 +55,7 @@ Change the directories where uploaded files are saved:
     1. Go to /config/server/server_config.php
     2. Set:
       upload_data => "/full/path/to/upload/directory/" (It is important that the last slash is there)
-      upload_data_thumb => "/directory/where/thumbnails/are/saved" (Again, make sure the slash is there) 
+      upload_data_thumb => "/directory/where/thumbnails/are/saved/" (Again, make sure the slash is there) 
   ``` 
   After you changed directories, you might have to  ``` chmod  ``` that directory
   
