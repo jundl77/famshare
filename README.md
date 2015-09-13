@@ -6,7 +6,7 @@ It is a file sharing website that you can put on your own web-server so that you
 For example, if you don't want Google or Apple to have all your pictures, you can put your pictures on a computer or 
 Raspberry-Pi and host them through FamShare.
 
-![](https://raw.githubusercontent.com/jundl77/FamShare/gh-pages/images/famshare-filhub.png)
+![](https://raw.githubusercontent.com/jundl77/FamShare/gh-pages/images/famshare-filehub.png)
 
 You can configure FamShare to fit your own needs, and it works out of the box. Although it is not perfect,
 (maybe you can help change that ;D ), it is password protected and easy to use. Great for the family!
@@ -18,6 +18,8 @@ You can configure FamShare to fit your own needs, and it works out of the box. A
 * Delete files
 * Add files through drag and drop or standard dialog
 * Limit allowed file types
+* Resumable uploads
+* Pictures and videos can be viewed directly from within the website
 
 Max upload size is configurable - though it is 10GB by default. 
 
@@ -53,7 +55,7 @@ Change the directories where uploaded files are saved:
     1. Go to /config/server/server_config.php
     2. Set:
       upload_data => "/full/path/to/upload/directory/" (It is important that the last slash is there)
-      upload_data_thumb => "/directory/where/thumbnails/are/saved" (Again, make sure the slash is there) 
+      upload_data_thumb => "/directory/where/thumbnails/are/saved/" (Again, make sure the slash is there) 
   ``` 
   After you changed directories, you might have to  ``` chmod  ``` that directory
   
@@ -126,16 +128,6 @@ First off, the assumption is that your Raspberry Pi is set-up and connected to t
     sudo nano /etc/php5/fpm/php.ini
     
  Find    ```  cgi.fix_pathinfo   ```,  uncomment it and set it to 0. **Important!**
- 
- Find the following variables in the file and change them as shown below. They all affect upload limits. They are set to allow file uploads up to 10GB (as does FamShare by default). To set your own size, go to the *Configure* section under *Change Max File Upload Size*. The times are given in seconds and the sizes in megabytes.
- 
- ```
- max_input_time=36000
- max_exection_time=3600
- post_max_size=11000M
- upload_max_filesize=10000M
- max_file_uploads=100
- ```
 
 **5. Configure Nginx**
 
@@ -143,8 +135,8 @@ First off, the assumption is that your Raspberry Pi is set-up and connected to t
     
  Inside the http section add: 
  
-     # set client body size to 10GB 
-     client_max_body_size 10000M;  
+     # set client body size to 10M (Much bigger files can be uploaded because of chunked uploading) 
+     client_max_body_size 10M;  
      
  Then do:
  
